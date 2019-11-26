@@ -1,4 +1,4 @@
-window.onload = function onload() {};
+window.onload = function onload() { };
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -31,7 +31,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+  // não coloque seu código aqui
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
