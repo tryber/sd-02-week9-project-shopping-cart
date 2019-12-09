@@ -31,11 +31,6 @@ checks:
     config:
       threshold: # language-specific defaults. an override will affect all languages.
 plugins:
-  csslint:
-    enabled: true
-    checks:
-      box-sizing:
-        enabled: false
   editorconfig:
     enabled: true
   eslint:
