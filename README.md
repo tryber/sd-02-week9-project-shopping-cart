@@ -8,16 +8,7 @@ Aqui você vai encontrar os detalhes de como estruturar o desenvolvimento do seu
 
 ## Criação de conta no BestBuy
 
-Sua página _web_ consumirá dados da API do [Best Buy](https://www.bestbuy.com/) e para realizar chamadas que funcionem, você precisará de uma _API Key_.
-
-Siga as instruções da seção [Getting Started](https://bestbuyapis.github.io/api-documentation/?shell#getting-started) para criar uma conta e gerar uma _API Key_.
-
-Você usará o valor de _API Key_ em **todas** as requisições para o [Best Buy](https://www.bestbuy.com/).
-
-Se você quiser aprender mais sobre a API do _Best Buy_, veja os links abaixo:
-
-- [Best Buy API Documentation](https://bestbuyapis.github.io/api-documentation)
-- [Best Buy Query Builder](http://bestbuyapis.github.io/bby-query-builder)
+Sua página _web_ consumirá dados da API do [Mercado Livre](https://developers.mercadolivre.com.br/).
 
 ---
 
@@ -53,6 +44,8 @@ A pessoa deve digitar o nome dela no campo `<input class="input-name" type="text
 
 Salve se a pessoa concorda com os termos da sua página ou não nos **Cookies**.
 A pessoa deve marcar ou desmarcar o campo `<input class="input-terms" type="checkbox">` (já presente na página).
+
+Os cookies não são salvos no navegador quando o site é acessado pelo file path, isto é, clicando no index.html. Recomendamos então o teste dos cookies utilizando o localhost via um servidor que é possivel utilizar pela instalação desta [extensão](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) do VS Code. Basta instalar ele, executar o clique secundário e abrir o Live Server. Para testar a aplicação, valeria colocar ela no GitHub Pages e verificar se os cookies são salvos.
 
 ### 4. Listagem de produtos
 
