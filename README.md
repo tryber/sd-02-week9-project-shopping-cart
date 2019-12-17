@@ -227,8 +227,7 @@ O retorno desse _endpoint_ será algo no formato json. Por exemplo, se for pesqu
             "catalog_listing": true
         },
     ]
-}
-        
+}       
 ```
 A lista de produtos que devem ser exibidos é o _array_ `products` no `JSON` acima.
 
