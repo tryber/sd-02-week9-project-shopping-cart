@@ -6,12 +6,6 @@ Aqui você vai encontrar os detalhes de como estruturar o desenvolvimento do seu
 
 ---
 
-## Criação de conta no BestBuy
-
-Sua página _web_ consumirá dados da API do [Mercado Livre](https://developers.mercadolivre.com.br/).
-
----
-
 ## Utilização dos templates (index.html, style.css e script.js)
 
 Você **não** deve alterar a lógica das funções implementadas no arquivo `script.js`.
@@ -25,71 +19,216 @@ Você pode alterar estes arquivos, mas lembre-se de **não** alterar a hierarqui
 
 ⚠️ Lembre-se que o seu projeto só será avaliado se estiver passando pelos _checks_ do **CodeClimate** e do **TravisCI**
 
-### 1. Salve a api key no **LocalStorage**
-
-**Não salve nem realize um _commit_ de sua _api key_!!!**
-
-Sua _api key_ é a sua chave para acessar a API do Best Buy, se você fizer um _commit_ com ela no código, qualquer pessoa poderá realizar chamadas à API do Best Buy como se fosse **você**.
-
-Para contornar esse problema, adicione sua _api key_ no **LocalStorage** utilizando o **Console** do **Google Chrome**.
-
-Crie uma função para acessar o valor da _api key_.
-
-### 2. Salve o nome da pessoa no **SessionStorage**
+### 1. Salve o nome da pessoa no **SessionStorage**
 
 Você deve salvar o nome da pessoa que utiliza a página na **SessionStorage**.
 A pessoa deve digitar o nome dela no campo `<input class="input-name" type="text">` (já presente na página).
 
-### 3. Salve se a pessoa concorda com os termos da sua página nos **Cookies**
+### 2. Salve se a pessoa concorda com os termos da sua página nos **Cookies**
 
 Salve se a pessoa concorda com os termos da sua página ou não nos **Cookies**.
 A pessoa deve marcar ou desmarcar o campo `<input class="input-terms" type="checkbox">` (já presente na página).
 
 Os cookies não são salvos no navegador quando o site é acessado pelo file path, isto é, clicando no index.html. Recomendamos então o teste dos cookies utilizando o localhost via um servidor que é possivel utilizar pela instalação desta [extensão](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) do VS Code. Basta instalar ele, executar o clique secundário e abrir o Live Server. Para testar a aplicação, valeria colocar ela no GitHub Pages e verificar se os cookies são salvos.
 
-### 4. Listagem de produtos
+### 3. Listagem de produtos
 
 Você deve criar uma listagem de produtos que devem ser consultados através da API do BestBuy.
 
 Você deve utilizar o _endpoint_:
 ```javascript
-"https://api.bestbuy.com/v1/products(releaseDate>today&categoryPath.id in(cat02001))?apiKey=${API_KEY}&format=json&pageSize=30&show=sku,name,image,customerTopRated&sort=bestSellingRank"
+"https://api.mercadolibre.com/sites/MLB/search?q=$QUERY"
 ```
-onde `${API_KEY}` deve ser o valor da sua `api_key`.
+onde `$QUERY` deve ser o valor da sua busca.
 
-O retorno desse _endpoint_ será algo no formato:
+O retorno desse _endpoint_ será algo no formato json. Por exemplo, se for pesquisado "computador":
 ```json
 {
-    "from": 1,
-    "to": 3,
-    "currentPage": 1,
-    "total": 1432,
-    "totalPages": 478,
-    "queryTime": "0.022",
-    "totalTime": "0.031",
-    "partial": false,
-    "canonicalUrl": "/v1/products(releaseDate>today&categoryPath.id in(cat02001))?show=sku,name,image,customerTopRated&sort=bestSellingRank&pageSize=3&format=json&apiKey=${API_KEY}",
-    "products": [
+    "site_id": "MLB",
+    "query": "computador",
+    "paging": {
+        "total": 418470,
+        "offset": 0,
+        "limit": 50,
+        "primary_results": 1003
+    },
+    "results": [
         {
-            "sku": 20818637,
-            "name": "Curtains [LP] - VINYL",
-            "image": "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/2081/20818637_sa.jpg",
-            "customerTopRated": false
+            "id": "MLB1341706310",
+            "site_id": "MLB",
+            "title": "Processador Amd Ryzen 5 2600 6 Núcleos 64 Gb",
+            "seller": {
+                "id": 245718870,
+                "permalink": null,
+                "power_seller_status": "platinum",
+                "car_dealer": false,
+                "real_estate_agency": false,
+                "tags": []
+            },
+            "price": 879,
+            "currency_id": "BRL",
+            "available_quantity": 1,
+            "sold_quantity": 0,
+            "buying_mode": "buy_it_now",
+            "listing_type_id": "gold_pro",
+            "stop_time": "2039-10-10T04:00:00.000Z",
+            "condition": "new",
+            "permalink": "https://www.mercadolivre.com.br/processador-amd-ryzen-5-2600-6-nucleos-64-gb/p/MLB9196241",
+            "thumbnail": "http://mlb-s1-p.mlstatic.com/857989-MLA32242537821_092019-I.jpg",
+            "accepts_mercadopago": true,
+            "installments": {
+                "quantity": 12,
+                "amount": 73.25,
+                "rate": 0,
+                "currency_id": "BRL"
+            },
+            "address": {
+                "state_id": "BR-PR",
+                "state_name": "Paraná",
+                "city_id": "TUxCQ01BUmVmMmFi",
+                "city_name": "Maringá"
+            },
+            "shipping": {
+                "free_shipping": true,
+                "mode": "me2",
+                "tags": [
+                    "fulfillment",
+                    "mandatory_free_shipping"
+                ],
+                "logistic_type": "fulfillment",
+                "store_pick_up": false
+            },
+            "seller_address": {
+                "id": "",
+                "comment": "",
+                "address_line": "",
+                "zip_code": "",
+                "country": {
+                    "id": "BR",
+                    "name": "Brasil"
+                },
+                "state": {
+                    "id": "BR-PR",
+                    "name": "Paraná"
+                },
+                "city": {
+                    "id": "TUxCQ01BUmVmMmFi",
+                    "name": "Maringá"
+                },
+                "latitude": "",
+                "longitude": ""
+            },
+            "attributes": [
+                {
+                    "id": "ALPHANUMERIC_MODEL",
+                    "name": "Modelo alfanumérico",
+                    "value_name": "YD2600BBAFBOX",
+                    "attribute_group_id": "OTHERS",
+                    "attribute_group_name": "Outros",
+                    "value_id": "6917140",
+                    "value_struct": null,
+                    "values": [
+                        {
+                            "source": 1,
+                            "id": "6917140",
+                            "name": "YD2600BBAFBOX",
+                            "struct": null
+                        }
+                    ],
+                    "source": 1
+                },
+                {
+                    "source": 1,
+                    "value_id": "18034",
+                    "value_struct": null,
+                    "values": [
+                        {
+                            "id": "18034",
+                            "name": "AMD",
+                            "struct": null,
+                            "source": 1
+                        }
+                    ],
+                    "attribute_group_name": "Outros",
+                    "id": "BRAND",
+                    "name": "Marca",
+                    "value_name": "AMD",
+                    "attribute_group_id": "OTHERS"
+                },
+                {
+                    "id": "ITEM_CONDITION",
+                    "name": "Condição do item",
+                    "value_id": "2230284",
+                    "attribute_group_id": "OTHERS",
+                    "attribute_group_name": "Outros",
+                    "source": 1572,
+                    "value_name": "Novo",
+                    "value_struct": null,
+                    "values": [
+                        {
+                            "source": 1572,
+                            "id": "2230284",
+                            "name": "Novo",
+                            "struct": null
+                        }
+                    ]
+                },
+                {
+                    "values": [
+                        {
+                            "id": "2244215",
+                            "name": "Ryzen 5",
+                            "struct": null,
+                            "source": 1
+                        }
+                    ],
+                    "id": "LINE",
+                    "name": "Linha",
+                    "value_struct": null,
+                    "attribute_group_name": "Outros",
+                    "source": 1,
+                    "value_id": "2244215",
+                    "value_name": "Ryzen 5",
+                    "attribute_group_id": "OTHERS"
+                },
+                {
+                    "name": "Modelo",
+                    "value_name": "2600",
+                    "value_struct": null,
+                    "values": [
+                        {
+                            "id": "570",
+                            "name": "2600",
+                            "struct": null,
+                            "source": 1
+                        }
+                    ],
+                    "attribute_group_id": "OTHERS",
+                    "source": 1,
+                    "id": "MODEL",
+                    "value_id": "570",
+                    "attribute_group_name": "Outros"
+                }
+            ],
+            "differential_pricing": {
+                "id": 33580182
+            },
+            "original_price": null,
+            "category_id": "MLB1693",
+            "official_store_id": 1929,
+            "catalog_product_id": "MLB9196241",
+            "tags": [
+                "good_quality_picture",
+                "good_quality_thumbnail",
+                "brand_verified",
+                "immediate_payment",
+                "cart_eligible"
+            ],
+            "catalog_listing": true
         },
-        {
-            "sku": 29837267,
-            "name": "The Ocean Blue [LP] - VINYL",
-            "image": "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/2983/29837267_sa.jpg",
-            "customerTopRated": false
-        },
-        {
-            "sku": 29837276,
-            "name": "Cerulean [LP] - VINYL",
-            "image": "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/2983/29837276_sa.jpg",
-            "customerTopRated": false
-        }
     ]
 }
+        
 ```
 A lista de produtos que devem ser exibidos é o _array_ `products` no `JSON` acima.
 
@@ -97,35 +236,69 @@ Você **deve** utilizar a função `createProductItemElement(product)` para cria
 
 Adicione o elemento retornado da função `createProductItemElement(product)` como filho do elemento `<section class="items">`.
 
-### 5. Adicione o produto ao carrinho de compras
+### 4. Adicione o produto ao carrinho de compras
 
 Cada produto na página _HTML_ possui um botão com o nome `Adicionar ao carrinho!`.
 
 Ao clicar nesse botão você deve realizar uma requisição para o _endpoint_:
 ```javascript
-"https://api.bestbuy.com/v1/products(sku=${SKU})?apiKey=${API_KEY}&sort=sku.asc&show=sku,name,salePrice&format=json"
+"https://api.mercadolibre.com/items/$ItemID"
 ```
-onde `${SKU}` deve ser o valor do `sku` do item clicado e `${API_KEY}` deve ser o valor da sua `api_key`.
+onde `$ItemID` deve ser o valor `id` do item selecionado.
 
 O retorno desse _endpoint_ será algo no formato:
 ```JSON
 {
-    "from": 1,
-    "to": 1,
-    "currentPage": 1,
-    "total": 1,
-    "totalPages": 1,
-    "queryTime": "2.695",
-    "totalTime": "2.703",
-    "partial": false,
-    "canonicalUrl": "/v1/products(sku=20818637)?show=sku,name,salePrice&sort=sku&format=json&apiKey=icSbqgAthpqJJ0tEqgcXgTht",
-    "products": [
+    "id": "MLB1341706310",
+    "site_id": "MLB",
+    "title": "Processador Amd Ryzen 5 2600 6 Núcleos 64 Gb",
+    "subtitle": null,
+    "seller_id": 245718870,
+    "category_id": "MLB1693",
+    "official_store_id": 1929,
+    "price": 879,
+    "base_price": 879,
+    "original_price": null,
+    "currency_id": "BRL",
+    "initial_quantity": 11,
+    "available_quantity": 1,
+    "sold_quantity": 0,
+    "sale_terms": [
         {
-            "sku": 20818637,
-            "name": "Curtains [LP] - VINYL",
-            "salePrice": 29.99
+            "id": "WARRANTY_TIME",
+            "name": "Tempo de garantia",
+            "value_id": null,
+            "value_name": "3 anos",
+            "value_struct": {
+                "number": 3,
+                "unit": "anos"
+            },
+            "values": [
+                {
+                    "id": null,
+                    "name": "3 anos",
+                    "struct": {
+                        "number": 3,
+                        "unit": "anos"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "WARRANTY_TYPE",
+            "name": "Tipo de garantia",
+            "value_id": "2230279",
+            "value_name": "Garantia de fábrica",
+            "value_struct": null,
+            "values": [
+                {
+                    "id": "2230279",
+                    "name": "Garantia de fábrica",
+                    "struct": null
+                }
+            ]
         }
-    ]
+    ],
 }
 ```
 Preste atenção que a lista `products` deve conter apenas **um** item.
@@ -134,28 +307,28 @@ Você **deve** utilizar a função `createCartItemElement(product)` para criar o
 
 Adicione o elemento retornado da função `createCartItemElement(product)` como filho do elemento `<ol class="cart__items">`.
 
-### 6. Remova o item do carrinho de compras ao clicar nele
+### 5. Remova o item do carrinho de compras ao clicar nele
 
 Ao clicar no **produto no carrinho de compra**, ele deve ser removido da lista.
 Para isso, uma função (já existente) chamada `cartItemClickListener(event)` deve ser implementada com a lógica necessária para realizar a remoção.
 
-### 7. Salve o carrinho de compras no **LocalStorage**
+### 6. Salve o carrinho de compras no **LocalStorage**
 
 O carrinho de compras deve ser salvo no **LocalStorage**, ou seja, todas as **adições** e **remoções** devem ser abordadas para que a lista atual seja salva.
 
-### 8. Carregue o carrinho de compras através do **LocalStorage** ao iniciar a página
+### 7. Carregue o carrinho de compras através do **LocalStorage** ao iniciar a página
 
 Ao carregar a página, o estado atual do carrinho de compras deve ser carregado do **LocalStorage**
 
-### 9. (BÔNUS) Botão para limpar carrinho de compras
+### 8. (BÔNUS) Botão para limpar carrinho de compras
 
 Crie um botão para remover todos os itens do carrinho de compras.
 
-### 10. (BÔNUS) Custo total do carrinho de compras
+### 9. (BÔNUS) Custo total do carrinho de compras
 
 Apresente o valor total do carrinho de compras.
 
-### 11. (BÔNUS) "loading" durante uma requisição à API
+### 10. (BÔNUS) "loading" durante uma requisição à API
 
 Uma requisição à API gasta um tempo e durante ele, ficamos sem saber se está tudo certo ou se algo deu errado.
 Normalmente é utilizada alguma forma para mostrar que a requisição está em andamento.
