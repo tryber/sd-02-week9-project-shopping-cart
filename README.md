@@ -235,6 +235,8 @@ Você **deve** utilizar a função `createProductItemElement(product)` para cria
 
 Adicione o elemento retornado da função `createProductItemElement(product)` como filho do elemento `<section class="items">`.
 
+**Obs:** sku se referem as `id`
+
 ### 4. Adicione o produto ao carrinho de compras
 
 Cada produto na página _HTML_ possui um botão com o nome `Adicionar ao carrinho!`.
@@ -302,7 +304,7 @@ O retorno desse _endpoint_ será algo no formato:
 ```
 Preste atenção que a lista `products` deve conter apenas **um** item.
 
-Você **deve** utilizar a função `createCartItemElement(product)` para criar os componentes _HTML_ referentes a um item do carrinho.
+Você **deve** utilizar a função `createCartItemElement()` para criar os componentes _HTML_ referentes a um item do carrinho.
 
 Adicione o elemento retornado da função `createCartItemElement(product)` como filho do elemento `<ol class="cart__items">`.
 
