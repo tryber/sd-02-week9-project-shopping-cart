@@ -47,25 +47,25 @@ O retorno desse _endpoint_ será algo no formato json. Por exemplo, se for pesqu
     "site_id": "MLB",
     "query": "computador",
     "paging": {
-        "total": 418470,
+        "total": 406868,
         "offset": 0,
         "limit": 50,
-        "primary_results": 1003
+        "primary_results": 1001
     },
     "results": [
         {
-            "id": "MLB1341706310",
+            "id": "MLB1341925291",
             "site_id": "MLB",
-            "title": "Processador Amd Ryzen 5 2600 6 Núcleos 64 Gb",
+            "title": "Processador Intel Core I5-9400f 6 Núcleos 128 Gb",
             "seller": {
-                "id": 245718870,
+                "id": 385471334,
                 "permalink": null,
-                "power_seller_status": "platinum",
+                "power_seller_status": null,
                 "car_dealer": false,
                 "real_estate_agency": false,
                 "tags": []
             },
-            "price": 879,
+            "price": 899,
             "currency_id": "BRL",
             "available_quantity": 1,
             "sold_quantity": 0,
@@ -73,20 +73,20 @@ O retorno desse _endpoint_ será algo no formato json. Por exemplo, se for pesqu
             "listing_type_id": "gold_pro",
             "stop_time": "2039-10-10T04:00:00.000Z",
             "condition": "new",
-            "permalink": "https://www.mercadolivre.com.br/processador-amd-ryzen-5-2600-6-nucleos-64-gb/p/MLB9196241",
-            "thumbnail": "http://mlb-s1-p.mlstatic.com/857989-MLA32242537821_092019-I.jpg",
+            "permalink": "https://www.mercadolivre.com.br/processador-intel-core-i5-9400f-6-nucleos-128-gb/p/MLB13953199",
+            "thumbnail": "http://mlb-s2-p.mlstatic.com/813265-MLA32241773956_092019-I.jpg",
             "accepts_mercadopago": true,
             "installments": {
                 "quantity": 12,
-                "amount": 73.25,
+                "amount": 74.92,
                 "rate": 0,
                 "currency_id": "BRL"
             },
             "address": {
-                "state_id": "BR-PR",
-                "state_name": "Paraná",
-                "city_id": "TUxCQ01BUmVmMmFi",
-                "city_name": "Maringá"
+                "state_id": "BR-SP",
+                "state_name": "São Paulo",
+                "city_id": "BR-SP-27",
+                "city_name": "São José dos Campos"
             },
             "shipping": {
                 "free_shipping": true,
@@ -108,126 +108,112 @@ O retorno desse _endpoint_ será algo no formato json. Por exemplo, se for pesqu
                     "name": "Brasil"
                 },
                 "state": {
-                    "id": "BR-PR",
-                    "name": "Paraná"
+                    "id": "BR-SP",
+                    "name": "São Paulo"
                 },
                 "city": {
-                    "id": "TUxCQ01BUmVmMmFi",
-                    "name": "Maringá"
+                    "id": "BR-SP-27",
+                    "name": "São José dos Campos"
                 },
                 "latitude": "",
                 "longitude": ""
             },
             "attributes": [
                 {
+                    "source": 1,
                     "id": "ALPHANUMERIC_MODEL",
-                    "name": "Modelo alfanumérico",
-                    "value_name": "YD2600BBAFBOX",
-                    "attribute_group_id": "OTHERS",
-                    "attribute_group_name": "Outros",
-                    "value_id": "6917140",
+                    "value_id": "6382478",
                     "value_struct": null,
                     "values": [
                         {
+                            "name": "BX80684I59400F",
+                            "struct": null,
                             "source": 1,
-                            "id": "6917140",
-                            "name": "YD2600BBAFBOX",
-                            "struct": null
+                            "id": "6382478"
+                        }
+                    ],
+                    "attribute_group_id": "OTHERS",
+                    "name": "Modelo alfanumérico",
+                    "value_name": "BX80684I59400F",
+                    "attribute_group_name": "Outros"
+                },
+                {
+                    "id": "BRAND",
+                    "value_struct": null,
+                    "attribute_group_name": "Outros",
+                    "attribute_group_id": "OTHERS",
+                    "source": 1,
+                    "name": "Marca",
+                    "value_id": "15617",
+                    "value_name": "Intel",
+                    "values": [
+                        {
+                            "id": "15617",
+                            "name": "Intel",
+                            "struct": null,
+                            "source": 1
+                        }
+                    ]
+                },
+                {
+                    "name": "Condição do item",
+                    "value_id": "2230284",
+                    "attribute_group_id": "OTHERS",
+                    "attribute_group_name": "Outros",
+                    "source": 1,
+                    "id": "ITEM_CONDITION",
+                    "value_name": "Novo",
+                    "value_struct": null,
+                    "values": [
+                        {
+                            "id": "2230284",
+                            "name": "Novo",
+                            "struct": null,
+                            "source": 1
+                        }
+                    ]
+                },
+                {
+                    "id": "LINE",
+                    "value_name": "Core i5",
+                    "attribute_group_id": "OTHERS",
+                    "attribute_group_name": "Outros",
+                    "name": "Linha",
+                    "value_id": "7769178",
+                    "value_struct": null,
+                    "values": [
+                        {
+                            "id": "7769178",
+                            "name": "Core i5",
+                            "struct": null,
+                            "source": 1
                         }
                     ],
                     "source": 1
                 },
                 {
-                    "source": 1,
-                    "value_id": "18034",
-                    "value_struct": null,
-                    "values": [
-                        {
-                            "id": "18034",
-                            "name": "AMD",
-                            "struct": null,
-                            "source": 1
-                        }
-                    ],
-                    "attribute_group_name": "Outros",
-                    "id": "BRAND",
-                    "name": "Marca",
-                    "value_name": "AMD",
-                    "attribute_group_id": "OTHERS"
-                },
-                {
-                    "id": "ITEM_CONDITION",
-                    "name": "Condição do item",
-                    "value_id": "2230284",
-                    "attribute_group_id": "OTHERS",
-                    "attribute_group_name": "Outros",
-                    "source": 1572,
-                    "value_name": "Novo",
-                    "value_struct": null,
-                    "values": [
-                        {
-                            "source": 1572,
-                            "id": "2230284",
-                            "name": "Novo",
-                            "struct": null
-                        }
-                    ]
-                },
-                {
-                    "values": [
-                        {
-                            "id": "2244215",
-                            "name": "Ryzen 5",
-                            "struct": null,
-                            "source": 1
-                        }
-                    ],
-                    "id": "LINE",
-                    "name": "Linha",
-                    "value_struct": null,
-                    "attribute_group_name": "Outros",
-                    "source": 1,
-                    "value_id": "2244215",
-                    "value_name": "Ryzen 5",
-                    "attribute_group_id": "OTHERS"
-                },
-                {
-                    "name": "Modelo",
-                    "value_name": "2600",
-                    "value_struct": null,
-                    "values": [
-                        {
-                            "id": "570",
-                            "name": "2600",
-                            "struct": null,
-                            "source": 1
-                        }
-                    ],
-                    "attribute_group_id": "OTHERS",
-                    "source": 1,
                     "id": "MODEL",
-                    "value_id": "570",
-                    "attribute_group_name": "Outros"
+                    "value_struct": null,
+                    "values": [
+                        {
+                            "id": "6637008",
+                            "name": "i5-9400F",
+                            "struct": null,
+                            "source": 1
+                        }
+                    ],
+                    "attribute_group_id": "OTHERS",
+                    "name": "Modelo",
+                    "value_id": "6637008",
+                    "value_name": "i5-9400F",
+                    "attribute_group_name": "Outros",
+                    "source": 1
                 }
             ],
-            "differential_pricing": {
-                "id": 33580182
-            },
-            "original_price": null,
-            "category_id": "MLB1693",
-            "official_store_id": 1929,
-            "catalog_product_id": "MLB9196241",
-            "tags": [
-                "good_quality_picture",
-                "good_quality_thumbnail",
-                "brand_verified",
-                "immediate_payment",
-                "cart_eligible"
-            ],
-            "catalog_listing": true
-        },
+            ...
+        }
     ]
-}       
+}
 ```
 A lista de produtos que devem ser exibidos é o _array_ `products` no `JSON` acima.
 
@@ -247,7 +233,7 @@ Ao clicar nesse botão você deve realizar uma requisição para o _endpoint_:
 ```
 onde `$ItemID` deve ser o valor `id` do item selecionado.
 
-O retorno desse _endpoint_ será algo no formato:
+Quando colocado o id `MLB1341706310` retorno desse _endpoint_ será algo no formato:
 ```JSON
 {
     "id": "MLB1341706310",
@@ -261,45 +247,21 @@ O retorno desse _endpoint_ será algo no formato:
     "base_price": 879,
     "original_price": null,
     "currency_id": "BRL",
-    "initial_quantity": 11,
-    "available_quantity": 1,
+    "initial_quantity": 0,
+    "available_quantity": 0,
     "sold_quantity": 0,
-    "sale_terms": [
-        {
-            "id": "WARRANTY_TIME",
-            "name": "Tempo de garantia",
-            "value_id": null,
-            "value_name": "3 anos",
-            "value_struct": {
-                "number": 3,
-                "unit": "anos"
-            },
-            "values": [
-                {
-                    "id": null,
-                    "name": "3 anos",
-                    "struct": {
-                        "number": 3,
-                        "unit": "anos"
-                    }
-                }
-            ]
-        },
-        {
-            "id": "WARRANTY_TYPE",
-            "name": "Tipo de garantia",
-            "value_id": "2230279",
-            "value_name": "Garantia de fábrica",
-            "value_struct": null,
-            "values": [
-                {
-                    "id": "2230279",
-                    "name": "Garantia de fábrica",
-                    "struct": null
-                }
-            ]
-        }
-    ],
+    ...
+    "warranty": "Garantia de fábrica: 3 anos",
+    "catalog_product_id": "MLB9196241",
+    "domain_id": "MLB-COMPUTER_PROCESSORS",
+    "parent_item_id": null,
+    "differential_pricing": null,
+    "deal_ids": [],
+    "automatic_relist": false,
+    "date_created": "2019-10-15T18:13:00.000Z",
+    "last_updated": "2019-12-20T18:06:54.000Z",
+    "health": null,
+    "catalog_listing": true
 }
 ```
 Preste atenção que a lista `products` deve conter apenas **um** item.
