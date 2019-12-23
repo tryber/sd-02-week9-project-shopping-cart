@@ -47,7 +47,7 @@ O retorno desse _endpoint_ será algo no formato json. Por exemplo, se for pesqu
     "site_id": "MLB",
     "query": "computador",
     "paging": {
-        "total": 406868,
+        "total": 406861,
         "offset": 0,
         "limit": 50,
         "primary_results": 1001
@@ -210,12 +210,26 @@ O retorno desse _endpoint_ será algo no formato json. Por exemplo, se for pesqu
                     "source": 1
                 }
             ],
-            ...
-        }
+            "differential_pricing": {
+                "id": 33580182
+            },
+            "original_price": null,
+            "category_id": "MLB1693",
+            "official_store_id": null,
+            "catalog_product_id": "MLB13953199",
+            "tags": [
+                "brand_verified",
+                "good_quality_picture",
+                "good_quality_thumbnail",
+                "immediate_payment",
+                "cart_eligible"
+            ],
+            "catalog_listing": true
+        },
     ]
 }
 ```
-A lista de produtos que devem ser exibidos é o _array_ `products` no `JSON` acima.
+A lista de produtos que devem ser exibidos é o _array_ `results` no `JSON` acima.
 
 Você **deve** utilizar a função `createProductItemElement(product)` para criar os componentes _HTML_ referentes a um produto.
 
