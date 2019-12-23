@@ -278,7 +278,7 @@ Quando colocado o id `MLB1341706310` retorno desse _endpoint_ será algo no form
     "catalog_listing": true
 }
 ```
-Preste atenção que a lista `products` deve conter apenas **um** item.
+Preste atenção que o JSON deve conter apenas **um** item.
 
 Você **deve** utilizar a função `createCartItemElement()` para criar os componentes _HTML_ referentes a um item do carrinho.
 
