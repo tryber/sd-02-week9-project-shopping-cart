@@ -33,7 +33,7 @@ Os cookies não são salvos no navegador quando o site é acessado pelo file pat
 
 ### 3. Listagem de produtos
 
-Você deve criar uma listagem de produtos que devem ser consultados através da API do BestBuy.
+Você deve criar uma listagem de produtos que devem ser consultados através da API do Mercado Livre.
 
 Você deve utilizar o _endpoint_:
 ```javascript
