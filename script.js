@@ -4,8 +4,8 @@ window.onload = function onload() {
   inputName.addEventListener('change', () => localStorage.setItem('nome', inputName.value));
 
   const seletorAceitaCookies = this.document.getElementsByClassName('input-terms')[0];
-  if (localStorage.getItem('aceitaCookies') == 'true') seletorAceitaCookies.checked = this.localStorage.getItem('aceitaCookies');
-  seletorAceitaCookies.addEventListener('click', () => this.localStorage.setItem('aceitaCookies', seletorAceitaCookies.checked))
+  if (localStorage.getItem('aceitaCookies') === 'true') seletorAceitaCookies.checked = this.localStorage.getItem('aceitaCookies');
+  seletorAceitaCookies.addEventListener('click', () => this.localStorage.setItem('aceitaCookies', seletorAceitaCookies.checked));
 };
 
 function createProductImageElement(imageSource) {
