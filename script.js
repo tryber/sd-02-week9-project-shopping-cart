@@ -54,6 +54,23 @@ const pesquisa = 'computador';
 const headers = {
   headers: { Accept: 'application/json' },
 };
+
+function adicionarAoCarrinho() {
+  const nomeSku = getSkuFromProductItem(this.parentElement)
+  const URL = `https://api.mercadolibre.com/items/${nomeSku}`
+  const a = fetchSku(URL, headers)
+}
+
+
+const fetchSku = (URL, header) => {
+  fetch(URL, header)
+    .then(resposta => resposta.json())
+    .then(({ id, title, price }) => {
+      this.document.getElementsByClassName('cart__items')[0].appendChild(createCartItemElement({sku:id, name: title, salePrice: price}))
+    })
+}
+
+
 const fetchPesquisa = (URL, header) => {
   fetch(URL, header)
     .then(resposta => resposta.json())
@@ -62,6 +79,15 @@ const fetchPesquisa = (URL, header) => {
       respJson.results.forEach(({ id, title, thumbnail }) => {
         this.document.getElementsByClassName('items')[0].appendChild(createProductItemElement({ sku: id, name: title, image: thumbnail }));
       });
+    })
+    .then(() => {
+      const seletorBotaoCarrinho = document.querySelectorAll('.item__add')
+      console.log(seletorBotaoCarrinho[0])
+      seletorBotaoCarrinho.forEach(elem => {
+        elem.addEventListener('click', adicionarAoCarrinho)
+      })
     });
-};
+}
 fetchPesquisa(`https://api.mercadolibre.com/sites/MLB/search?q=${pesquisa}`, headers);
+
+
