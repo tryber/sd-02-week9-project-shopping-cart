@@ -1,26 +1,38 @@
-window.onload = function onload() {
-  const termos = document.querySelector('.input-terms');
-  termos.addEventListener('change', mostrar)
-  salvarCookie(termos, document.cookie.split('=')[1]);
-};
-
 const mostrar = (event) => {
   const value = event.target.checked;
   criarCookie('termos', value, ' Tue, 01 Jan 2115 12:00:00 UTC ');
-}
+};
 
 const criarCookie = (name, value, expire) => {
   const dtExpira = `expires=${expire}`;
   document.cookie = `${name}=${value}; ${dtExpira}`;
-}
+};
 
 const salvarCookie = (target, value) => {
+  const element = target;
   if (document.cookie !== '') {
     if (value === 'true') {
-      target.checked = true;
+      element.checked = true;
     }
   }
+};
+
+const salvarName = (event) => {
+  const key = event.keyCode;
+  const name = event.target;
+  if (key === 13) {
+    sessionStorage.setItem('Name', name.value);
+    name.value = '';    
+  }
 }
+
+window.onload = function onload() {
+  const termos = document.querySelector('.input-terms');
+  termos.addEventListener('change', mostrar);
+  const name = document.querySelector('.input-name');
+  name.addEventListener('keyup', salvarName)
+  salvarCookie(termos, document.cookie.split('=')[1]);
+};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
