@@ -1,13 +1,17 @@
 window.onload = function onload() { };
 
-let inputName = document.querySelector('.input-name');
+let inputName = document.getElementsByClassName('input-name')[0];
 
-inputName.addEventListener(keyup, function (event) {
+const caixaCookies = document.querySelector('.input-terms');
+
+caixaCookies.addEventListener('click', () => document.cookie = 'agree = yes; expires = Thu, 18 Dec 2021 12:00:00 UTC')
+
+inputName.addEventListener('keyup', function (event) {
   if (event.keyCode === 13) {
-    console.log('digita');
+    sessionStorage.setItem("fullname", `${inputName.value}`);
+    inputName.value = null;
   }
 });
-
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
