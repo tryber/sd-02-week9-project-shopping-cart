@@ -22,7 +22,7 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-function createProductItemElement({sku, name, image}) {
+function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
 
@@ -52,18 +52,18 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 const pesquisa = 'computador';
 const headers = {
-  headers: { Accept: 'application/json' }
-}
+  headers: { Accept: 'application/json', }
+};
 const fetchPesquisa = (URL, header) => {
   fetch(URL, header)
     .then(resposta => resposta.json())
-    .then(respJson => {
-      this.console.log(respJson['results'])
-      respJson['results'].forEach(({ id, title, thumbnail }) => {
+    .then((respJson) => {
+      this.console.log(respJson.results);
+      respJson.results.forEach(({ id, title, thumbnail }) => {
         this.console.log(id, title, thumbnail)
-        this.document.getElementsByClassName('items')[0].appendChild(createProductItemElement({sku: id, name: title, image: thumbnail}))
+        this.document.getElementsByClassName('items')[0].appendChild(createProductItemElement({ sku: id, name: title, image: thumbnail }));
       });
     })
-}
-fetchPesquisa("https://api.mercadolibre.com/sites/MLB/search?q=patos", headers)
+};
+fetchPesquisa(`https://api.mercadolibre.com/sites/MLB/search?q=${pesquisa}`, headers);
 
