@@ -1,9 +1,11 @@
 window.onload = function onload() {
   const inputName = document.querySelector('.input-name');
   if (this.localStorage.getItem('nome')) inputName.value = this.localStorage.getItem('nome');
-  inputName.addEventListener('change', () => {
-    localStorage.setItem('nome', inputName.value);
-  });
+  inputName.addEventListener('change', () => localStorage.setItem('nome', inputName.value));
+
+  const seletorAceitaCookies = this.document.getElementsByClassName('input-terms')[0];
+  if (localStorage.getItem('aceitaCookies') == 'true') seletorAceitaCookies.checked = this.localStorage.getItem('aceitaCookies');
+  seletorAceitaCookies.addEventListener('click', () => this.localStorage.setItem('aceitaCookies', seletorAceitaCookies.checked))
 };
 
 function createProductImageElement(imageSource) {
