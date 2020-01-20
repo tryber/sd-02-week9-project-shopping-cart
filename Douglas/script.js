@@ -31,7 +31,8 @@ function getSkuFromProductItem(item) {
 const cart = document.querySelector('.cart__items');
 
 function cartItemClickListener(event) {
-  cart.removeChild(event);
+  cart.removeChild(event.target);
+  localStorage.removeItem(`${event.target.classList[1]}`)
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -59,6 +60,11 @@ const header = {
   }),
 };
 
+function salvaCart(object, local) {
+  localStorage.setItem(`${object.sku}*${localStorage.length + 1}`, `${object.sku}*${object.name}*${object.salePrice}`);
+  local.classList.add(`${object.sku}*${localStorage.length}`);
+}
+
 function addcart() {
   const botaozinho = document.querySelector('.item__add');
   botaozinho.addEventListener('click', () => {
@@ -71,15 +77,16 @@ function addcart() {
               name: respon.title,
               salePrice: respon.price,
             };
-            cart.appendChild(createCartItemElement(object));
-            cart.addEventListener('click', () => {
-              cartItemClickListener(event.target);
-            });
+            const cria = createCartItemElement(object)
+            cart.appendChild(cria);
+            salvaCart(object, cria);
+            createCartItemElement(object).addEventListener('click', () => cartItemClickListener)
           })
-          .catch(() => console.error('Não foi possivel encontrar o produto'));
-      })
+          .catch(() => alert('Não foi possivel adicionar o produto'));
+      });
   });
 }
+
 fetch(API_URL, header)
   .then((response) => {
     response.json()
@@ -91,9 +98,28 @@ fetch(API_URL, header)
           image: respon.results[0].thumbnail,
         };
         API_URL2 = `${API_URL2}${objeto.sku}`;
-        const criando = createProductItemElement(objeto)
+        const criando = createProductItemElement(objeto);
         add.appendChild(criando);
         addcart();
       });
   })
-  .catch(() => console.error('Não foi possivel encontrar o produto'));
+  .catch(() => alert('Não foi possivel encontrar o produto'));
+
+let object = {
+  sku: '',
+  name: '',
+  salePrice: 0,
+};
+for (let i = 0; i < localStorage.length; i += 1) {
+  let a = localStorage.getItem(localStorage.key(i));
+  a = a.split('*');
+  object.sku = a[0];
+  object.name = a[1];
+  object.salePrice = a[2];
+  const cria = createCartItemElement(object)
+  cart.appendChild(cria);
+  console.log(`${localStorage.key(i)}`)
+  cria.classList.add(`${localStorage.key(i)}`);
+  cria.addEventListener('click', () => cartItemClickListener)
+}
+
