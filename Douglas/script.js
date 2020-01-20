@@ -52,29 +52,12 @@ check.addEventListener('click', () => {
   document.cookie = `Checkbox = ${check.checked}`;
 });
 const API_URL = 'https://api.mercadolibre.com/sites/MLB/search?q=retrovisor';
-let API_URL2 = 'https://api.mercadolibre.com/items/'
+let API_URL2 = 'https://api.mercadolibre.com/items/';
 const header = {
   headers: ({
     Accept: 'application/json',
   }),
-}
-
-fetch(API_URL, header)
-  .then((response) => {
-    response.json()
-      .then((respon) => {
-        const add = document.querySelector('.items');
-        const objeto = {
-          sku: respon.results[0].id,
-          name: respon.results[0].title,
-          image: respon.results[0].thumbnail,
-        };
-        API_URL2 = `${API_URL2}${objeto.sku}`
-        add.appendChild(createProductItemElement(objeto));
-        addcart()
-      })
-  })
-  .catch(() => console.error('Não foi possivel encontrar o produto'));
+};
 
 function addcart() {
   const botaozinho = document.querySelector('.item__add');
@@ -87,14 +70,30 @@ function addcart() {
               sku: respon.id,
               name: respon.title,
               salePrice: respon.price,
-            }
+            };
             cart.appendChild(createCartItemElement(object));
             cart.addEventListener('click', () => {
               cartItemClickListener(event.target);
-            })
+            });
           })
+          .catch(() => console.error('Não foi possivel encontrar o produto'));
       })
-      .catch(() => console.error('Não foi possivel encontrar o produto'));
-
-  })
+  });
 }
+fetch(API_URL, header)
+  .then((response) => {
+    response.json()
+      .then((respon) => {
+        const add = document.querySelector('.items');
+        const objeto = {
+          sku: respon.results[0].id,
+          name: respon.results[0].title,
+          image: respon.results[0].thumbnail,
+        };
+        API_URL2 = `${API_URL2}${objeto.sku}`;
+        const criando = createProductItemElement(objeto)
+        add.appendChild(criando);
+        addcart();
+      });
+  })
+  .catch(() => console.error('Não foi possivel encontrar o produto'));
