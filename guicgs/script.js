@@ -1,9 +1,20 @@
 window.onload = function onload() { };
 
+// Função que salva o nome passado no input na session storage
 const nameInput = document.getElementsByClassName('input-name')[0];
 nameInput.addEventListener('keyup', (event) => {
   if (event.keyCode === 13) {
     sessionStorage.setItem("Name", nameInput.value);
+  }
+})
+
+// Função que cria um cookie caso o usuário marque a checkbox dos termos
+const termsInput = document.querySelector('.input-terms');
+termsInput.addEventListener('click', () => {
+  if (termsInput.checked) {
+    document.cookie = `terms=checked; expires=expires= Thu, 21 Aug 2050 20:00:00 UTC`
+  } else if (!termsInput.checked) {
+    document.cookie = `terms= ; expires=expires= Thu, 21 Aug 2050 20:00:00 UTC`
   }
 })
 
