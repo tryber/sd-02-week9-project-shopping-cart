@@ -1,4 +1,5 @@
 window.onload = function onload() {
+  let total = 0;
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -34,6 +35,10 @@ const cart = document.querySelector('.cart__items');
 function cartItemClickListener(event) {
   cart.removeChild(event.target);
   localStorage.removeItem(`${event.target.classList[1]}`);
+  const displayTotal = document.querySelector('.value');
+  total-= Math.round(parseFloat(event.target.innerText.split('$')[1])*100)/100;
+  console.log(total);
+  displayTotal.innerText = `${total}`;
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -81,7 +86,10 @@ function addcart() {
             const cria = createCartItemElement(object);
             cart.appendChild(cria);
             salvaCart(object, cria);
-            createCartItemElement(object).addEventListener('click', () => cartItemClickListener);
+            total += parseFloat(object.salePrice);
+            const displayTotal = document.querySelector('.value');
+            displayTotal.innerText = `${total}`
+            createCartItemElement(object).addEventListener('click', cartItemClickListener );
           })
           .catch(() => alert('Não foi possivel adicionar o produto'));
       });
