@@ -1,4 +1,26 @@
-window.onload = function onload() { };
+window.onload = function onload() {
+  const termos = document.querySelector('.input-terms');
+  termos.addEventListener('change', mostrar)
+  salvarCookie(termos, document.cookie.split('=')[1]);
+};
+
+const mostrar = (event) => {
+  const value = event.target.checked;
+  criarCookie('termos', value, ' Tue, 01 Jan 2115 12:00:00 UTC ');
+}
+
+const criarCookie = (name, value, expire) => {
+  const dtExpira = `expires=${expire}`;
+  document.cookie = `${name}=${value}; ${dtExpira}`;
+}
+
+const salvarCookie = (target, value) => {
+  if (document.cookie !== '') {
+    if (value === 'true') {
+      target.checked = true;
+    }
+  }
+}
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
