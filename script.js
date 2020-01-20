@@ -55,8 +55,6 @@ const headers = {
   headers: { Accept: 'application/json' },
 };
 
-
-
 const fetchSku = (URL, header) => {
   fetch(URL, header)
     .then(resposta => resposta.json())
@@ -73,19 +71,19 @@ function adicionarAoCarrinho() {
 
 const fetchPesquisa = (URL, header) => {
   fetch(URL, header)
-    .then(resposta => resposta.json())
-    .then((respJson) => {
-      this.console.log(respJson.results);
-      respJson.results.forEach(({ id, title, thumbnail }) => {
+    .then(resp => resp.json())
+    .then((json) => {
+      this.console.log(json.results);
+      json.results.forEach(({ id, title, thumbnail }) => {
         this.document.getElementsByClassName('items')[0].appendChild(createProductItemElement({ sku: id, name: title, image: thumbnail }));
       });
     })
     .then(() => {
       const seletorBotaoCarrinho = document.querySelectorAll('.item__add');
       console.log(seletorBotaoCarrinho[0]);
-      seletorBotaoCarrinho.forEach(elem => {
-        elem.addEventListener('click', adicionarAoCarrinho)
+      seletorBotaoCarrinho.forEach((elem) => {
+        elem.addEventListener('click', adicionarAoCarrinho);
       });
     });
-}
+};
 fetchPesquisa(`https://api.mercadolibre.com/sites/MLB/search?q=${pesquisa}`, headers);
