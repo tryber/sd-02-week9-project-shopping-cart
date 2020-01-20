@@ -28,8 +28,10 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+const cart = document.querySelector('.cart__items');
+
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+  cart.removeChild(event);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -49,15 +51,15 @@ const check = document.querySelector('.input-terms');
 check.addEventListener('click', () => {
   document.cookie = `Checkbox = ${check.checked}`;
 });
-
 const API_URL = 'https://api.mercadolibre.com/sites/MLB/search?q=retrovisor';
-
-fetch(API_URL, {
+let API_URL2 = 'https://api.mercadolibre.com/items/'
+const header = {
   headers: ({
-    method: 'GET',
     Accept: 'application/json',
   }),
-})
+}
+
+fetch(API_URL, header)
   .then((response) => {
     response.json()
       .then((respon) => {
@@ -67,8 +69,32 @@ fetch(API_URL, {
           name: respon.results[0].title,
           image: respon.results[0].thumbnail,
         };
+        API_URL2 = `${API_URL2}${objeto.sku}`
         add.appendChild(createProductItemElement(objeto));
+        addcart()
       })
-      .catch(() => console.error('Não foi possivel encontrar o produto'));
   })
   .catch(() => console.error('Não foi possivel encontrar o produto'));
+
+function addcart() {
+  const botaozinho = document.querySelector('.item__add');
+  botaozinho.addEventListener('click', () => {
+    fetch(API_URL2, header)
+      .then((response) => {
+        response.json()
+          .then((respon) => {
+            const object = {
+              sku: respon.id,
+              name: respon.title,
+              salePrice: respon.price,
+            }
+            cart.appendChild(createCartItemElement(object));
+            cart.addEventListener('click', () => {
+              cartItemClickListener(event.target);
+            })
+          })
+      })
+      .catch(() => console.error('Não foi possivel encontrar o produto'));
+
+  })
+}
