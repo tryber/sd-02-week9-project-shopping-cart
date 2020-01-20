@@ -32,7 +32,7 @@ const cart = document.querySelector('.cart__items');
 
 function cartItemClickListener(event) {
   cart.removeChild(event.target);
-  localStorage.removeItem(`${event.target.classList[1]}`)
+  localStorage.removeItem(`${event.target.classList[1]}`);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -77,10 +77,10 @@ function addcart() {
               name: respon.title,
               salePrice: respon.price,
             };
-            const cria = createCartItemElement(object)
+            const cria = createCartItemElement(object);
             cart.appendChild(cria);
             salvaCart(object, cria);
-            createCartItemElement(object).addEventListener('click', () => cartItemClickListener)
+            createCartItemElement(object).addEventListener('click', () => cartItemClickListener);
           })
           .catch(() => alert('Não foi possivel adicionar o produto'));
       });
@@ -105,7 +105,7 @@ fetch(API_URL, header)
   })
   .catch(() => alert('Não foi possivel encontrar o produto'));
 
-let object = {
+const object = {
   sku: '',
   name: '',
   salePrice: 0,
@@ -116,10 +116,9 @@ for (let i = 0; i < localStorage.length; i += 1) {
   object.sku = a[0];
   object.name = a[1];
   object.salePrice = a[2];
-  const cria = createCartItemElement(object)
+  const cria = createCartItemElement(object);
   cart.appendChild(cria);
-  console.log(`${localStorage.key(i)}`)
+  console.log(`${localStorage.key(i)}`);
   cria.classList.add(`${localStorage.key(i)}`);
-  cria.addEventListener('click', () => cartItemClickListener)
+  cria.addEventListener('click', () => cartItemClickListener);
 }
-
