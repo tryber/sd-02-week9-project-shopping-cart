@@ -1,5 +1,14 @@
 window.onload = function onload() { };
 
+let inputName = document.querySelector('.input-name');
+
+inputName.addEventListener(keyup, function (event) {
+  if (event.keyCode === 13) {
+    console.log('digita');
+  }
+});
+
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
