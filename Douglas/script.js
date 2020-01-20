@@ -56,7 +56,7 @@ fetch(API_URL, {
   headers: ({
     method: 'GET',
     Accept: 'application/json',
-  })
+  }),
 })
   .then((response) => {
     response.json()
@@ -71,4 +71,4 @@ fetch(API_URL, {
       })
       .catch(() => console.error('Não foi possivel encontrar o produto'));
   })
-  .catch(() => console.error('Não foi possivel encontrar o produto'))
+  .catch(() => console.error('Não foi possivel encontrar o produto'));
