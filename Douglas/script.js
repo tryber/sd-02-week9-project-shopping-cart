@@ -41,34 +41,34 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 const NOME = document.querySelector('.input-name');
-NOME.addEventListener('change', ()=>{
+NOME.addEventListener('change', () => {
   sessionStorage.setItem('Nome', NOME.value);
-})
+});
 
 const check = document.querySelector('.input-terms');
-check.addEventListener('click', ()=> {
-  document.cookie= `Checkbox = ${check.checked}`;
-})
+check.addEventListener('click', () => {
+  document.cookie = `Checkbox = ${check.checked}`;
+});
 
 const API_URL = 'https://api.mercadolibre.com/sites/MLB/search?q=retrovisor';
 
-const teste = fetch(API_URL, {
-    headers: ({
-        method : 'GET',
-        Accept : 'application/json',
-})})
-.then(response => {
-    response.json()
-    .then(response => {
-      const add = document.querySelector('.items');
-      const objeto ={
-        sku : response.results[0].id,
-        name : response.results[0].title,
-        image: response.results[0].thumbnail,
-      }
-      add.appendChild(createProductItemElement(objeto))
-    })
-    .catch(() => console.error('Não foi possivel encontrar o produto'))
+fetch(API_URL, {
+  headers: ({
+    method: 'GET',
+    Accept: 'application/json',
+  })
 })
-.catch(()=> console.error('Não foi possivel encontrar o produto'))
-
+  .then((response) => {
+    response.json()
+      .then((respon) => {
+        const add = document.querySelector('.items');
+        const objeto = {
+          sku: respon.results[0].id,
+          name: respon.results[0].title,
+          image: respon.results[0].thumbnail,
+        };
+        add.appendChild(createProductItemElement(objeto));
+      })
+      .catch(() => console.error('Não foi possivel encontrar o produto'));
+  })
+  .catch(() => console.error('Não foi possivel encontrar o produto'))
