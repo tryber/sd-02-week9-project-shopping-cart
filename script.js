@@ -1,11 +1,10 @@
 window.onload = function onload() {
   const inputName = document.querySelector('.input-name');
-  if (this.localStorage.getItem('nome')) inputName.value = this.localStorage.getItem('nome')
+  if (this.localStorage.getItem('nome')) inputName.value = this.localStorage.getItem('nome');
   inputName.addEventListener('change', () => {
-    this.console.log(inputName.value)
-    localStorage.setItem('nome', inputName.value)
-  })
-}
+    localStorage.setItem('nome', inputName.value);
+  });
+};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
