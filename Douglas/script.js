@@ -1,3 +1,4 @@
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -118,7 +119,15 @@ for (let i = 0; i < localStorage.length; i += 1) {
   object.salePrice = a[2];
   const cria = createCartItemElement(object);
   cart.appendChild(cria);
-  console.log(`${localStorage.key(i)}`);
   cria.classList.add(`${localStorage.key(i)}`);
   cria.addEventListener('click', () => cartItemClickListener);
 }
+const botao = document.querySelector('.limpa');
+botao.addEventListener('click', () => {
+  const itensAEx = document.querySelectorAll('.cart__item')
+  for (let i = 0; i <= itensAEx.length; i += 1) {
+    cart.removeChild(cart.firstChild);
+  }
+  localStorage.clear();
+})
+

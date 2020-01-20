@@ -74,3 +74,8 @@
   font-size: 16pt;
   text-align: center;
 }
+
+.limpa {
+  width: 100px;
+  align-self: center;
+}
