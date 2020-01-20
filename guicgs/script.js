@@ -1,5 +1,12 @@
 window.onload = function onload() { };
 
+const nameInput = document.getElementsByClassName('input-name')[0];
+nameInput.addEventListener('keyup', (event) => {
+  if (event.keyCode === 13) {
+    sessionStorage.setItem("Name", nameInput.value);
+  }
+})
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -41,3 +48,4 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
