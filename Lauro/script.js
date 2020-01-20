@@ -4,6 +4,8 @@ let inputName = document.getElementsByClassName('input-name')[0];
 
 const caixaCookies = document.querySelector('.input-terms');
 
+const buscaProduto = document.getElementsByClassName('input-item')[0];
+
 caixaCookies.addEventListener('click', () => document.cookie = 'agree = yes; expires = Thu, 18 Dec 2021 12:00:00 UTC')
 
 inputName.addEventListener('keyup', function (event) {
@@ -38,6 +40,16 @@ function createProductItemElement({ sku, name, image }) {
 
   return section;
 }
+
+buscaProduto.addEventListener('keyup', function (event) {
+  if (event.keyCode === 13) {
+  fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${buscaProduto.value}`, header)
+  .then((response) => response.json())
+  .then(data => console.log(data));
+  buscaProduto.value = null;
+  }
+});
+
 
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
