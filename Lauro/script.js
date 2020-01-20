@@ -42,10 +42,11 @@ function createProductItemElement({ sku, name, image }) {
 }
 
 buscaProduto.addEventListener('keyup', function (event) {
+  const descreveProduto = document.querySelector('.items')
   if (event.keyCode === 13) {
-  fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${buscaProduto.value}`, header)
+  fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${buscaProduto.value}`)
   .then((response) => response.json())
-  .then(data => console.log(data));
+  .then(data => {const produto = {sku: data.id, name: data.title, salePrice: data.price}})
   buscaProduto.value = null;
   }
 });
