@@ -75,7 +75,7 @@ const fetchPesquisa = (URL, header) => {
     .then((json) => {
       this.console.log(json.results);
       json.results.forEach(({ id, title, thumbnail }) => {
-        this.document.getElementsByClassName('items')[0].appendChild(createProductItemElement({ sku: id, name: title, image: thumbnail }));
+        this.document.querySelectorAll('items')[0].appendChild(createProductItemElement({ sku: id, name: title, image: thumbnail }));
       });
     })
     .then(() => {
