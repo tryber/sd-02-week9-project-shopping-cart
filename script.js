@@ -1,7 +1,8 @@
 const catalogo = document.querySelector('.items');
 const headers = {
-  Accept: 'application/json'
-}
+  Accept: 'application/json',
+};
+
 const url = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
 const urlId = 'https://api.mercadolibre.com/items/';
 
@@ -9,69 +10,10 @@ const ol = document.querySelector('.cart__items');
 const total = document.querySelector('.total');
 const carregando = document.querySelector('.carregando');
 
-window.onload = async function onload() {
-  let items = [];
 
-  const delay = milliseconds => data =>
+const delay = milliseconds => data =>
   new Promise(resolve =>
-    setTimeout(() => resolve(data), milliseconds)
-  );
-
-  await fetch(url, headers)
-    .then(res => res.json())
-    .then(delay(3000))
-    .then(data => {
-      items = [...data.results];
-      carregando.style.display = 'none';
-    });
-
-  items.forEach((item) => {
-    const { id: sku, title: name, thumbnail: image } = item;
-    const element = { sku, name, image };
-    const section = createProductItemElement(element);
-    catalogo.appendChild(section);
-  });
-
-  const buttons = document.querySelectorAll('.item__add');
-
-  const storages = allStorage();
-
-  carregaTotal();
-
-  storages.forEach(item => {
-    const li = document.createElement('li');
-    li.innerText = localStorage.getItem(item);
-    li.addEventListener('click', cartItemClickListener);
-    ol.appendChild(li);
-  });
-
-  buttons.forEach(async button => {
-    button.addEventListener('click', async (e) => {
-      const section = button.parentNode;
-      const sku = getSkuFromProductItem(section);
-      let name;
-      let salePrice;
-
-      if (!buscaSkuLi(sku)) {
-        await fetch(`${urlId}${sku}`, headers)
-          .then(res => res.json())
-          .then(data => { name = data.title;
-            salePrice = data.price });
-
-        const obj =  { sku, name, salePrice };
-        const li = createCartItemElement(obj);
-
-        li.addEventListener('click', cartItemClickListener);
-
-        localStorage.setItem(li.innerText.slice(5, 18), li.innerText );
-
-        ol.appendChild(li);
-
-        carregaTotal();
-      }
-    });
-  });
-};
+    setTimeout(() => resolve(data), milliseconds));
 
 function carregaTotal() {
   const storages = allStorage();
@@ -149,6 +91,68 @@ function clearShopCar() {
   carregaTotal();
 }
 
+function createButtons(buttons) {
+  buttons.forEach(async (button) => {
+    button.addEventListener('click', async () => {
+      const section = button.parentNode;
+      const sku = getSkuFromProductItem(section);
+      let name;
+      let salePrice;
+
+      if (!buscaSkuLi(sku)) {
+        await fetch(`${urlId}${sku}`, headers)
+          .then(res => res.json())
+          .then(data => { name = data.title;
+            salePrice = data.price });
+
+        const obj =  { sku, name, salePrice };
+        const li = createCartItemElement(obj);
+
+        li.addEventListener('click', cartItemClickListener);
+
+        localStorage.setItem(li.innerText.slice(5, 18), li.innerText );
+
+        ol.appendChild(li);
+
+        carregaTotal();
+      }
+    });
+  });
+}
+
+const storages = allStorage();
+
+carregaTotal();
+
+storages.forEach((item) => {
+  const li = document.createElement('li');
+  li.innerText = localStorage.getItem(item);
+  li.addEventListener('click', cartItemClickListener);
+  ol.appendChild(li);
+});
+
+window.onload = async function onload() {
+  let items = [];
+
+  await fetch(url, headers)
+  .then(res => res.json())
+  .then(delay(3000))
+  .then((data) => {
+    items = [...data.results];
+    carregando.style.display = 'none';
+  });
+
+  items.forEach((item) => {
+    const { id: sku, title: name, thumbnail: image } = item;
+    const element = { sku, name, image };
+    const section = createProductItemElement(element);
+    catalogo.appendChild(section);
+  });
+
+  const buttons = document.querySelectorAll('.item__add');
+  createButtons(buttons);
+};
+
 const name = document.querySelector('.input-name');
 const agree = document.querySelector('input[type=checkbox]');
 
@@ -169,5 +173,3 @@ agree.addEventListener('click', () => {
     document.cookie = 'cookie = ';
   }
 });
-
-
