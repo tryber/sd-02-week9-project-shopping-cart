@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <link rel="stylesheet" href="style.css">
-  <script src="script.js"></script>
+
 </head>
 
 <body>
@@ -17,19 +17,24 @@
       <input class="input-name" type="text">
     </div>
     <div class="input-terms-group">
-      <input class="input-terms" type="checkbox">
+      <input class="input-terms" type="checkbox" disabled>
       <label>Concordo com os termos</label>
     </div>
   </section>
   <section class="container">
     <section class="items">
+      <p class='carregando'>loading...</p>
     </section>
     <section class="cart">
       <span class="cart__title">Carrinho de compras</span>
       <ol class="cart__items">
       </ol>
+      <span><p>Total: </p><p class='total'></p></span>
+      <button onclick="clearShopCar()">Limpar carrinho</button>
     </section>
   </section>
+
 </body>
 
+<script src="script.js"></script>
 </html>
