@@ -45,6 +45,10 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+function adicionaCarrinho() {
+  console.log(getSkuFromProductItem(this.parentElement));
+}
+
 function deuCerto(response) {
   response.forEach((element) => {
     const localItem = document.querySelector('.items');
@@ -57,10 +61,6 @@ function deuCerto(response) {
   });
   const adiciona = document.querySelectorAll('.item__add');
   adiciona.forEach(element => element.addEventListener('click', adicionaCarrinho));
-}
-
-function adicionaCarrinho() {
-  console.log(getSkuFromProductItem(this.parentElement));
 }
 
 function fetchArray(url) {
