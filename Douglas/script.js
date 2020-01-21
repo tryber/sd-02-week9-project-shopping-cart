@@ -45,6 +45,20 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+function deuCerto(response) {
+  response.forEach((element) => {
+    const localItem = document.querySelector('.items');
+    const objetoCriado = createProductItemElement({
+      sku: element.id,
+      name: element.title,
+      image: element.thumbnail,
+    });
+    localItem.appendChild(objetoCriado);
+  });
+  const adiciona = document.querySelectorAll('.item__add');
+  adiciona.forEach(element => element.addEventListener('click', adicionaCarrinho));
+}
+
 function fetchArray(url) {
   fetch(url, fetchParam)
     .then((response) => {
@@ -75,20 +89,6 @@ function exibeItens() {
 
 function adicionaCarrinho() {
   console.log(getSkuFromProductItem(this.parentElement));
-}
-
-function deuCerto(response) {
-  response.forEach((element) => {
-    const localItem = document.querySelector('.items');
-    const objetoCriado = createProductItemElement({
-      sku: element.id,
-      name: element.title,
-      image: element.thumbnail,
-    });
-    localItem.appendChild(objetoCriado);
-  });
-  const adiciona = document.querySelectorAll('.item__add');
-  adiciona.forEach(element => element.addEventListener('click', adicionaCarrinho));
 }
 
 window.onload = function onload() {
