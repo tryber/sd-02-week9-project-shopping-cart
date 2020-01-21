@@ -62,7 +62,7 @@ function fetchArray(url, func) {
         .then((res) => {
           func(res);
         })
-        .catch(() => alert('Não foi possivel achar o resultado'))
+        .catch(() => alert('Não foi possivel achar o resultado'));
     })
     .catch(() => alert('Não foi possivel achar o resultado'));
 }
