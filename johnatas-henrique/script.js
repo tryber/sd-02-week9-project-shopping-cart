@@ -1,5 +1,3 @@
-window.onload = function onload() { };
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -41,3 +39,13 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+// Requisito 1
+const nomeSessionStorage = () => {
+  const inputNome = document.querySelector('.input-name');
+  inputNome.addEventListener('blur', () => sessionStorage.setItem('Nome', inputNome.value));
+}
+
+window.onload = function onload() { 
+  nomeSessionStorage();
+};
