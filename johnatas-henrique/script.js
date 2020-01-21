@@ -44,8 +44,29 @@ function createCartItemElement({ sku, name, salePrice }) {
 const nomeSessionStorage = () => {
   const inputNome = document.querySelector('.input-name');
   inputNome.addEventListener('blur', () => sessionStorage.setItem('Nome', inputNome.value));
+  const sessionExists = sessionStorage.getItem('Nome');
+  if (sessionExists) {
+    inputNome.value = sessionExists;
+  } 
 }
+
+// Requisito 2
+const cookieChecked = () => {
+  const inputTerms = document.querySelector('.input-terms');
+  const cookieTime = 'Wed, 1 Jan 2021 12:00:00 GMT';
+  const cookieName = 'checkbox';
+  inputTerms.addEventListener('click', () => {
+    inputTerms.checked 
+    ? document.cookie=`${cookieName}=true; ${cookieTime}`
+    : document.cookie=`${cookieName}=false; ${cookieTime}`;
+  });
+  if (document.cookie.includes(`${cookieName}=true`)) inputTerms.checked = true;
+}
+
+
+
 
 window.onload = function onload() { 
   nomeSessionStorage();
+  cookieChecked();
 };
