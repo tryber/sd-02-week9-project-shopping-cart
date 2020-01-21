@@ -78,8 +78,8 @@ const fetchPesquisa = (URL, header) => {
     .then(resp => resp.json())
     .then((json) => {
       this.console.log(json.results);
-      json.results.forEach(({ id, title, thumbnail }) => {
-        appendarChild('items', createProductItemElement({ sku: id, name: title, image: thumbnail }));
+      json.results.forEach((resultados) => {
+        appendarChild('items', createProductItemElement({ sku: resultado.id, name: resultado.title, image: resultado.thumbnail }));
       });
     })
     .then(() => {
