@@ -1,7 +1,16 @@
+function somaCustoCarrinho() {
+  if (localStorage.getItem('listaCompras')) {
+    const arranjoCarrinho = localStorage.getItem('listaCompras').split(' | ');
+    const totalStr = arranjoCarrinho.map(itemCarrinho => itemCarrinho.split(', ')[2]);
+    return totalStr.reduce((acc, item) => acc + parseFloat(item), 0);
+  }
+  else return "Total: 0"
+}
+
 function atualizarPrecoCarrinho() {
   const pPrecoCarrinho = document.getElementsByTagName('p')[0];
   pPrecoCarrinho.innerHTML = `Total: ${somaCustoCarrinho()}`;
-  if (!localStorage.getItem('listaCompras')) pPrecoCarrinho.innerHTML = `Total = 0`;
+  if (!localStorage.getItem("listaCompras")) pPrecoCarrinho.innerHTML = `Total = 0`;
 }
 
 function createProductImageElement(imageSource) {
@@ -115,21 +124,12 @@ function apagarcarrinho() {
   atualizarPrecoCarrinho();
 }
 
-function somaCustoCarrinho() {
-  if (localStorage.getItem('listaCompras')) {
-    const arranjoCarrinho = localStorage.getItem('listaCompras').split(' | ');
-    const totalStr = arranjoCarrinho.map((itemCarrinho) => itemCarrinho.split(', ')[2]);
-    return totalStr.reduce((acc, item) => acc + parseFloat(item), 0);
-  }
-}
-
-
 function criarElemento(tag, texto) {
   const elemento = document.createElement(tag);
   elemento.innerHTML = texto;
   if (tag === 'button') elemento.addEventListener('click', apagarcarrinho);
   if ((tag === 'p') && (somaCustoCarrinho())) {
-    elemento.innerHTML = `Total: ${somaCustoCarrinho()}`
+    elemento.innerHTML = `Total: ${somaCustoCarrinho()}`;
   } else {
     elemento.innerHTML = texto;
   }
