@@ -37,6 +37,7 @@ function cartItemClickListener(event) {
     localStorage.setItem('listaCompras', arranjoCarrinho.reduce((acc, item) => `${acc} | ${item}`));
   } else localStorage.removeItem('listaCompras');
   event.target.remove();
+  atualizarPrecoCarrinho();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -66,6 +67,7 @@ const fetchSku = (URL, header) => {
       else {
         localStorage.setItem('listaCompras', `${valorAtual} | ${id}, ${title}, ${price}`);
       }
+      atualizarPrecoCarrinho();
     });
 };
 
@@ -79,42 +81,64 @@ const fetchPesquisa = (URL, header) => {
   fetch(URL, header)
     .then(resp => resp.json())
     .then((json) => {
-      this.console.log(json.results);
       json.results.forEach((resultados) => {
         appendarChild('items', createProductItemElement({ sku: resultados.id, name: resultados.title, image: resultados.thumbnail }));
       });
     })
     .then(() => {
       const seletorBotaoCarrinho = document.querySelectorAll('.item__add');
-      console.log(seletorBotaoCarrinho[0]);
       seletorBotaoCarrinho.forEach((elem) => {
         elem.addEventListener('click', adicionarAoCarrinho);
       });
     });
 };
-fetchPesquisa(`https://api.mercadolibre.com/sites/MLB/search?q=${pesquisa}`, headers);
 
 function carregarCarrinho() {
-  const arranjoCarrinho = localStorage.getItem('listaCompras').split(' | ');
-  arranjoCarrinho.forEach((element) => {
-    const [id, title, preco] = element.split(', ');
-    appendarChild('cart__items', createCartItemElement({ sku: id, name: title, salePrice: preco }));
-  });
+  if (localStorage.getItem('listaCompras')) {
+    const arranjoCarrinho = localStorage.getItem('listaCompras').split(' | ');
+    arranjoCarrinho.forEach((element) => {
+      const [id, title, preco] = element.split(', ');
+      appendarChild('cart__items', createCartItemElement({ sku: id, name: title, salePrice: preco }));
+    });
+  }
 }
 
 function apagarcarrinho() {
   const paiCarrinho = document.querySelector('ol.cart__items');
   while (paiCarrinho.firstChild) paiCarrinho.removeChild(paiCarrinho.firstChild);
   localStorage.removeItem('listaCompras');
+  atualizarPrecoCarrinho();
 }
 
-function criarBotao() {
-  const btnapagar = document.createElement('button');
-  btnapagar.innerHTML = 'Apagar carrinho';
-  btnapagar.addEventListener('click', apagarcarrinho);
-  document.getElementsByClassName('cart')[0].appendChild(btnapagar);
+function somaCustoCarrinho() {
+  if (localStorage.getItem('listaCompras')) {
+    const arranjoCarrinho = localStorage.getItem('listaCompras').split(' | ');
+    const totalStr = arranjoCarrinho.map(itemCarrinho => {
+      return arranjoItemCarrinho = itemCarrinho.split(', ')[2];
+    })
+    return totalStr.reduce((acc, item) => acc + parseFloat(item), 0)
+  }
 }
 
+function atualizarPrecoCarrinho() {
+  const pPrecoCarrinho = document.getElementsByTagName('p')[0];
+  pPrecoCarrinho.innerHTML = `Total: ${somaCustoCarrinho()}`
+  if (!localStorage.getItem('listaCompras')) pPrecoCarrinho.innerHTML = `Total = 0`
+}
+
+function criarElemento(tag, texto) {
+  const elemento = document.createElement(tag);
+  elemento.innerHTML = texto;
+  if (tag === 'button') elemento.addEventListener('click', apagarcarrinho);
+  if ((tag === 'p') && (somaCustoCarrinho())) {
+    elemento.innerHTML = `Total: ${somaCustoCarrinho()}`
+  }   else { 
+    elemento.innerHTML = texto;
+  }
+  document.getElementsByClassName('cart')[0].appendChild(elemento);
+}
+
+fetchPesquisa(`https://api.mercadolibre.com/sites/MLB/search?q=${pesquisa}`, headers);
 window.onload = function onload() {
   const inputName = document.querySelector('.input-name');
   if (this.localStorage.getItem('nome')) inputName.value = this.localStorage.getItem('nome');
@@ -124,6 +148,7 @@ window.onload = function onload() {
   if (localStorage.getItem('aceitaCookies') === 'true') seletorAceitaCookies.checked = this.localStorage.getItem('aceitaCookies');
   seletorAceitaCookies.addEventListener('click', () => this.localStorage.setItem('aceitaCookies', seletorAceitaCookies.checked));
 
+  criarElemento('p', 'Total: 0');
+  criarElemento('button', 'Apagar carrinho');
   carregarCarrinho();
-  criarBotao();
 };
