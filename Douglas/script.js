@@ -50,9 +50,21 @@ function segundaRequisicao(response) {
     sku: response.id,
     name: response.title,
     salePrice: response.price,
-  }
+  };
   const cart = document.querySelector('.cart__items');
   cart.appendChild(createCartItemElement(object));
+}
+
+function fetchArray(url, func) {
+  fetch(url, fetchParam)
+    .then((response) => {
+      response.json()
+        .then((res) => {
+          func(res);
+        })
+        .catch(() => alert('Não foi possivel achar o resultado'))
+    })
+    .catch(() => alert('Não foi possivel achar o resultado'));
 }
 
 function adicionaCarrinho() {
@@ -71,18 +83,6 @@ function deuCerto(response) {
   });
   const adiciona = document.querySelectorAll('.item__add');
   adiciona.forEach(element => element.addEventListener('click', adicionaCarrinho));
-}
-
-function fetchArray(url, func) {
-  fetch(url, fetchParam)
-    .then((response) => {
-      response.json()
-        .then((res) => {
-          func(res);
-        })
-        .catch(() => alert('Não foi possivel achar o resultado'))
-    })
-    .catch(() => alert('Não foi possivel achar o resultado'));
 }
 
 function cookieSession() {
