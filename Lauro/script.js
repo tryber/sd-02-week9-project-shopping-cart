@@ -8,7 +8,7 @@ const caixaCookies = document.querySelector('.input-terms');
 
 const buscaProduto = document.getElementsByClassName('input-item')[0];
 
-const itemCarrinho = document.querySelectorAll('.cart__item');
+const cartItems = document.querySelector('.cart__items');
 
 caixaCookies.addEventListener('click', () => document.cookie = 'agree = yes; expires = Thu, 18 Dec 2021 12:00:00 UTC');
 
@@ -72,13 +72,12 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  const produtosnaCesta = document.querySelectorAll('.cart__item');
+  const produtosnaCesta = document.querySelectorAll('li');
   produtosnaCesta.forEach(clicado => clicado.addEventListener('click', event.target.remove));
 }
 
 function adicionaCarrinho(event) {
   const caixaProduto = event.target.parentElement;
-  const cartItems = document.querySelector('.cart__items');
   fetch(`https://api.mercadolibre.com/items/${getSkuFromProductItem(caixaProduto)}`)
   .then(response => response.json())
   .then(clicado => {
