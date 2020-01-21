@@ -59,6 +59,10 @@ function deuCerto(response) {
   adiciona.forEach(element => element.addEventListener('click', adicionaCarrinho));
 }
 
+function adicionaCarrinho() {
+  console.log(getSkuFromProductItem(this.parentElement));
+}
+
 function fetchArray(url) {
   fetch(url, fetchParam)
     .then((response) => {
@@ -85,10 +89,6 @@ function exibeItens() {
   pesquisa.addEventListener('change', () => {
     fetchArray(`https://api.mercadolibre.com/sites/MLB/search?q=${pesquisa.value}`);
   });
-}
-
-function adicionaCarrinho() {
-  console.log(getSkuFromProductItem(this.parentElement));
 }
 
 window.onload = function onload() {
