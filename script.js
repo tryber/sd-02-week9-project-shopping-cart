@@ -108,6 +108,13 @@ function apagarcarrinho() {
   localStorage.removeItem('listaCompras');
 }
 
+function criarBotao() {
+  const btnapagar = document.createElement('button')
+  btnapagar.innerHTML = 'Apagar carrinho'
+  btnapagar.addEventListener('click', apagarcarrinho)
+  document.getElementsByClassName('cart')[0].appendChild(btnapagar)
+}
+
 window.onload = function onload() {
   const inputName = document.querySelector('.input-name');
   if (this.localStorage.getItem('nome')) inputName.value = this.localStorage.getItem('nome');
@@ -118,4 +125,5 @@ window.onload = function onload() {
   seletorAceitaCookies.addEventListener('click', () => this.localStorage.setItem('aceitaCookies', seletorAceitaCookies.checked));
 
   carregarCarrinho();
+  criarBotao()
 };
