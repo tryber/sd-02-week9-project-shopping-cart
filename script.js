@@ -16,11 +16,11 @@ const delay = milliseconds => data =>
     setTimeout(() => resolve(data), milliseconds));
 
 function allStorage() {
-  let values = [],
-      keys = Object.keys(localStorage),
-      i = keys.length;
-  while ( i-- ) {
-      values.push( localStorage.getItem(keys[i]) );
+  const values = [];
+  const keys = Object.keys(localStorage);
+  let i = keys.length;
+  while (i--) {
+      values.push(localStorage.getItem(keys[i]));
   }
   return keys;
 }
@@ -102,15 +102,17 @@ function createButtons(buttons) {
       if (!buscaSkuLi(sku)) {
         await fetch(`${urlId}${sku}`, headers)
           .then(res => res.json())
-          .then(data => { name = data.title;
-            salePrice = data.price });
+          .then((data) => {
+            name = data.title;
+            salePrice = data.price;
+          });
 
-        const obj =  { sku, name, salePrice };
+        const obj = { sku, name, salePrice };
         const li = createCartItemElement(obj);
 
         li.addEventListener('click', cartItemClickListener);
 
-        localStorage.setItem(li.innerText.slice(5, 18), li.innerText );
+        localStorage.setItem(li.innerText.slice(5, 18), li.innerText);
 
         ol.appendChild(li);
 
@@ -168,7 +170,7 @@ name.addEventListener('keyup', () => {
 
 agree.addEventListener('click', () => {
   if (agree.checked) {
-    document.cookie = `cookie = aceito`;
+    document.cookie = 'cookie = aceito';
   } else {
     document.cookie = 'cookie = ';
   }
