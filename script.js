@@ -50,7 +50,7 @@ function saveName() {
   name.value = sessionStorage.getItem('name');
 }
 
-fetch('https://api.mercadolibre.com/sites/MLB/search?q=javascript')
+fetch('https://api.mercadolibre.com/sites/MLB/search?q=trybe')
   .then((response) => {
     response.json().then((res) => {
       res.results.forEach((item) => {
@@ -58,6 +58,10 @@ fetch('https://api.mercadolibre.com/sites/MLB/search?q=javascript')
       });
     });
   });
+
+/*   function add (teste, filho) {
+    document.querySelector(teste).appendChild(filho);
+  }  */
 
 window.onload = function onload() {
   saveName();
