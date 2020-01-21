@@ -45,12 +45,22 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+function segundaRequisicao(response) {
+  const object = {
+    sku: response.id,
+    name: response.title,
+    salePrice: response.price,
+  }
+  const cart = document.querySelector('.cart__items');
+  cart.appendChild(createCartItemElement(object));
+}
+
 function adicionaCarrinho() {
-  console.log(getSkuFromProductItem(this.parentElement));
+  fetchArray(`https://api.mercadolibre.com/items/${getSkuFromProductItem(this.parentElement)}`, segundaRequisicao);
 }
 
 function deuCerto(response) {
-  response.forEach((element) => {
+  response.results.forEach((element) => {
     const localItem = document.querySelector('.items');
     const objetoCriado = createProductItemElement({
       sku: element.id,
@@ -63,14 +73,16 @@ function deuCerto(response) {
   adiciona.forEach(element => element.addEventListener('click', adicionaCarrinho));
 }
 
-function fetchArray(url) {
+function fetchArray(url, func) {
   fetch(url, fetchParam)
     .then((response) => {
       response.json()
         .then((res) => {
-          deuCerto(res.results);
-        });
-    });
+          func(res);
+        })
+        .catch(() => alert('Não foi possivel achar o resultado'))
+    })
+    .catch(() => alert('Não foi possivel achar o resultado'));
 }
 
 function cookieSession() {
@@ -84,10 +96,20 @@ function cookieSession() {
     document.cookie = `Checkbox = ${check.checked}`;
   });
 }
+function limpaPesquisa() {
+  const selectLi = document.querySelectorAll('.item');
+  const localItem = document.querySelector('.items');
+  selectLi.forEach((element) =>{
+    localItem.removeChild(element);
+  })
+}
+
 function exibeItens() {
   const pesquisa = document.querySelector('.input-pesquisa');
   pesquisa.addEventListener('change', () => {
-    fetchArray(`https://api.mercadolibre.com/sites/MLB/search?q=${pesquisa.value}`);
+    limpaPesquisa();
+    fetchArray(`https://api.mercadolibre.com/sites/MLB/search?q=${pesquisa.value}`,
+      deuCerto);
   });
 }
 
