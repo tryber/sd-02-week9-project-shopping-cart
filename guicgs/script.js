@@ -37,24 +37,7 @@ const clearPreviousSearch = () => {
   while (items.firstChild) {
     items.firstChild.remove();
   }
-}
-
-const getProducts = () => {
-  clearPreviousSearch()
-  fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${searchInput.value}`)
-    .then(response => {
-      response.json()
-        .then(response => {
-          response.results
-            .forEach(element => createProductItemElement({
-              sku: element.id,
-              name: element.title,
-              image: element.thumbnail
-            }))
-        })
-    })
-    .catch(error => console.log(error))
-}
+};
 
 const searchInput = document.getElementsByClassName('input-search')[0];
 searchInput.addEventListener('keyup', (event) => {
@@ -74,6 +57,23 @@ function createProductItemElement({ sku, name, image }) {
   document.querySelector('.items').appendChild(section);
   return section;
 }
+
+const getProducts = () => {
+  clearPreviousSearch();
+  fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${searchInput.value}`)
+    .then((response) => {
+      response.json()
+        .then((responseObj) => {
+          responseObj.results
+            .forEach(element => createProductItemElement({
+              sku: element.id,
+              name: element.title,
+              image: element.thumbnail }
+            ))
+        })
+    })
+    .catch(error => console.log(error));
+};
 
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
