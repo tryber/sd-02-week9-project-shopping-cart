@@ -60,7 +60,7 @@ function segundaRequisicao(response) {
   };
   const cart = document.querySelector('.cart__items');
   const itens = createCartItemElement(object);
-  cart.appendChild(itens)
+  cart.appendChild(itens);
   adicionaLocal(itens);
 }
 
@@ -92,8 +92,7 @@ function deuCerto(response) {
     });
     const adiciona = document.querySelectorAll('.item__add');
     adiciona.forEach(element => element.addEventListener('click', adicionaCarrinho));
-  }
-  else{
+  } else {
     alert('Sua pesquisa não retornou nenhum resultado');
   }
 }
