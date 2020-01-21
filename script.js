@@ -39,6 +39,13 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
+
+  const arranjoCarrinho = localStorage.getItem('listaCompras').split(' | ')
+  const posicaoASerRemovida = ([...event.target.parentNode.children].indexOf(event.target))
+  arranjoCarrinho.splice(posicaoASerRemovida, 1);
+  if (document.getElementsByClassName('cart__item').length > 1) {
+    localStorage.setItem('listaCompras', arranjoCarrinho.reduce((acc, item) => acc + ' | ' + item))
+  } else localStorage.removeItem('listaCompras')
   event.target.remove()
 }
 
@@ -64,6 +71,13 @@ const fetchSku = (URL, header) => {
     .then(resposta => resposta.json())
     .then(({ id, title, price }) => {
       appendarChild('cart__items', createCartItemElement({ sku: id, name: title, salePrice: price }));
+      const valorAtual = (localStorage.getItem('listaCompras'))
+      if (!valorAtual) localStorage.setItem('listaCompras', `${id}, ${title}, ${price}`)
+      else {
+        localStorage.setItem('listaCompras', `${valorAtual} | ${id}, ${title}, ${price}`)
+      }
+      // const nLista = document.getElementsByClassName('cart__item').length
+      // localStorage.setItem(nLista - 1, `${id} <-> ${title} <-> ${price}`)
     });
 };
 
