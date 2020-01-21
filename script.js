@@ -79,7 +79,7 @@ const fetchPesquisa = (URL, header) => {
     .then((json) => {
       this.console.log(json.results);
       json.results.forEach((resultados) => {
-        appendarChild('items', createProductItemElement({ sku: resultado.id, name: resultado.title, image: resultado.thumbnail }));
+        appendarChild('items', createProductItemElement({ sku: resultados.id, name: resultados.title, image: resultados.thumbnail }));
       });
     })
     .then(() => {
