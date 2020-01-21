@@ -168,4 +168,3 @@ window.onload = function onload() {
   cookieSession();
   exibeItens();
 };
-

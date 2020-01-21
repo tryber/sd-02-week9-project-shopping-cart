@@ -87,16 +87,11 @@
 .animation {
   display: none;
 }
+
 .progress {
   text-align: center;
   position: absolute;
   height: 30px;
-  background-color: #777;
-  position: relative;
-  transition-property: background-color;
-  transition-duration: 4s;
-  transition-timing-function: linear;
-  background-color: blue;
   animation-name: aumentaTamanho;
   animation-duration: 3s;
   animation-timing-function: linear;
@@ -106,10 +101,11 @@
 
   0% {
     width: 0;
-
+    background-color: grey;
   }
 
   100% {
     width: 100%;
+    background-color: blue;
   }
 }
