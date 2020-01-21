@@ -61,10 +61,10 @@ searchInput.addEventListener('keyup', (event) => {
           createProductItemElement({
             sku: element.id,
             name: element.title,
-            image: element.thumbnail
-          })
+            image: element.thumbnail,
+          }),
         );
-      })
+      }),
       )
       .catch(error => console.log(error));
   }
