@@ -99,7 +99,7 @@ function cookieSession() {
 function limpaPesquisa() {
   const selectLi = document.querySelectorAll('.item');
   const localItem = document.querySelector('.items');
-  selectLi.forEach((element) =>{
+  selectLi.forEach((element) => {
     localItem.removeChild(element);
   })
 }
