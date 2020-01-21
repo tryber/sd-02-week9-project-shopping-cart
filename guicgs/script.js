@@ -58,7 +58,11 @@ searchInput.addEventListener('keyup', (event) => {
     fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${searchInput.value}`)
       .then(response => response.json().then((responseObj) => {
         responseObj.results.forEach(element =>
-          createProductItemElement({ sku: element.id, name: element.title, image: element.thumbnail })
+          createProductItemElement({
+            sku: element.id,
+            name: element.title,
+            image: element.thumbnail,
+          })
         );
       })
       )
