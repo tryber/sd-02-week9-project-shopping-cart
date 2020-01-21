@@ -19,8 +19,8 @@ function allStorage() {
   const values = [];
   const keys = Object.keys(localStorage);
   let i = keys.length;
-  while (i--) {
-      values.push(localStorage.getItem(keys[i]));
+  while (i -= 1) {
+    values.push(localStorage.getItem(keys[i]));
   }
   return keys;
 }
@@ -29,7 +29,8 @@ function carregaTotal() {
   const storages = allStorage();
   const prices = storages.reduce((acc, value) => {
     const s = localStorage.getItem(value);
-    acc += Number.parseFloat(s.slice(s.indexOf('PRICE') + 8, s.length));
+    const number = Number.parseFloat(s.slice(s.indexOf('PRICE') + 8, s.length));
+    acc += number;
     return acc;
   }, 0);
   total.innerHTML = prices;
