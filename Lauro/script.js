@@ -1,6 +1,8 @@
 window.onload = function onload() { };
 
-let inputName = document.getElementsByClassName('input-name')[0];
+const descreveProduto = document.querySelector('.items');
+
+const inputName = document.getElementsByClassName('input-name')[0];
 
 const caixaCookies = document.querySelector('.input-terms');
 
@@ -8,7 +10,7 @@ const buscaProduto = document.getElementsByClassName('input-item')[0];
 
 caixaCookies.addEventListener('click', () => document.cookie = 'agree = yes; expires = Thu, 18 Dec 2021 12:00:00 UTC')
 
-inputName.addEventListener('keyup', function (event) {
+inputName.addEventListener('keyup', (event) => {
   if (event.keyCode === 13) {
     sessionStorage.setItem("fullname", `${inputName.value}`);
     inputName.value = null;
@@ -41,12 +43,20 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-buscaProduto.addEventListener('keyup', function (event) {
-  const descreveProduto = document.querySelector('.items')
+buscaProduto.addEventListener('keyup', (event) => {
   if (event.keyCode === 13) {
+    const secaoItens = document.querySelector('.items');
+    while (secaoItens.firstChild) {
+      secaoItens.removeChild(secaoItens.firstChild)
+    }
   fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${buscaProduto.value}`)
   .then((response) => response.json())
-  .then(data => {const produto = {sku: data.id, name: data.title, salePrice: data.price}})
+  .then(produtoAchado => {
+    produtoAchado.results.forEach(element => {
+      const produto = {sku: element.id, name: element.title, image: element.thumbnail}
+      descreveProduto.appendChild(createProductItemElement(produto))
+    });
+  })
   buscaProduto.value = null;
   }
 });
@@ -57,7 +67,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+//
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
