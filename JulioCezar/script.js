@@ -101,12 +101,19 @@ const addProduto = (event) => {
     .then((el) => {
       document.querySelector('.cart__items').appendChild(createCartItemElement({ sku: el.id, name: el.title, salePrice: el.price }))
       storage('add', el.id, document.querySelector('ol').lastChild.innerHTML);
-    })
-    .then(() => {
-      const carrinho = document.querySelector('li')
-      carrinho.addEventListener('click', cartItemClickListener);
-    })
+    })    
 };
+
+const carregarStorage = () => {
+  let li;
+  Object.keys(localStorage).forEach((el) => {
+    li = document.createElement('li');
+    li.className = 'cart__item';
+    li.innerText = localStorage.getItem(el);
+    li.addEventListener('click', cartItemClickListener);
+    document.querySelector('.cart__items').appendChild(li);
+  })  
+}
 
 const storage = (string, id, value) => {
   (string === 'add') ? localStorage.setItem(id, value)
@@ -116,6 +123,7 @@ const storage = (string, id, value) => {
 
 window.onload = function onload() {
   appendItems();
+  carregarStorage();
   const termos = document.querySelector('.input-terms');
   termos.addEventListener('change', mostrar);
   const name = document.querySelector('.input-name');
