@@ -1,7 +1,3 @@
-window.onload = function onload() {
-  saveName();
-};
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -71,7 +67,6 @@ setTimeout(() => {
   createProductItemElement({ sku: apiMercadoLivre().results[1].id, name: apiMercadoLivreData().results[1].title, image: apiMercadoLivreData().results[1].thumbnail });
 }, 3000);
 
-
-
-
-
+window.onload = function onload() {
+  saveName();
+};
