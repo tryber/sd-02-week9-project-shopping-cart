@@ -83,8 +83,14 @@ function adicionaCarrinho(event) {
   .then(clicado => {
     const produtoclicado = {sku: clicado.id, name: clicado.title, salePrice: clicado.price};
     cartItems.appendChild(createCartItemElement(produtoclicado));
+    salvaLocalStorage(produtoclicado)
   });
 }
+
+// function salvaLocalStorage(item) {
+//   sessionStorage.setItem('SKU', )
+//   console.log(item.salePrice)
+// }
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
