@@ -50,11 +50,12 @@ function createCartItemElement({
   return li;
 }
 
-//1. Salve o nome da pessoa no SessionStorage
-//Você deve salvar o nome da pessoa que utiliza a página na SessionStorage. A pessoa deve digitar o nome dela no campo <input class="input-name" type="text"> (já presente na página).
+// 1. Salve o nome da pessoa no SessionStorage
 const name = document.getElementsByClassName('input-name')[0];
 name.addEventListener('keyup', (event) => {
   if (event.keyCode === 13) {
-    sessionStorage.setItem('Nome', `${name.value}`)
+    sessionStorage.setItem('Nome', `${name.value}`);
   }
 });
+
+// 2. Salve se a pessoa concorda com os termos da sua página nos Cookies
