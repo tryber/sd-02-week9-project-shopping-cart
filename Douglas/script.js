@@ -101,7 +101,7 @@ function limpaPesquisa() {
   const localItem = document.querySelector('.items');
   selectLi.forEach((element) => {
     localItem.removeChild(element);
-  })
+  });
 }
 
 function exibeItens() {
