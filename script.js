@@ -94,7 +94,7 @@ const fetchPesquisa = (URL, header) => {
 };
 fetchPesquisa(`https://api.mercadolibre.com/sites/MLB/search?q=${pesquisa}`, headers);
 
-function carregarCarrinho( ){
+function carregarCarrinho() {
   const arranjoCarrinho = localStorage.getItem('listaCompras').split(' | ');
   arranjoCarrinho.forEach((element) => {
     const [id, title, preco] = element.split(', ');
