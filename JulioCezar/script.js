@@ -26,25 +26,6 @@ const salvarName = (event) => {
   }
 };
 
-const fetchItems = () => {
-  const sectionItems = document.querySelector('.items');
-  fetch ('https://api.mercadolibre.com/sites/MLB/search?q=computador')
-  .then(res => res.json())
-  .then(data => data.results.forEach(el => {
-    sectionItems.appendChild
-    (createProductItemElement({sku: el.id, name: el.title, image: el.thumbnail}));
-  }));
-}
-
-window.onload = function onload() {
-  fetchItems ();
-  const termos = document.querySelector('.input-terms');
-  termos.addEventListener('change', mostrar);
-  const name = document.querySelector('.input-name');
-  name.addEventListener('keyup', salvarName);
-  salvarCookie(termos, document.cookie.split('=')[1]);
-};
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -86,3 +67,45 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+const fetchUrls = (url) => {
+  const element = fetch(url)
+  return element;
+};
+
+const appendItems = () => {
+  const sectionItems = document.querySelector('.items');
+  fetchUrls('https://api.mercadolibre.com/sites/MLB/search?q=computador')
+  .then((res) => res.json())
+  .then((data) => data.results.forEach(el => {
+    sectionItems.appendChild
+    (createProductItemElement({ sku: el.id, name: el.title, image: el.thumbnail }));
+  })
+  ).then(() => {    
+   const button = document.querySelectorAll('.item__add');
+   button.forEach(ele => {
+      ele.addEventListener('click', addProduto);
+   })})
+};
+
+const addProduto = (event) => {
+  const element = event.target.previousSibling;
+  const id = element.previousSibling.previousSibling.innerHTML;
+  fetchUrls (`https://api.mercadolibre.com/items/${id}`)
+  .then((result) => result.json())
+  .then((el) => {
+    document.querySelector('.cart__items')
+    .appendChild(createCartItemElement({ sku: el.id, name: el.title, salePrice: el.price }
+      ))
+    }
+  )
+};
+
+window.onload = function onload() {
+  appendItems();
+  const termos = document.querySelector('.input-terms');
+  termos.addEventListener('change', mostrar);
+  const name = document.querySelector('.input-name');
+  name.addEventListener('keyup', salvarName);
+  salvarCookie(termos, document.cookie.split('=')[1]);
+};
