@@ -48,8 +48,13 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 function adicionaLocal(local) {
-  local.classList.add(`${localStorage.length}`);
-  localStorage.setItem(`${localStorage.length}`, `${local.innerText}`);
+  localStorage.setItem(`${localStorage.length}`, JSON.stringify(local));
+}
+
+function auxiliaCriação(object) {
+  const cart = document.querySelector('.cart__items');
+  const itens = createCartItemElement(object);
+  return cart.appendChild(itens);
 }
 
 function segundaRequisicao(response) {
@@ -58,10 +63,8 @@ function segundaRequisicao(response) {
     name: response.title,
     salePrice: response.price,
   };
-  const cart = document.querySelector('.cart__items');
-  const itens = createCartItemElement(object);
-  cart.appendChild(itens);
-  adicionaLocal(itens);
+  adicionaLocal(object);
+  auxiliaCriação(object);
 }
 
 function fetchArray(url, func) {
@@ -97,6 +100,16 @@ function deuCerto(response) {
   }
 }
 
+function inicia() {
+if( localStorage.length > 0){
+  for( let i = 0 ; i < localStorage.length ; i++){
+    const object = JSON.parse(localStorage.getItem(localStorage.key(i)));
+    const {name, salePrice, sku} = object
+    const addclasse= auxiliaCriação({sku, name, salePrice});
+    addclasse.classList.add(`${i}`);
+  }
+}
+}
 function cookieSession() {
   const NOME = document.querySelector('.input-name');
   NOME.addEventListener('change', () => {
@@ -126,6 +139,7 @@ function exibeItens() {
 }
 
 window.onload = function onload() {
+  inicia();
   cookieSession();
   exibeItens();
 };
