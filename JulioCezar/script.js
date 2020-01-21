@@ -1,11 +1,11 @@
-const mostrar = (event) => {
-  const value = event.target.checked;
-  criarCookie('termos', value, ' Tue, 01 Jan 2115 12:00:00 UTC ');
-};
-
 const criarCookie = (name, value, expire) => {
   const dtExpira = `expires=${expire}`;
   document.cookie = `${name}=${value}; ${dtExpira}`;
+};
+
+const mostrar = (event) => {
+  const value = event.target.checked;
+  criarCookie('termos', value, ' Tue, 01 Jan 2115 12:00:00 UTC ');
 };
 
 const salvarCookie = (target, value) => {
@@ -22,15 +22,26 @@ const salvarName = (event) => {
   const name = event.target;
   if (key === 13) {
     sessionStorage.setItem('Name', name.value);
-    name.value = '';    
+    name.value = '';
   }
+};
+
+const fetchItems = () => {
+  const sectionItems = document.querySelector('.items');
+  fetch ('https://api.mercadolibre.com/sites/MLB/search?q=computador')
+  .then(res => res.json())
+  .then(data => data.results.forEach(el => {
+    sectionItems.appendChild
+    (createProductItemElement({sku: el.id, name: el.title, image: el.thumbnail}));
+  }));
 }
 
 window.onload = function onload() {
+  fetchItems ();
   const termos = document.querySelector('.input-terms');
   termos.addEventListener('change', mostrar);
   const name = document.querySelector('.input-name');
-  name.addEventListener('keyup', salvarName)
+  name.addEventListener('keyup', salvarName);
   salvarCookie(termos, document.cookie.split('=')[1]);
 };
 
