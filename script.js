@@ -54,8 +54,8 @@ fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
   .then((response) => {
     response.json().then((res) => {
       res.results.forEach((item) => {
-        createProductItemElement({ sku: item.id, name: item.title, image: item.thumbnail})
-      }) 
+        createProductItemElement({ sku: item.id, name: item.title, image: item.thumbnail })
+      })
     })
   });
 
