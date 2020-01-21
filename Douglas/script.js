@@ -3,7 +3,9 @@ const fetchParam = {
     Accept: 'application/json',
   }),
 };
-
+function ani() {
+  return document.querySelector('.animation');
+}
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -97,21 +99,26 @@ function adicionaCarrinho() {
 }
 
 function deuCerto(response) {
-  if (response.results[0] != null) {
-    response.results.forEach((element) => {
-      const localItem = document.querySelector('.items');
-      const objetoCriado = createProductItemElement({
-        sku: element.id,
-        name: element.title,
-        image: element.thumbnail,
+  setTimeout(() => {
+    const animation = document.querySelector('.progress');
+    animation.classList.toggle('progress');
+    animation.classList.toggle('animation');
+    if (response.results[0] != null) {
+      response.results.forEach((element) => {
+        const localItem = document.querySelector('.items');
+        const objetoCriado = createProductItemElement({
+          sku: element.id,
+          name: element.title,
+          image: element.thumbnail,
+        });
+        localItem.appendChild(objetoCriado);
       });
-      localItem.appendChild(objetoCriado);
-    });
-    const adiciona = document.querySelectorAll('.item__add');
-    adiciona.forEach(element => element.addEventListener('click', adicionaCarrinho));
-  } else {
-    alert('Sua pesquisa não retornou nenhum resultado');
-  }
+      const adiciona = document.querySelectorAll('.item__add');
+      adiciona.forEach(element => element.addEventListener('click', adicionaCarrinho));
+    } else {
+      alert('Sua pesquisa não retornou nenhum resultado');
+    }
+  }, 2800);
 }
 
 function inicia() {
@@ -148,6 +155,9 @@ function exibeItens() {
   const pesquisa = document.querySelector('.input-pesquisa');
   pesquisa.addEventListener('change', () => {
     limpaPesquisa();
+    animation = ani();
+    animation.classList.toggle('progress');
+    animation.classList.toggle('animation');
     fetchArray(`https://api.mercadolibre.com/sites/MLB/search?q=${pesquisa.value}`,
       deuCerto);
   });

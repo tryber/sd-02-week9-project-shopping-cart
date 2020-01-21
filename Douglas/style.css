@@ -80,27 +80,36 @@
   align-self: center;
 }
 
+.progressbar {
+  position: absolute;
+}
+
+.animation {
+  display: none;
+}
 .progress {
-  height: 15px;
+  text-align: center;
+  position: absolute;
+  height: 30px;
   background-color: #777;
   position: relative;
+  transition-property: background-color;
+  transition-duration: 4s;
+  transition-timing-function: linear;
+  background-color: blue;
+  animation-name: aumentaTamanho;
+  animation-duration: 3s;
+  animation-timing-function: linear;
 }
 
-.progress .progress-bar {
- position: absolute;
- height: 100%;
- background-color: #add555;
- animation: progress-animation 6s infinite;
-}
-
-
-@keyframes progress-animation {
+@keyframes aumentaTamanho {
 
   0% {
-    width: 0%;
+    width: 0;
+
   }
 
   100% {
-    width: 100%
+    width: 100%;
   }
 }
