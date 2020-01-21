@@ -25,8 +25,7 @@ function carregaTotal() {
   const prices = storages.reduce((acc, value) => {
     const s = localStorage.getItem(value);
     const number = Number.parseFloat(s.slice(s.indexOf('PRICE') + 8, s.length));
-    acc = acc + number;
-    return acc;
+    return acc + number;
   }, 0);
   total.innerHTML = prices;
 }
