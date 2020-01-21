@@ -56,40 +56,44 @@ function cookieSession() {
   });
 }
 function exibeItens() {
-  const pesquisa = document.querySelector('.input-pesquisa')
+  const pesquisa = document.querySelector('.input-pesquisa');
   pesquisa.addEventListener('change', () => {
     fetchArray(`https://api.mercadolibre.com/sites/MLB/search?q=${pesquisa.value}`);
-  })
+  });
 }
 
 function adicionaCarrinho() {
-  console.log(getSkuFromProductItem(this.parentElement))
+  console.log(getSkuFromProductItem(this.parentElement));
 }
 
 function deuCerto(response) {
-  response.forEach(element => {
+  response.forEach((element) => {
     const localItem = document.querySelector('.items');
-    const objetoCriado = createProductItemElement({ sku: element.id, name: element.title, image: element.thumbnail });
+    const objetoCriado = createProductItemElement({
+      sku: element.id,
+      name: element.title,
+      image: element.thumbnail
+    });
     localItem.appendChild(objetoCriado);
   });
   const adiciona = document.querySelectorAll('.item__add');
-  adiciona.forEach((element) => element.addEventListener('click', adicionaCarrinho));
+  adiciona.forEach(element => element.addEventListener('click', adicionaCarrinho));
 }
 
 function fetchArray(url) {
   fetch(url, fetchParam)
-    .then(response => {
+    .then((response) => {
       response.json()
-        .then(res => {
-          deuCerto(res.results)
-        })
+        .then((res) => {
+          deuCerto(res.results);
+        });
     });
 }
 
 window.onload = function onload() {
   cookieSession();
-  exibeItens()
-}
+  exibeItens();
+};
 
 
 // let API_URL2 = 'https://api.mercadolibre.com/items/';
