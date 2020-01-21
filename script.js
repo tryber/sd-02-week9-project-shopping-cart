@@ -102,6 +102,12 @@ function carregarCarrinho() {
   });
 }
 
+function apagarcarrinho() {
+  const paiCarrinho = document.querySelector('ol.cart__items');
+  while (paiCarrinho.firstChild) paiCarrinho.removeChild(paiCarrinho.firstChild);
+  localStorage.removeItem('listaCompras');
+}
+
 window.onload = function onload() {
   const inputName = document.querySelector('.input-name');
   if (this.localStorage.getItem('nome')) inputName.value = this.localStorage.getItem('nome');
