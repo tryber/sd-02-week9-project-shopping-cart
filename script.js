@@ -63,8 +63,7 @@ const fetchSku = (URL, header) => {
   fetch(URL, header)
     .then(resposta => resposta.json())
     .then(({ id, title, price }) => {
-      const criarFilho = createCartItemElement({ sku: id, name: title, salePrice: price });
-      appendarChild('cart__items', criarFilho);
+      appendarChild('cart__items', createCartItemElement({ sku: id, name: title, salePrice: price }));
     });
 };
 
@@ -80,8 +79,7 @@ const fetchPesquisa = (URL, header) => {
     .then((json) => {
       this.console.log(json.results);
       json.results.forEach(({ id, title, thumbnail }) => {
-        const criarFilho = createProductItemElement({ sku: id, name: title, image: thumbnail });
-        appendarChild('items', criarFilho);
+        appendarChild('items', createProductItemElement({ sku: id, name: title, image: thumbnail }));
       });
     })
     .then(() => {
