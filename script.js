@@ -4,13 +4,13 @@ function somaCustoCarrinho() {
     const totalStr = arranjoCarrinho.map(itemCarrinho => itemCarrinho.split(', ')[2]);
     return totalStr.reduce((acc, item) => acc + parseFloat(item), 0);
   }
-  else return "Total: 0"
+  return 'Total: 0';
 }
 
 function atualizarPrecoCarrinho() {
   const pPrecoCarrinho = document.getElementsByTagName('p')[0];
   pPrecoCarrinho.innerHTML = `Total: ${somaCustoCarrinho()}`;
-  if (!localStorage.getItem("listaCompras")) pPrecoCarrinho.innerHTML = `Total = 0`;
+  if (!localStorage.getItem('listaCompras')) pPrecoCarrinho.innerHTML = "Total = 0";
 }
 
 function createProductImageElement(imageSource) {
