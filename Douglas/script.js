@@ -1,4 +1,3 @@
-let cookie;
 const fetchParam = {
   headers: ({
     Accept: 'application/json',
