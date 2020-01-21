@@ -15,23 +15,6 @@ const delay = milliseconds => data =>
   new Promise(resolve =>
     setTimeout(() => resolve(data), milliseconds));
 
-function carregaTotal() {
-  const storages = allStorage();
-  const prices = storages.reduce((acc, value) => {
-    let s = localStorage.getItem(value);
-    acc += Number.parseFloat(s.slice(s.indexOf("PRICE")+8, s.length));
-    return acc;
-  }, 0);
-  total.innerHTML = prices;
-}
-
-function buscaSkuLi(sku) {
-  const lis = document.querySelectorAll('ol > li');
-  const array = [];
-  lis.forEach(item => array.push(item))
-  return array.some(li => li.outerText.slice(5, 18) === sku);
-}
-
 function allStorage() {
   let values = [],
       keys = Object.keys(localStorage),
@@ -40,6 +23,23 @@ function allStorage() {
       values.push( localStorage.getItem(keys[i]) );
   }
   return keys;
+}
+
+function carregaTotal() {
+  const storages = allStorage();
+  const prices = storages.reduce((acc, value) => {
+    const s = localStorage.getItem(value);
+    acc += Number.parseFloat(s.slice(s.indexOf('PRICE') + 8, s.length));
+    return acc;
+  }, 0);
+  total.innerHTML = prices;
+}
+
+function buscaSkuLi(sku) {
+  const lis = document.querySelectorAll('ol > li');
+  const array = [];
+  lis.forEach(item => array.push(item));
+  return array.some(li => li.outerText.slice(5, 18) === sku);
 }
 
 function createProductImageElement(imageSource) {
