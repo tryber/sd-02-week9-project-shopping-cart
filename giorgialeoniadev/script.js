@@ -1,5 +1,6 @@
 window.onload = function onload() {};
 
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -59,3 +60,47 @@ name.addEventListener('keyup', (event) => {
 });
 
 // 2. Salve se a pessoa concorda com os termos da sua página nos Cookies
+const checkbox = document.querySelector('.input-terms');
+
+checkbox.addEventListener('click', () => {
+  document.cookie = `Nome = ${name.value} =expires= Thu, 21 Aug 2050 20:00:00 UTC`
+});
+
+const search = document.getElementsByClassName('input-search')[0];
+const newNode = document.getElementsByClassName('items')[0];
+const newInCar = document.getElementsByClassName('cart__items')[0];
+
+function addToCart() {
+  const button = document.getElementsByClassName('item__add')[0];
+  button.addEventListener('click', () => {
+      const result = getSkuFcromProductItem(event.target.parentElement);
+      fetch(`https://api.mercadolibre.com/items/${result}`)
+        .then(response => response.json())
+        .then(info => {
+          const produto = {
+            sku: info.id,
+            name: info.name,
+            image: info.salePrice
+          }
+          const product = createCartItemElement(produto)
+          newInCar.appendChild(createCartItemElement(product))
+        })
+      })
+    }
+
+search.addEventListener('keyup', (event) => {
+  if (event.keyCode === 13) {
+    fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${search.value}`)
+      .then(response => response.json())
+      .then(data => {
+        const produto = {
+          sku: data.results.id,
+          name: data.results.name,
+          image: data.results.thumbnail
+        }
+        const product = createProductItemElement(produto)
+        newNode.appendChild(product)
+        addToCart()
+      })
+  }
+})
