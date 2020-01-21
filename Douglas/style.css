@@ -95,7 +95,7 @@
   position: absolute;
   animation-name: aumentaTamanho;
   animation-duration: 1.2s;
-  animation-timing-function: steps(50);
+  animation-timing-function: steps( 50 );
 }
 
 @keyframes aumentaTamanho {

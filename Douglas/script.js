@@ -14,7 +14,7 @@ function pegaTotal() {
 
 function numero() {
   const controle = pegaTotal();
-  return (parseFloat(controle.innerText))
+  return (parseFloat(controle.innerText));
 }
 
 function createProductImageElement(imageSource) {
@@ -168,9 +168,7 @@ function RecuperaCookieESession() {
 }
 
 function inicia() {
-
   if (localStorage.length > 0) {
-
     for (let i = 0; i < localStorage.length; i += 1) {
       const object = JSON.parse(localStorage.getItem(localStorage.key(i)));
       const { name, salePrice, sku } = object;
