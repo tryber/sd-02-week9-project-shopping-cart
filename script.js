@@ -50,22 +50,14 @@ function saveName() {
   name.value = sessionStorage.getItem('name');
 }
 
-
-function apiMercadoLivre() {
-  let apiMercadoLivreData = fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
-    .then((response) => {
-      response.json().then((res) => {
-        apiMercadoLivreData = res;
-      });
-    });
-  return setTimeout(() => {
-    console.log(apiMercadoLivreData);
-  }, 1000);
-}
-
-setTimeout(() => {
-  createProductItemElement({ sku: apiMercadoLivre().results[1].id, name: apiMercadoLivreData().results[1].title, image: apiMercadoLivreData().results[1].thumbnail });
-}, 3000);
+fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
+  .then((response) => {
+    response.json().then((res) => {
+      res.results.forEach((item) => {
+        createProductItemElement({ sku: item.id, name: item.title, image: item.thumbnail})
+      }) 
+    })
+  });
 
 window.onload = function onload() {
   saveName();
