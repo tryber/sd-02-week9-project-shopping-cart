@@ -50,15 +50,26 @@ function saveName() {
   name.value = sessionStorage.getItem('name');
 }
 
-fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
+fetch('https://api.mercadolibre.com/sites/MLB/search?q=javascript')
   .then((response) => {
     response.json().then((res) => {
       res.results.forEach((item) => {
-        createProductItemElement({ sku: item.id, name: item.title, image: item.thumbnail })
-      })
-    })
+        document.querySelector('.items').appendChild(createProductItemElement({ sku: item.id, name: item.title, image: item.thumbnail }));
+      });
+    });
   });
+
+
 
 window.onload = function onload() {
   saveName();
+  const checkTerm = document.querySelector('.input-terms');
+  checkTerm.addEventListener('click', () => {
+    if (checkTerm.checked) {
+      document.cookie = 'Term=checked; expires=expires= Thu, 21 Aug 2100 20:00:00 UTC';
+
+    } else {
+      document.cookie = 'Term= ; expires=expires= Thu, 21 Aug 2100 20:00:00 UTC';
+    }
+  })
 };
