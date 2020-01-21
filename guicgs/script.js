@@ -62,10 +62,8 @@ searchInput.addEventListener('keyup', (event) => {
             sku: element.id,
             name: element.title,
             image: element.thumbnail,
-          }),
-        );
-      }),
-      )
+          }));
+      }))
       .catch(error => console.log(error));
   }
 });
