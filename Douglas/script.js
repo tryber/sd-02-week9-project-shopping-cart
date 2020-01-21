@@ -1,3 +1,4 @@
+let cookie;
 const fetchParam = {
   headers: ({
     Accept: 'application/json',
@@ -6,6 +7,10 @@ const fetchParam = {
 function ani() {
   return document.querySelector('.animation');
 }
+// function pegaTotal(){
+//   const total = document.querySelector('value');
+
+// }
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -121,6 +126,33 @@ function deuCerto(response) {
   }, 2800);
 }
 
+function salvaNome() {
+  const NOME = document.querySelector('.input-name');
+  NOME.addEventListener('change', () => {
+    sessionStorage.setItem('Nome', NOME.value);
+  });
+}
+
+function botaoCheck() {
+  const check = document.querySelector('.input-terms');
+  check.addEventListener('click', () => {
+    if (check.checked) {
+      document.cookie = 'terms=checked';
+    } else if (!check.checked) {
+      document.cookie = 'terms= ';
+    }
+  });
+}
+
+function RecuperaCookieESession() {
+  const check = document.querySelector('.input-terms');
+  if (document.cookie.split('=')[1] !== '') {
+    check.checked = true;
+  }
+  const NOME = document.querySelector('.input-name');
+  NOME.value = sessionStorage.getItem('Nome');
+}
+
 function inicia() {
   if (localStorage.length > 0) {
     for (let i = 0; i < localStorage.length; i += 1) {
@@ -130,19 +162,10 @@ function inicia() {
       addclasse.classList.add(`${i}`);
     }
   }
+  botaoCheck();
+  RecuperaCookieESession();
 }
 
-function cookieSession() {
-  const NOME = document.querySelector('.input-name');
-  NOME.addEventListener('change', () => {
-    sessionStorage.setItem('Nome', NOME.value);
-  });
-
-  const check = document.querySelector('.input-terms');
-  check.addEventListener('click', () => {
-    document.cookie = `Checkbox = ${check.checked}`;
-  });
-}
 function limpaPesquisa() {
   const selectLi = document.querySelectorAll('.item');
   const localItem = document.querySelector('.items');
@@ -165,6 +188,6 @@ function exibeItens() {
 
 window.onload = function onload() {
   inicia();
-  cookieSession();
+  salvaNome();
   exibeItens();
 };
