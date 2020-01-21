@@ -109,10 +109,10 @@ function apagarcarrinho() {
 }
 
 function criarBotao() {
-  const btnapagar = document.createElement('button')
-  btnapagar.innerHTML = 'Apagar carrinho'
-  btnapagar.addEventListener('click', apagarcarrinho)
-  document.getElementsByClassName('cart')[0].appendChild(btnapagar)
+  const btnapagar = document.createElement('button');
+  btnapagar.innerHTML = 'Apagar carrinho';
+  btnapagar.addEventListener('click', apagarcarrinho);
+  document.getElementsByClassName('cart')[0].appendChild(btnapagar);
 }
 
 window.onload = function onload() {
@@ -125,5 +125,5 @@ window.onload = function onload() {
   seletorAceitaCookies.addEventListener('click', () => this.localStorage.setItem('aceitaCookies', seletorAceitaCookies.checked));
 
   carregarCarrinho();
-  criarBotao()
+  criarBotao();
 };
