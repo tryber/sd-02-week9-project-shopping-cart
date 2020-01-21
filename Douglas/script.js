@@ -51,9 +51,23 @@ function adicionaLocal(local) {
   localStorage.setItem(`${localStorage.length}`, JSON.stringify(local));
 }
 
+function exclueTudo() {
+  const cart = document.querySelector('.cart__items');
+  const excludeLi = document.querySelectorAll('.cart__item');
+  excludeLi.forEach( element => {
+    cart.removeChild(element);
+  })
+  localStorage.clear();
+}
+
+function adicionaExclusao() {
+  const limpador = document.querySelector('.limpa');
+  limpador.addEventListener('click',exclueTudo);
+}
 function auxiliaCriação(object) {
   const cart = document.querySelector('.cart__items');
   const itens = createCartItemElement(object);
+  adicionaExclusao();
   return cart.appendChild(itens);
 }
 
@@ -110,6 +124,7 @@ function inicia() {
     }
   }
 }
+
 function cookieSession() {
   const NOME = document.querySelector('.input-name');
   NOME.addEventListener('change', () => {
@@ -144,5 +159,3 @@ window.onload = function onload() {
   exibeItens();
 };
 
-
-// let API_URL2 = 'https://api.mercadolibre.com/items/';
