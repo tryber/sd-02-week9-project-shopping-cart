@@ -44,6 +44,17 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+function fetchArray(url) {
+  fetch(url, fetchParam)
+    .then((response) => {
+      response.json()
+        .then((res) => {
+          deuCerto(res.results);
+        });
+    });
+}
+
 function cookieSession() {
   const NOME = document.querySelector('.input-name');
   NOME.addEventListener('change', () => {
@@ -72,22 +83,12 @@ function deuCerto(response) {
     const objetoCriado = createProductItemElement({
       sku: element.id,
       name: element.title,
-      image: element.thumbnail
+      image: element.thumbnail,
     });
     localItem.appendChild(objetoCriado);
   });
   const adiciona = document.querySelectorAll('.item__add');
   adiciona.forEach(element => element.addEventListener('click', adicionaCarrinho));
-}
-
-function fetchArray(url) {
-  fetch(url, fetchParam)
-    .then((response) => {
-      response.json()
-        .then((res) => {
-          deuCerto(res.results);
-        });
-    });
 }
 
 window.onload = function onload() {
