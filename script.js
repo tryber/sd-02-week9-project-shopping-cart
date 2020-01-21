@@ -16,12 +16,7 @@ const delay = milliseconds => data =>
     setTimeout(() => resolve(data), milliseconds));
 
 function allStorage() {
-  const values = [];
   const keys = Object.keys(localStorage);
-  let i = keys.length;
-  while (i -= 1) {
-    values.push(localStorage.getItem(keys[i]));
-  }
   return keys;
 }
 
@@ -30,7 +25,7 @@ function carregaTotal() {
   const prices = storages.reduce((acc, value) => {
     const s = localStorage.getItem(value);
     const number = Number.parseFloat(s.slice(s.indexOf('PRICE') + 8, s.length));
-    acc += number;
+    acc = acc + number;
     return acc;
   }, 0);
   total.innerHTML = prices;
