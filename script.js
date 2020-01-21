@@ -55,11 +55,17 @@ const headers = {
   headers: { Accept: 'application/json' },
 };
 
+function appendarChild(classe, filho) {
+  document.getElementsByClassName(classe)[0].appendChild(filho)
+}
+
 const fetchSku = (URL, header) => {
   fetch(URL, header)
     .then(resposta => resposta.json())
     .then(({ id, title, price }) => {
-      this.document.getElementsByClassName('cart__items')[0].appendChild(createCartItemElement({ sku: id, name: title, salePrice: price }));
+      const criarFilho = createCartItemElement({ sku: id, name: title, salePrice: price })
+      appendarChild('cart__items', criarFilho)
+      // this.document.getElementsByClassName('cart__items')[0].appendChild(createCartItemElement({ sku: id, name: title, salePrice: price }));
     });
 };
 
@@ -75,7 +81,9 @@ const fetchPesquisa = (URL, header) => {
     .then((json) => {
       this.console.log(json.results);
       json.results.forEach(({ id, title, thumbnail }) => {
-        this.document.querySelectorAll('items')[0].appendChild(createProductItemElement({ sku: id, name: title, image: thumbnail }));
+        const criarFilho = createProductItemElement({ sku: id, name: title, image: thumbnail })
+        appendarChild('items', criarFilho)
+        // this.document.getElementsByClassName('items')[0].appendChild(createProductItemElement({ sku: id, name: title, image: thumbnail }));
       });
     })
     .then(() => {
