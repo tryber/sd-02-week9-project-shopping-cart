@@ -94,13 +94,12 @@ const fetchPesquisa = (URL, header) => {
 };
 fetchPesquisa(`https://api.mercadolibre.com/sites/MLB/search?q=${pesquisa}`, headers);
 
-function carregarCarrinho(){
+function carregarCarrinho( ){
   const arranjoCarrinho = localStorage.getItem('listaCompras').split(' | ');
-  console.log(arranjoCarrinho)
-  arranjoCarrinho.forEach(element => {
-    const [id, title, preco] = element.split(', ')
-    appendarChild('cart__items', createCartItemElement({ sku: id, name: title, salePrice: preco }))
-  })
+  arranjoCarrinho.forEach((element) => {
+    const [id, title, preco] = element.split(', ');
+    appendarChild('cart__items', createCartItemElement({ sku: id, name: title, salePrice: preco }));
+  });
 }
 
 window.onload = function onload() {
@@ -113,5 +112,4 @@ window.onload = function onload() {
   seletorAceitaCookies.addEventListener('click', () => this.localStorage.setItem('aceitaCookies', seletorAceitaCookies.checked));
 
   carregarCarrinho();
-
 };
