@@ -7,18 +7,18 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
-function sessionName(){
+function sessionName() {
   const name = document.getElementsByClassName('input-name')[0];
   name.addEventListener('blur', () => sessionStorage.setItem('userName', name.value));
 }
 
-function toggleCookie(){
+function toggleCookie() {
   const termsAgreement = document.getElementsByClassName('input-terms')[0];
   const days = 7;
   termsAgreement.addEventListener('change', () => {
-    const  expiryDate = new Date(Date.now() + (days * 864e5)).toUTCString();
-    document.cookie = `agreed-to-terms = ${encodeURIComponent(termsAgreement.checked)}; expires = ${expiryDate}; path=/`
-  })
+    const expiryDate = new Date(Date.now() + (days * 864e5)).toUTCString();
+    document.cookie = `agreed-to-terms = ${encodeURIComponent(termsAgreement.checked)}; expires = ${expiryDate}; path=/`;
+  });
 }
 
 function createCustomElement(element, className, innerText) {
@@ -59,4 +59,4 @@ function createCartItemElement({ sku, name, salePrice }) {
 window.onload = function loadFunction() {
   sessionName();
   toggleCookie();
-}
+};
