@@ -6,10 +6,17 @@ const fetchParam = {
 function ani() {
   return document.querySelector('.animation');
 }
-// function pegaTotal(){
-//   const total = document.querySelector('value');
 
-// }
+function pegaTotal() {
+  const total = document.querySelector('.value');
+  return total;
+}
+
+function numero() {
+  const controle = pegaTotal();
+  return (parseFloat(controle.innerText))
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -44,6 +51,8 @@ function cartItemClickListener(event) {
   const cart = document.querySelector('.cart__items');
   localStorage.removeItem(`${event.target.classList[1]}`);
   cart.removeChild(event.target);
+  const controle = pegaTotal();
+  controle.innerText = (numero() - (parseFloat(event.target.innerText.split('PRICE: $')[1]))).toFixed(2);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -64,12 +73,15 @@ function exclueTudo() {
     cart.removeChild(element);
   });
   localStorage.clear();
+  const controle = pegaTotal();
+  controle.innerText = 0;
 }
 
 function adicionaExclusao() {
   const limpador = document.querySelector('.limpa');
   limpador.addEventListener('click', exclueTudo);
 }
+
 function auxiliaCriação(object) {
   const cart = document.querySelector('.cart__items');
   const itens = createCartItemElement(object);
@@ -83,6 +95,9 @@ function segundaRequisicao(response) {
     name: response.title,
     salePrice: response.price,
   };
+  const valor = numero();
+  const controle = pegaTotal();
+  controle.innerText = (valor + object.salePrice).toFixed(2);
   adicionaLocal(object);
   auxiliaCriação(object);
 }
@@ -122,7 +137,7 @@ function deuCerto(response) {
     } else {
       alert('Sua pesquisa não retornou nenhum resultado');
     }
-  }, 2800);
+  }, 1200);
 }
 
 function salvaNome() {
@@ -153,12 +168,17 @@ function RecuperaCookieESession() {
 }
 
 function inicia() {
+
   if (localStorage.length > 0) {
+
     for (let i = 0; i < localStorage.length; i += 1) {
       const object = JSON.parse(localStorage.getItem(localStorage.key(i)));
       const { name, salePrice, sku } = object;
       const addclasse = auxiliaCriação({ sku, name, salePrice });
       addclasse.classList.add(`${i}`);
+      const controle = numero();
+      const controle1 = pegaTotal();
+      controle1.innerText = (parseFloat(controle + salePrice).toFixed(2));
     }
   }
   botaoCheck();

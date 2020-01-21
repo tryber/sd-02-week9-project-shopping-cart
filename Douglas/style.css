@@ -70,6 +70,7 @@
 }
 
 .cart .cart__title {
+  z-index: 1;
   flex-basis: 1;
   font-size: 16pt;
   text-align: center;
@@ -89,22 +90,24 @@
 }
 
 .progress {
+  z-index: 0;
   text-align: center;
   position: absolute;
-  height: 30px;
   animation-name: aumentaTamanho;
-  animation-duration: 3s;
-  animation-timing-function: linear;
+  animation-duration: 1.2s;
+  animation-timing-function: steps(50);
 }
 
 @keyframes aumentaTamanho {
 
   0% {
+    height: 30px;
     width: 0;
     background-color: grey;
   }
 
   100% {
+    height: 20px;
     width: 100%;
     background-color: blue;
   }
