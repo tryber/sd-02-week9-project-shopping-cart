@@ -54,15 +54,15 @@ function adicionaLocal(local) {
 function exclueTudo() {
   const cart = document.querySelector('.cart__items');
   const excludeLi = document.querySelectorAll('.cart__item');
-  excludeLi.forEach( element => {
+  excludeLi.forEach((element) => {
     cart.removeChild(element);
-  })
+  });
   localStorage.clear();
 }
 
 function adicionaExclusao() {
   const limpador = document.querySelector('.limpa');
-  limpador.addEventListener('click',exclueTudo);
+  limpador.addEventListener('click', exclueTudo);
 }
 function auxiliaCriação(object) {
   const cart = document.querySelector('.cart__items');
