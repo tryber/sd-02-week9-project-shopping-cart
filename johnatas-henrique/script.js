@@ -12,7 +12,11 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-function createProductItemElement({ sku, name, image }) {
+function createProductItemElement({
+  sku,
+  name,
+  image
+}) {
   const section = document.createElement('section');
   section.className = 'item';
 
@@ -32,7 +36,11 @@ function cartItemClickListener(event) {
   // coloque seu código aqui
 }
 
-function createCartItemElement({ sku, name, salePrice }) {
+function createCartItemElement({
+  sku,
+  name,
+  salePrice
+}) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
@@ -47,7 +55,7 @@ const nomeSessionStorage = () => {
   const sessionExists = sessionStorage.getItem('Nome');
   if (sessionExists) {
     inputNome.value = sessionExists;
-  } 
+  }
 }
 
 // Requisito 2
@@ -56,17 +64,14 @@ const cookieChecked = () => {
   const cookieTime = 'Wed, 1 Jan 2021 12:00:00 GMT';
   const cookieName = 'checkbox';
   inputTerms.addEventListener('click', () => {
-    inputTerms.checked 
-    ? document.cookie=`${cookieName}=true; ${cookieTime}`
-    : document.cookie=`${cookieName}=false; ${cookieTime}`;
+    inputTerms.checked ?
+      document.cookie = `${cookieName}=true; ${cookieTime}` :
+      document.cookie = `${cookieName}=false; ${cookieTime}`;
   });
   if (document.cookie.includes(`${cookieName}=true`)) inputTerms.checked = true;
 }
 
-
-
-
-window.onload = function onload() { 
+window.onload = function onload() {
   nomeSessionStorage();
   cookieChecked();
 };
