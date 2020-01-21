@@ -36,6 +36,7 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   const cart = document.querySelector('.cart__items');
+  localStorage.removeItem(`${event.target.classList[1]}`);
   cart.removeChild(event.target);
 }
 
@@ -46,6 +47,10 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+function adicionaLocal(local) {
+  local.classList.add(`${localStorage.length}`);
+  localStorage.setItem(`${localStorage.length}`, `${local.innerText}`);
+}
 
 function segundaRequisicao(response) {
   const object = {
@@ -55,8 +60,8 @@ function segundaRequisicao(response) {
   };
   const cart = document.querySelector('.cart__items');
   const itens = createCartItemElement(object);
-  cart.appendChild(itens);
-  itens.addEventListener('click', cartItemClickListener);
+  cart.appendChild(itens)
+  adicionaLocal(itens);
 }
 
 function fetchArray(url, func) {
@@ -65,8 +70,7 @@ function fetchArray(url, func) {
       response.json()
         .then((res) => {
           func(res);
-        })
-        .catch(() => alert('Não foi possivel achar o resultado'));
+        });
     })
     .catch(() => alert('Não foi possivel achar o resultado'));
 }
@@ -76,17 +80,22 @@ function adicionaCarrinho() {
 }
 
 function deuCerto(response) {
-  response.results.forEach((element) => {
-    const localItem = document.querySelector('.items');
-    const objetoCriado = createProductItemElement({
-      sku: element.id,
-      name: element.title,
-      image: element.thumbnail,
+  if (response.results[0] != null) {
+    response.results.forEach((element) => {
+      const localItem = document.querySelector('.items');
+      const objetoCriado = createProductItemElement({
+        sku: element.id,
+        name: element.title,
+        image: element.thumbnail,
+      });
+      localItem.appendChild(objetoCriado);
     });
-    localItem.appendChild(objetoCriado);
-  });
-  const adiciona = document.querySelectorAll('.item__add');
-  adiciona.forEach(element => element.addEventListener('click', adicionaCarrinho));
+    const adiciona = document.querySelectorAll('.item__add');
+    adiciona.forEach(element => element.addEventListener('click', adicionaCarrinho));
+  }
+  else{
+    alert('Sua pesquisa não retornou nenhum resultado');
+  }
 }
 
 function cookieSession() {
