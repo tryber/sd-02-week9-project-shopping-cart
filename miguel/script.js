@@ -1,19 +1,19 @@
 window.onload = function onload() {
-  let input = document.getElementsByClassName('input-name')[0]
+  const input = document.getElementsByClassName('input-name')[0];
 
-  input.value = sessionStorage.getItem('Nome')
+  input.value = sessionStorage.getItem('Nome');
 
-  input.addEventListener('keyup', function() {
-    sessionStorage.setItem('Nome', this.value)
-  })
+  input.addEventListener('keyup', function () {
+    sessionStorage.setItem('Nome', this.value);
+  });
 
-  let check = document.getElementsByClassName('input-terms')[0]
-  
-  check.checked = document.cookie.split('=')[1] === 'true' ? true : false
+  const check = document.getElementsByClassName('input-terms')[0];
 
-  check.addEventListener('click', function() {
-    document.cookie = `concorda=${check.checked}`
-  })
+  check.checked = document.cookie.split('=')[1] === 'true';
+
+  check.addEventListener('click', function () {
+    document.cookie = `concorda=${check.checked}`;
+  });
 
   // document.cookie = `concorda=${concorda.value}; expires=Fri, 31 Dec 2100 00:00:01 GMT`
 };
