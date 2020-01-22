@@ -55,12 +55,18 @@ function gravarNome() {
     sessionStorage.setItem('Nome', nome.value);
   });
 }
-
-const produto = 'aliança';
+function pesquisar(){
+  const produto = document.querySelector('.input-pesquisa');
+  produto.addEventListener('change', () => {
+    limparLista()
+    listarProduto(`https://api.mercadolibre.com/sites/MLB/search?q=${produto.value}`)})
+}
 
 function adicionarElemento(classe, filho) {
   document.querySelector(classe).appendChild(filho);
 }
+
+
 
 const listarProduto = (URL) => {
   fetch(URL)
@@ -78,7 +84,6 @@ const listarProduto = (URL) => {
     });
 };
 
-listarProduto(`https://api.mercadolibre.com/sites/MLB/search?q=${produto}`);
 
 function buscarSku() {
   const nomeSku = getSkuFromProductItem(this.parentElement);
@@ -86,12 +91,11 @@ function buscarSku() {
   adicionarAoCarrinho(URL);
 }
 
-
-const adicionarAoCarrinho = (URL, header) => {
-  fetch(URL, header)
+const adicionarAoCarrinho = (URL2) => {
+  fetch(URL2)
     .then(resposta => resposta.json())
     .then(({ id, title, price }) => {
-      adicionarElemento('cart__items', createCartItemElement({ sku: id, name: title, salePrice: price }));
+      adicionarElemento('.cart__items', createCartItemElement({ sku: id, name: title, salePrice: price }));
       const valorAtual = (localStorage.getItem('listaCompras'));
       console.log(`VALOR ATUAL: ${valorAtual}`)
       if (!valorAtual) localStorage.setItem('listaCompras', `${id}, ${title}, ${price}`);
@@ -101,32 +105,15 @@ const adicionarAoCarrinho = (URL, header) => {
     })
 };
 
-function buscarSku() {
-  const nomeSku = getSkuFromProductItem(this.parentElement);
-  const URL = `https://api.mercadolibre.com/items/${nomeSku}`;
-  adicionarAoCarrinho(URL, headers);
-}
-
 function carregarCarrinho() {
   const arranjoCarrinho = localStorage.getItem('listaCompras').split(' | ');
   arranjoCarrinho.forEach((element) => {
     const [id, title, preco] = element.split(', ');
-    adicionarElemento('cart__items', createCartItemElement({ sku: id, name: title, salePrice: preco }));
+    adicionarElemento('.cart__items', createCartItemElement({ sku: id, name: title, salePrice: preco }));
   });
 }
 
 window.onload = function onload() {
-  const inputName = document.querySelector('.input-name');
-  if (this.localStorage.getItem('nome')) inputName.value = this.localStorage.getItem('nome');
-  inputName.addEventListener('change', () => localStorage.setItem('nome', inputName.value));
-
-  const seletorAceitaCookies = this.document.getElementsByClassName('input-terms')[0];
-  if (localStorage.getItem('aceitaCookies') === 'true') seletorAceitaCookies.checked = this.localStorage.getItem('aceitaCookies');
-  seletorAceitaCookies.addEventListener('click', () => this.localStorage.setItem('aceitaCookies', seletorAceitaCookies.checked));
-
-  carregarCarrinho();
-};
-
-window.onload = function onload() {
+  pesquisar()
   gravarNome()
 };
