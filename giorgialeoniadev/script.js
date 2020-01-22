@@ -114,7 +114,7 @@ search.addEventListener('keyup', (event) => {
          * e para cada item (objeto) dentro deste array\
          * adicionar ele na página
          */      
-        for (const item of data.results) {
+        data.results.forEach(item => {
           const produto = {
             sku: item.id,
             name: item.name,
@@ -122,7 +122,7 @@ search.addEventListener('keyup', (event) => {
           }
           const produtoElement = createProductItemElement(produto)
           newNode.appendChild(produtoElement)
-        }
+        })
         // addToCart()
       })
   }
