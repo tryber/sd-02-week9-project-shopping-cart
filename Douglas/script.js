@@ -62,9 +62,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
-function adicionaLocal(local) {
-  localStorage.setItem(`${localStorage.length}`, JSON.stringify(local));
-}
 
 function exclueTudo() {
   const cart = document.querySelector('.cart__items');
@@ -98,8 +95,9 @@ function segundaRequisicao(response) {
   const valor = numero();
   const controle = pegaTotal();
   controle.innerText = (valor + object.salePrice).toFixed(2);
-  adicionaLocal(object);
-  auxiliaCriação(object);
+  localStorage.setItem(`${localStorage.length}`, JSON.stringify(object));
+  const addclasse = auxiliaCriação(object);
+  addclasse.classList.add(`${localStorage.length - 1}`);
 }
 
 function fetchArray(url, func) {
