@@ -91,7 +91,7 @@ searchInput.addEventListener('keyup', (event) => {
           element.addEventListener('click', () => {
             fetch(`https://api.mercadolibre.com/items/${getSkuFromProductItem(element)}`)
               .then(response => response.json().then((item) => {
-                document.querySelector('.cart__items').appendChild(createCartItemElement({
+                document.getElementsByClassName('cart__items')[0].appendChild(createCartItemElement({
                   sku: item.id,
                   name: item.title,
                   salePrice: item.price,
