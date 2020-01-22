@@ -101,8 +101,9 @@ const appendItems = () => {
   fetchUrls('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then(res => res.json())
     .then(data => data.results.forEach((el) => {
-      sectionItems.appendChild(createProductItemElement(
-        { sku: el.id, name: el.title, image: el.thumbnail, }
+      sectionItems.appendChild(createProductItemElement({ 
+        sku: el.id, name: el.title, image: el.thumbnail
+      }
         ));
     }))
     .then(() => {
