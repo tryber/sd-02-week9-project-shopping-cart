@@ -1,5 +1,5 @@
 const headers = {
-  Accept: 'application/json'
+  Accept: 'application/json',
 };
 const QUERY = 'computador';
 let resultados = [];
@@ -22,7 +22,7 @@ function createCustomElement(element, className, innerText) {
 function createProductItemElement({
   sku,
   name,
-  image
+  image,
 }) {
   const section = document.createElement('section');
   section.className = 'item';
@@ -46,7 +46,7 @@ function cartItemClickListener(event) {
 function createCartItemElement({
   sku,
   name,
-  salePrice
+  salePrice,
 }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -62,8 +62,8 @@ const nomeSessionStorage = () => {
   const sessionExists = sessionStorage.getItem('Nome');
   if (sessionExists) {
     inputNome.value = sessionExists;
-  };
-}
+  }
+};
 
 // Requisito 2
 const cookieChecked = () => {
@@ -90,7 +90,7 @@ function pegaProduto(link, header) {
           const objProduto = createCartItemElement({
             sku: produto.id,
             name: produto.title,
-            salePrice: produto.thumbnail
+            salePrice: produto.thumbnail,
           });
           const itensCarrinho = document.querySelector('.cart__items');
           itensCarrinho.appendChild(objProduto);
@@ -132,11 +132,10 @@ function pegaLista(link, header) {
         });
     })
     .catch(() => console.log('Erro'));
-};
+}
 
 window.onload = function onload() {
   nomeSessionStorage();
   cookieChecked();
   pegaLista(url, headers);
-
 };
