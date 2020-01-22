@@ -1,4 +1,24 @@
-window.onload = function onload() { };
+function adicionaCookie() {
+  if (document.querySelector('.input-terms').checked = true) {
+    return document.cookie = 'User=Usuário; expires=Thu, 18 Dec 2021 12:00:00 UTC';
+  } else if (document.querySelector('.input-terms').checked = false) {
+    return document.cookie = 'User=; expires=Thu, 18 Dec 1970 12:00:00 UTC';
+  }
+}
+
+const verificaChecked = () => {
+  if (document.cookie.length > 5){
+    document.querySelector('.input-terms').checked = true;
+  }
+  document.querySelector('.input-terms').checked = false;
+}
+
+
+
+window.onload = function onload() {
+document.querySelector('.input-terms').addEventListener('click', adicionaCookie);
+verificaChecked();
+};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
