@@ -50,8 +50,7 @@ function getSkuFromProductItem(item) {
 function cartItemClickListener(event) {
   localStorage.removeItem(`${event.target.classList[1]}`);
   event.target.remove();
-  const controle = pegaTotal();
-  controle.innerText = (numero() - (parseFloat(event.target.innerText.split('PRICE: $')[1]))).toFixed(2);
+  pegaTotal().innerText = (numero() - (parseFloat(event.target.innerText.split('PRICE: $')[1]))).toFixed(2);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
