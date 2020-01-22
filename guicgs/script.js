@@ -87,22 +87,19 @@ searchInput.addEventListener('keyup', (event) => {
       }))
       .then(() => {
         const addCart = document.querySelectorAll('.item');
-        addCart.forEach(element => {
+        addCart.forEach((element) => {
           element.addEventListener('click', () => {
             fetch(`https://api.mercadolibre.com/items/${getSkuFromProductItem(element)}`)
-              .then(response => response.json().then(item => {
+              .then(response => response.json().then((item) => {
                 document.querySelector('.cart__items').appendChild(createCartItemElement({
                   sku: item.id,
                   name: item.title,
                   salePrice: item.price,
-                }))
-              }))
-          })
-        })
+                }));
+              }));
+          });
+        });
       })
       .catch(error => console.log(error));
   }
 });
-
-
-
