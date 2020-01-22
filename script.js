@@ -30,6 +30,8 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
+  event.target.remove();
+
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -50,20 +52,30 @@ function saveName() {
   name.value = sessionStorage.getItem('name');
 }
 
-fetch('https://api.mercadolibre.com/sites/MLB/search?q=trybe')
+fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
   .then((response) => {
     response.json().then((res) => {
       res.results.forEach((item) => {
         document.querySelector('.items').appendChild(createProductItemElement({ sku: item.id, name: item.title, image: item.thumbnail }));
+        });
+      }).then(() => {
+        const createItemAdd = document.querySelectorAll('.item__add');
+        createItemAdd.forEach((element) => {
+          element.addEventListener('click', (event) => {
+            fetch(`https://api.mercadolibre.com/items/${getSkuFromProductItem(event.target.parentNode)}`)
+              .then((response) => {
+                response.json().then((res) => {
+                  document.querySelector('.cart__items').appendChild(createCartItemElement({sku: res.id, name: res.title, salePrice: res.price}));
+                  })
+                })
+              })  
+            /* console.log(getSkuFromProductItem(event.target.parentNode)); */
+          });
+        });
       });
-    });
-  });
-
-/*   function add (teste, filho) {
-    document.querySelector(teste).appendChild(filho);
-  }  */
-
-window.onload = function onload() {
+    
+  
+  window.onload = function onload() {
   saveName();
   const checkTerm = document.querySelector('.input-terms');
   checkTerm.addEventListener('click', () => {
