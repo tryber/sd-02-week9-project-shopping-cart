@@ -40,7 +40,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+  event.target.remove();
 }
 
 function createCartItemElement({
@@ -90,7 +90,7 @@ function pegaProduto(link, header) {
           const objProduto = createCartItemElement({
             sku: produto.id,
             name: produto.title,
-            salePrice: produto.thumbnail,
+            salePrice: produto.price,
           });
           const itensCarrinho = document.querySelector('.cart__items');
           itensCarrinho.appendChild(objProduto);
