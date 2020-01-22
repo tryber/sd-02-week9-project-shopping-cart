@@ -1,4 +1,6 @@
-const headers = { Accept: 'application/json' };
+const headers = {
+  Accept: 'application/json'
+};
 const QUERY = 'computador';
 let resultados = [];
 const url = `https://api.mercadolibre.com/sites/MLB/search?q=${QUERY}`;
@@ -17,7 +19,11 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-function createProductItemElement({ sku, name, image }) {
+function createProductItemElement({
+  sku,
+  name,
+  image
+}) {
   const section = document.createElement('section');
   section.className = 'item';
 
@@ -37,7 +43,11 @@ function cartItemClickListener(event) {
   // coloque seu código aqui
 }
 
-function createCartItemElement({ sku, name, salePrice }) {
+function createCartItemElement({
+  sku,
+  name,
+  salePrice
+}) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
@@ -52,7 +62,7 @@ const nomeSessionStorage = () => {
   const sessionExists = sessionStorage.getItem('Nome');
   if (sessionExists) {
     inputNome.value = sessionExists;
-  }
+  };
 }
 
 // Requisito 2
@@ -73,12 +83,15 @@ const cookieChecked = () => {
 // Requisito 4
 function pegaProduto(link, header) {
   fetch(link, header)
-  .then((res) => {
-    res.json()
-    .then((data) => {
-      const produto = data;
-          const objProduto = createCartItemElement(
-            { sku: produto.id, name: produto.title, salePrice: produto.thumbnail });
+    .then((res) => {
+      res.json()
+        .then((data) => {
+          const produto = data;
+          const objProduto = createCartItemElement({
+            sku: produto.id,
+            name: produto.title,
+            salePrice: produto.thumbnail
+          });
           const itensCarrinho = document.querySelector('.cart__items');
           itensCarrinho.appendChild(objProduto);
         });
@@ -93,19 +106,21 @@ const adicionarProduto = () => {
     const endpoint = `https://api.mercadolibre.com/items/${ItemID}`;
     pegaProduto(endpoint, headers);
   }));
-}
+};
 
 // Requisito 3
 const mostrarProdutos = () => {
   const listaItems = document.querySelector('.items');
   resultados.forEach((resultado) => {
-    const objProdutos = createProductItemElement(
-      { sku: resultado.id, name: resultado.title, image: resultado.thumbnail }
-      );
+    const objProdutos = createProductItemElement({
+      sku: resultado.id,
+      name: resultado.title,
+      image: resultado.thumbnail,
+    });
     listaItems.appendChild(objProdutos);
   });
   adicionarProduto();
-}
+};
 
 function pegaLista(link, header) {
   fetch(link, header)
@@ -117,7 +132,7 @@ function pegaLista(link, header) {
         });
     })
     .catch(() => console.log('Erro'));
-}
+};
 
 window.onload = function onload() {
   nomeSessionStorage();
