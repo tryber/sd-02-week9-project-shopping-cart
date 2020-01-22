@@ -70,20 +70,21 @@ const newNode = document.getElementsByClassName('items')[0];
 const cartItems = document.getElementsByClassName('cart__items')[0];
 
 function addToCart() {
-  const button = document.getElementsByClassName('item__add')[0];
-  button.addEventListener('click', (event) => {
-    const result = getSkuFromProductItem(event.target.parentElement);
-    fetch(`https://api.mercadolibre.com/items/${result}`)
-      .then(response => response.json())
-      .then(info => {
-        const produto = {
-          sku: info.id,
-          name: info.name,
-          image: info.salePrice
-        }
-        cartItems.appendChild(createCartItemElement(produto));
-      })
-  })
+  const buttons = document.querySelectorAll('.item__add');
+  buttons.forEach(chosenButton =>
+    chosenButton.addEventListener('click', (event) => {
+      const result = getSkuFromProductItem(event.target.parentElement);
+      fetch(`https://api.mercadolibre.com/items/${result}`)
+        .then(response => response.json())
+        .then(info => {
+          const produto = {
+            sku: info.id,
+            name: info.title,
+            salePrice: info.price
+          }
+          cartItems.appendChild(createCartItemElement(produto));
+        })
+    }))
 }
 
 search.addEventListener('keyup', (event) => {
@@ -117,13 +118,13 @@ search.addEventListener('keyup', (event) => {
         data.results.forEach(item => {
           const produto = {
             sku: item.id,
-            name: item.name,
+            name: item.title,
             image: item.thumbnail
           }
           const produtoElement = createProductItemElement(produto)
           newNode.appendChild(produtoElement)
         })
-        // addToCart()
+        addToCart()
       })
   }
 })
