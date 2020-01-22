@@ -116,11 +116,11 @@ function adicionaCarrinho() {
 }
 
 function deuCerto(response) {
-  setTimeout(() => {
-    const animation = document.querySelector('.progress');
-    animation.classList.toggle('progress');
-    animation.classList.toggle('animation');
-    if (response.results[0] != null) {
+  if (response.results[0] != null) {
+    setTimeout(() => {
+      const animation = document.querySelector('.progress');
+      animation.classList.toggle('progress');
+      animation.classList.toggle('animation');
       response.results.forEach((element) => {
         const localItem = document.querySelector('.items');
         const objetoCriado = createProductItemElement({
@@ -132,10 +132,13 @@ function deuCerto(response) {
       });
       const adiciona = document.querySelectorAll('.item__add');
       adiciona.forEach(element => element.addEventListener('click', adicionaCarrinho));
-    } else {
-      alert('Sua pesquisa não retornou nenhum resultado');
-    }
-  }, 1200);
+    }, 1200);
+  } else {
+    const animation = document.querySelector('.progress');
+    animation.classList.toggle('progress');
+    animation.classList.toggle('animation');
+    alert('Sua pesquisa não retornou nenhum resultado');
+  }
 }
 
 function salvaNome() {

@@ -96,6 +96,7 @@
   animation-name: aumentaTamanho;
   animation-duration: 1.2s;
   animation-timing-function: steps( 50 );
+  animation-iteration-count: infinite;
 }
 
 @keyframes aumentaTamanho {
