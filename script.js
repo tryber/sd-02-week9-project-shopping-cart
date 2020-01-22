@@ -136,16 +136,20 @@ function criarElemento(tag, texto) {
   document.getElementsByClassName('cart')[0].appendChild(elemento);
 }
 
+function carregarCookies() {
+  const seletorAceitaTermos = document.querySelector('input-terms');
+  seletorAceitaTermos.addEventListener('click', () => {
+    document.cookie = `aceita=${seletorAceitaTermos.checked}; expires = sat, 02 May 2020 01:00:00 UTC`;
+  })
+}
+
+
 fetchPesquisa(`https://api.mercadolibre.com/sites/MLB/search?q=${pesquisa}`, headers);
 window.onload = function onload() {
   const inputName = document.querySelector('.input-name');
   if (this.localStorage.getItem('nome')) inputName.value = this.localStorage.getItem('nome');
   inputName.addEventListener('change', () => localStorage.setItem('nome', inputName.value));
-
-  const seletorAceitaCookies = this.document.getElementsByClassName('input-terms')[0];
-  if (localStorage.getItem('aceitaCookies') === 'true') seletorAceitaCookies.checked = this.localStorage.getItem('aceitaCookies');
-  seletorAceitaCookies.addEventListener('click', () => this.localStorage.setItem('aceitaCookies', seletorAceitaCookies.checked));
-
+  carregarCookies()
   criarElemento('p', 'Total: 0');
   criarElemento('button', 'Apagar carrinho');
   carregarCarrinho();
