@@ -74,3 +74,7 @@
   font-size: 16pt;
   text-align: center;
 }
+
+.totalPrice_items {
+  width: 100px;
+}

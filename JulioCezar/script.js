@@ -92,6 +92,7 @@ const addProduto = (event) => {
     .then((el) => {
       document.querySelector('.cart__items').appendChild(
         createCartItemElement({ sku: el.id, name: el.title, salePrice: el.price }));
+      totalPrice ( el.price );
       storage('add', el.id, document.querySelector('ol').lastChild.innerHTML);
     });
 };
@@ -130,7 +131,19 @@ const carregarStorage = () => {
 const limparLista = () => {
   document.querySelector('.cart__items').innerHTML = '';
   localStorage.clear();
+  totalPrice(true);
 };
+
+const totalPrice = (price) => {
+  let valueIni = parseFloat(document.querySelector('.totalPrice_items').value);
+  if (price === true) {
+    valueIni = 0;
+    document.querySelector('.totalPrice_items').value = valueIni
+    return valueIni;
+  }
+  valueIni = valueIni + price;
+  document.querySelector('.totalPrice_items').value = valueIni;
+}
 
 window.onload = function onload() {
   appendItems();
