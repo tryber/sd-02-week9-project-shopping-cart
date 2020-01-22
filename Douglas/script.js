@@ -48,9 +48,8 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  const cart = document.querySelector('.cart__items');
   localStorage.removeItem(`${event.target.classList[1]}`);
-  cart.removeChild(event.target);
+  event.target.remove();
   const controle = pegaTotal();
   controle.innerText = (numero() - (parseFloat(event.target.innerText.split('PRICE: $')[1]))).toFixed(2);
 }
