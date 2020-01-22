@@ -52,7 +52,7 @@ function saveName() {
   name.value = sessionStorage.getItem('name');
 }
 
-function querySelectorItem (classItem, child) {
+function querySelectorItem(classItem, child) {
   document.querySelector(classItem).appendChild(child)
 }
 
@@ -60,26 +60,24 @@ fetch('https://api.mercadolibre.com/sites/MLB/search?q=casa')
   .then((response) => {
     response.json().then((res) => {
       res.results.forEach((item) => {
-        querySelectorItem('.items',createProductItemElement({ sku: item.id, name: item.title, image: item.thumbnail }))    
-        });
-      }).then(() => {
-        const createItemAdd = document.querySelectorAll('.item__add');
-        createItemAdd.forEach((element) => {
-          element.addEventListener('click', (event) => {
-            fetch(`https://api.mercadolibre.com/items/${getSkuFromProductItem(event.target.parentNode)}`)
-              .then((response) => {
-                response.json().then((res) => {
-                  querySelectorItem('.cart__items', createCartItemElement({sku: res.id, name: res.title, salePrice: res.price})) 
-                  })
-                })
-              })  
-            
-          });
+        querySelectorItem('.items', createProductItemElement({ sku: item.id, name: item.title, image: item.thumbnail }))
+      });
+    }).then(() => {
+      const createItemAdd = document.querySelectorAll('.item__add');
+      createItemAdd.forEach((element) => {
+        element.addEventListener('click', (event) => {
+          fetch(`https://api.mercadolibre.com/items/${getSkuFromProductItem(event.target.parentNode)}`)
+            .then((response) => {
+              response.json().then((res) => {
+                querySelectorItem('.cart__items', createCartItemElement({ sku: res.id, name: res.title, salePrice: res.price }))
+              });
+            });
         });
       });
-    
-  
-  window.onload = function onload() {
+    });
+  });
+
+window.onload = function onload() {
   saveName();
   const checkTerm = document.querySelector('.input-terms');
   checkTerm.addEventListener('click', () => {
