@@ -52,6 +52,26 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
+const totalPrice = (price) => {
+  let valueIni = parseFloat(document.querySelector('.totalPrice_items').value);
+  if (price === true) {
+    valueIni = 0;
+    document.querySelector('.totalPrice_items').value = valueIni
+    return valueIni;
+  }
+  valueIni = valueIni + price;
+  storage('add', 'price', valueIni);
+  document.querySelector('.totalPrice_items').value = valueIni;
+};
+
+const loading = () => {
+  let h1 = '';
+  h1 = document.createElement('h1');
+  h1.className = 'loading';
+  h1.innerText = 'LOADING...';
+  return h1;
+};
+
 const storage = (string, id, value) => {
   if (string === 'add') {
     localStorage.setItem(id, value);
@@ -92,7 +112,7 @@ const addProduto = (event) => {
     .then((el) => {
       document.querySelector('.cart__items').appendChild(
         createCartItemElement({ sku: el.id, name: el.title, salePrice: el.price }));
-      totalPrice ( el.price );
+      totalPrice (el.price);
       storage('add', el.id, document.querySelector('ol').lastChild.innerHTML);
     });
 };
@@ -100,7 +120,7 @@ const addProduto = (event) => {
 const appendItems = () => {
   const sectionItems = document.querySelector('.items');
   sectionItems.appendChild(loading());
-  setTimeout(() => {  
+  setTimeout(() => {
   fetchUrls('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then(res => res.json())
     .then(data => data.results.forEach((el) => {
@@ -120,19 +140,12 @@ const appendItems = () => {
   }, 3000);
 };
 
-const loading = () => {
-  let h1;
-  h1 = document.createElement('h1');
-  h1.className = 'loading';
-  h1.innerText = 'LOADING...';
-  return h1;
-}
-
 const carregarStorage = () => {
-  let li;  
+  let li;
   Object.keys(localStorage).forEach((el) => {
-    if (el === 'price')
-    document.querySelector('.totalPrice_items').value = localStorage.getItem(el);
+    if (el === 'price') {
+      document.querySelector('.totalPrice_items').value = localStorage.getItem(el);
+    }
     li = document.createElement('li');
     li.className = 'cart__item';
     li.innerText = localStorage.getItem(el);
@@ -146,18 +159,6 @@ const limparLista = () => {
   localStorage.clear();
   totalPrice(true);
 };
-
-const totalPrice = (price) => {
-  let valueIni = parseFloat(document.querySelector('.totalPrice_items').value);
-  if (price === true) {
-    valueIni = 0;
-    document.querySelector('.totalPrice_items').value = valueIni
-    return valueIni;
-  }
-  valueIni = valueIni + price;
-  storage('add', 'price', valueIni);
-  document.querySelector('.totalPrice_items').value = valueIni;
-}
 
 window.onload = function onload() {
   appendItems();
