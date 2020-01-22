@@ -92,11 +92,11 @@ searchInput.addEventListener('keyup', (event) => {
             fetch(`https://api.mercadolibre.com/items/${getSkuFromProductItem(element)}`)
               .then(response => response.json().then(item => {
                 document.querySelector('.cart__items').appendChild(createCartItemElement({
-                sku: item.id,
-                name: item.title,
-                salePrice: item.price,
+                  sku: item.id,
+                  name: item.title,
+                  salePrice: item.price,
+                }))
               }))
-            }))
           })
         })
       })
