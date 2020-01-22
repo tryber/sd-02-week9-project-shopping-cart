@@ -62,7 +62,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-const pesquisa = 'computador';
+const pesquisa = 'ssd';
 const headers = {
   headers: { Accept: 'application/json' },
 };
@@ -140,7 +140,7 @@ function carregarCookies() {
   const seletorAceitaTermos = document.querySelector('input-terms');
   seletorAceitaTermos.addEventListener('click', () => {
     document.cookie = `aceita=${seletorAceitaTermos.checked}; expires = sat, 02 May 2020 01:00:00 UTC`;
-  })
+  });
 }
 
 
@@ -149,7 +149,7 @@ window.onload = function onload() {
   const inputName = document.querySelector('.input-name');
   if (this.localStorage.getItem('nome')) inputName.value = this.localStorage.getItem('nome');
   inputName.addEventListener('change', () => localStorage.setItem('nome', inputName.value));
-  carregarCookies()
+  carregarCookies();
   criarElemento('p', 'Total: 0');
   criarElemento('button', 'Apagar carrinho');
   carregarCarrinho();
