@@ -82,7 +82,7 @@ function pegaProduto(link, header) {
           const itensCarrinho = document.querySelector('.cart__items');
           itensCarrinho.appendChild(objProduto);
         });
-    });
+    })
     .catch(() => console.log('Erro pega Produto'));
 }
 
@@ -115,7 +115,7 @@ function pegaLista(link, header) {
           resultados = data.results;
           mostrarProdutos();
         });
-    });
+    })
     .catch(() => console.log('Erro'));
 }
 
