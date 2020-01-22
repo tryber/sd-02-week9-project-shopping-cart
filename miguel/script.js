@@ -1,4 +1,22 @@
-window.onload = function onload() { };
+window.onload = function onload() {
+  let input = document.getElementsByClassName('input-name')[0]
+
+  input.value = sessionStorage.getItem('Nome')
+
+  input.addEventListener('keyup', function() {
+    sessionStorage.setItem('Nome', this.value)
+  })
+
+  let check = document.getElementsByClassName('input-terms')[0]
+  
+  check.checked = document.cookie.split('=')[1] === 'true' ? true : false
+
+  check.addEventListener('click', function() {
+    document.cookie = `concorda=${check.checked}`
+  })
+
+  // document.cookie = `concorda=${concorda.value}; expires=Fri, 31 Dec 2100 00:00:01 GMT`
+};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
