@@ -103,7 +103,8 @@ const addProduto = (event) => {
   fetchUrls(`https://api.mercadolibre.com/items/${getSkuFromProductItem(element)}`)
     .then((result) => result.json())
     .then((el) => {
-      document.querySelector('.cart__items').appendChild(createCartItemElement({ sku: el.id, name: el.title, salePrice: el.price }))
+      document.querySelector('.cart__items').appendChild(
+        createCartItemElement({ sku: el.id, name: el.title, salePrice: el.price }))
       storage('add', el.id, document.querySelector('ol').lastChild.innerHTML);
     })
 };
