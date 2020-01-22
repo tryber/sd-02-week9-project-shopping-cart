@@ -106,14 +106,24 @@ search.addEventListener('keyup', (event) => {
        * este json, que no caso vamos chamar de data
        */
       .then(data => {
-        const produto = {
-          sku: data.results.id,
-          name: data.results.name,
-          image: data.results.thumbnail
+        /**
+         * then: obrigado por transformar os dados de
+         * json para objeto javascript, response.
+         * agora, dentro deste objeto vou acessar
+         * a propriedade results - que é um array -
+         * e para cada item (objeto) dentro deste array\
+         * adicionar ele na página
+         */      
+        for (const item of data.results) {
+          const produto = {
+            sku: item.id,
+            name: item.name,
+            image: item.thumbnail
+          }
+          const produtoElement = createProductItemElement(produto)
+          newNode.appendChild(produtoElement)
         }
-        const product = createProductItemElement(produto)
-        newNode.appendChild(product)
-        addToCart()
+        // addToCart()
       })
   }
 })
