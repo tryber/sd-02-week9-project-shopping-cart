@@ -106,7 +106,7 @@ const appendItems = () => {
           sku: el.id,
           name: el.title,
           image: el.thumbnail,
-         }));
+        }));
     }))
     .then(() => {
       const button = document.querySelectorAll('.item__add');
