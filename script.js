@@ -137,7 +137,7 @@ function criarElemento(tag, texto) {
 }
 
 function carregarCookies() {
-  const seletorAceitaTermos = document.querySelector('input-terms');
+  const seletorAceitaTermos = document.querySelector('.input-terms');
   seletorAceitaTermos.addEventListener('click', () => {
     document.cookie = `aceita=${seletorAceitaTermos.checked}; expires = sat, 02 May 2020 01:00:00 UTC`;
   });
