@@ -62,9 +62,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
-function adicionaLocal(local) {
-  localStorage.setItem(`${localStorage.length}`, JSON.stringify(local));
-}
 
 function exclueTudo() {
   const cart = document.querySelector('.cart__items');
@@ -98,8 +95,9 @@ function segundaRequisicao(response) {
   const valor = numero();
   const controle = pegaTotal();
   controle.innerText = (valor + object.salePrice).toFixed(2);
-  adicionaLocal(object);
-  auxiliaCriação(object);
+  const addclasse = auxiliaCriação(object);
+  localStorage.setItem(`${object.sku}`, JSON.stringify(object));
+  addclasse.classList.add(`${object.sku}`);
 }
 
 function fetchArray(url, func) {
@@ -173,7 +171,7 @@ function inicia() {
       const object = JSON.parse(localStorage.getItem(localStorage.key(i)));
       const { name, salePrice, sku } = object;
       const addclasse = auxiliaCriação({ sku, name, salePrice });
-      addclasse.classList.add(`${i}`);
+      addclasse.classList.add(`${sku}`);
       const controle = numero();
       const controle1 = pegaTotal();
       controle1.innerText = (parseFloat(controle + salePrice).toFixed(2));
