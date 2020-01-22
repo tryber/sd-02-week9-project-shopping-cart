@@ -31,7 +31,6 @@ function getSkuFromProductItem(item) {
 function cartItemClickListener(event) {
   // coloque seu código aqui
   event.target.remove();
-
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -53,23 +52,23 @@ function saveName() {
 }
 
 function querySelectorItem(classItem, child) {
-  document.querySelector(classItem).appendChild(child)
+  document.querySelector(classItem).appendChild(child);
 }
 
 fetch('https://api.mercadolibre.com/sites/MLB/search?q=casa')
   .then((response) => {
     response.json().then((res) => {
       res.results.forEach((item) => {
-        querySelectorItem('.items', createProductItemElement({ sku: item.id, name: item.title, image: item.thumbnail }))
+        querySelectorItem('.items', createProductItemElement({ sku: item.id, name: item.title, image: item.thumbnail }));
       });
     }).then(() => {
       const createItemAdd = document.querySelectorAll('.item__add');
       createItemAdd.forEach((element) => {
         element.addEventListener('click', (event) => {
           fetch(`https://api.mercadolibre.com/items/${getSkuFromProductItem(event.target.parentNode)}`)
-            .then((response) => {
-              response.json().then((res) => {
-                querySelectorItem('.cart__items', createCartItemElement({ sku: res.id, name: res.title, salePrice: res.price }))
+            .then((responseId) => {
+              responseId.json().then((resId) => {
+                querySelectorItem('.cart__items', createCartItemElement({ sku: resId.id, name: resId.title, salePrice: resId.price }));
               });
             });
         });
