@@ -127,9 +127,16 @@ const carregarStorage = () => {
   });
 };
 
+const limparLista = () => {
+  document.querySelector('.cart__items').innerHTML = '';
+  localStorage.clear();
+};
+
 window.onload = function onload() {
   appendItems();
   carregarStorage();
+  const clearList = document.querySelector('.button-items');
+  clearList.addEventListener('click', limparLista);
   const termos = document.querySelector('.input-terms');
   termos.addEventListener('change', mostrar);
   const name = document.querySelector('.input-name');
