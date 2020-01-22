@@ -52,12 +52,15 @@ buscaProduto.addEventListener('keyup', (event) => {
     fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${buscaProduto.value}`)
     .then(response => response.json())
     .then(produtoAchado => {
+      // const produto = {sku: produtoAchado.results[0].id, name: produtoAchado.results[0].title, image: produtoAchado.results[0].thumbnail};
       produtoAchado.results.forEach(element => {
       const produto = {sku: element.id, name: element.title, image: element.thumbnail};
+      // sessionStorage.setItem('ProductSKU', `${produto.id}`, 'ProductName', `${produto.title}`, 'ProductImage', `${produto.thumbnail}`)
       descreveProduto.appendChild(createProductItemElement(produto));
       adicionaListener()
     });
   })
+  .catch(() => alert('Produto não encontrado.'));
   buscaProduto.value = null;
   }
 });
@@ -72,8 +75,8 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  const produtosnaCesta = document.querySelectorAll('li');
-  produtosnaCesta.forEach(clicado => clicado.addEventListener('click', event.target.remove));
+  event.target.remove();
+  window.localStorage.removeItem(`${event.target.innerText.split(' ')[1]}`);
 }
 
 function adicionaCarrinho(event) {
@@ -83,14 +86,13 @@ function adicionaCarrinho(event) {
   .then(clicado => {
     const produtoclicado = {sku: clicado.id, name: clicado.title, salePrice: clicado.price};
     cartItems.appendChild(createCartItemElement(produtoclicado));
-    salvaLocalStorage(produtoclicado)
+    armazenaStorage(clicado.id, clicado.title, clicado.price);
   });
 }
 
-// function salvaLocalStorage(item) {
-//   sessionStorage.setItem('SKU', )
-//   console.log(item.salePrice)
-// }
+function armazenaStorage(produtoV, nomeV, precoV) {
+  localStorage.setItem(`${produtoV}`, [produtoV, nomeV, precoV]);
+ }
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
