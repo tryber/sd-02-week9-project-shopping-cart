@@ -67,7 +67,7 @@ const totalPrice = (price) => {
     document.querySelector('.totalPrice_items').value = valueIni;
     return valueIni;
   }
-  valueIni += + price;
+  valueIni += price;
   storage('add', 'price', valueIni);
   document.querySelector('.totalPrice_items').value = valueIni;
   return valueIni;
