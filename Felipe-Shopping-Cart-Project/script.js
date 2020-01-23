@@ -13,11 +13,11 @@ function salvaSession() {
 
 function adicionaCookie() {
   if (document.querySelector('.input-terms').checked) {
-    const resulCookie = document.cookie = 'User=Usuário; expires=Thu, 18 Dec 2021 12:00:00 UTC';
+    const resulCookie = () => document.cookie = 'User=Usuário; expires=Thu, 18 Dec 2021 12:00:00 UTC';
     return resulCookie;
   }
   document.querySelector('.input-terms').checked = false;
-  const resulCookie = document.cookie = 'User=; expires=Thu, 18 Dec 1970 12:00:00 UTC';
+  const resulCookie = () => document.cookie = 'User=; expires=Thu, 18 Dec 1970 12:00:00 UTC';
   return resulCookie;
 }
 
