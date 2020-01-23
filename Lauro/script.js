@@ -8,6 +8,15 @@ const buscaProduto = document.getElementsByClassName('input-item')[0];
 
 const cartItems = document.querySelector('.cart__items');
 
+const botaoLimpa = document.querySelector('.empty-cart');
+
+botaoLimpa.addEventListener('click', () => {
+  while (cartItems.firstChild) {
+    cartItems.removeChild(cartItems.firstChild);
+  }
+  window.localStorage.clear();
+})
+
 function armazenaStorage(produtoV, nomeV, precoV) {
   localStorage.setItem(`${produtoV}`, JSON.stringify({ id: produtoV, title: nomeV, price: precoV }));
 }
