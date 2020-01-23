@@ -8,6 +8,14 @@ const buscaProduto = document.getElementsByClassName('input-item')[0];
 
 const cartItems = document.querySelector('.cart__items');
 
+function armazenaStorage(produtoV, nomeV, precoV) {
+  localStorage.setItem(`${produtoV}`, JSON.stringify({ id: produtoV, title: nomeV, price: precoV }));
+}
+
+function getSkuFromProductItem(item) {
+  return item.querySelector('span.item__sku').innerText;
+}
+
 caixaCookies.addEventListener('click', () => {
   document.cookie = 'agree = yes; expires = Thu, 18 Dec 2021 12:00:00 UTC';
 });
@@ -18,6 +26,11 @@ inputName.addEventListener('keyup', (event) => {
     inputName.value = null;
   }
 });
+
+function cartItemClickListener(event) {
+  event.target.remove();
+  window.localStorage.removeItem(event.target.innerText.split(' ')[1]);
+}
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -57,7 +70,7 @@ buscaProduto.addEventListener('keyup', (event) => {
   if (event.keyCode === 13) {
     const secaoItens = document.querySelector('.items');
     while (secaoItens.firstChild) {
-      secaoItens.removeChild(secaoItens.firstChild)
+      secaoItens.removeChild(secaoItens.firstChild);
     };
     fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${buscaProduto.value}`)
       .then((response) => {
@@ -68,7 +81,7 @@ buscaProduto.addEventListener('keyup', (event) => {
                 sku: element.id,
                 name: element.title,
                 image: element.thumbnail,
-              };
+              }
               adicionaListener();
               descreveProduto.appendChild(createProductItemElement(produto));
             });
@@ -93,20 +106,7 @@ function adicionaCarrinho(event) {
 
 function adicionaListener() {
   const botaoAdiciona = document.querySelectorAll('.item__add');
-  botaoAdiciona.forEach(botao => botao.addEventListener('click', adicionaCarrinho))
-}
-
-function getSkuFromProductItem(item) {
-  return item.querySelector('span.item__sku').innerText;
-}
-
-function cartItemClickListener(event) {
-  event.target.remove();
-  window.localStorage.removeItem(event.target.innerText.split(' ')[1]);
-}
-
-function armazenaStorage(produtoV, nomeV, precoV) {
-  localStorage.setItem(`${produtoV}`, JSON.stringify({ id: produtoV, title: nomeV, price: precoV }));
+  botaoAdiciona.forEach(botao => botao.addEventListener('click', adicionaCarrinho));
 }
 
 function carregaStorage() {
