@@ -92,4 +92,11 @@ fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
       localStorage.setItem('lista', elementoPai.innerHTML);
     });
   }));
+
+  const botaoLimpar = document.querySelector('.limpar');
+  botaoLimpar.addEventListener('click', function () {
+    const elementoPai = document.querySelector('.cart__items');
+    elementoPai.innerHTML = '';
+    localStorage.setItem('lista', elementoPai.innerHTML);
+  })
 });
