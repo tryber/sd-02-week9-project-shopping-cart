@@ -23,8 +23,7 @@ const verificaChecked = () => {
   if (!document.cookie.includes('User=Usuário')) {
     return document.querySelector('.input-terms').defaultChecked
   }
-  const resultTrue = document.querySelector('.input-terms').checked
-  resultTrue = true;
+  const resultTrue = !document.querySelector('.input-terms').checked
   return resultTrue;
 }
 
