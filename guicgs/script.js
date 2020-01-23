@@ -1,5 +1,3 @@
-window.onload = function onload() { };
-
 // Função que salva o nome passado no input na session storage
 const nameInput = document.getElementsByClassName('input-name')[0];
 nameInput.addEventListener('keyup', (event) => {
@@ -57,6 +55,7 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   event.target.remove();
+  window.localStorage.removeItem(event.target.innerText.split(' ')[1]);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -65,6 +64,17 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
+}
+
+function storage(cartItem, object) {
+  localStorage.setItem(cartItem, JSON.stringify(object))
+}
+
+function loadLocalStorage() {
+  for (let i = 0; i < localStorage.length; i += 1) {
+    const productStorage = JSON.parse(localStorage.getItem(localStorage.key(i)));
+    document.querySelector('.cart__items').appendChild(createCartItemElement(productStorage));
+  }
 }
 
 const searchInput = document.getElementsByClassName('input-search')[0];
@@ -85,12 +95,14 @@ searchInput.addEventListener('keyup', (event) => {
         addCart.forEach((element) => {
           element.addEventListener('click', () => {
             fetch(`https://api.mercadolibre.com/items/${getSkuFromProductItem(element)}`)
-              .then(response => response.json().then((item) => {
-                document.getElementsByClassName('cart__items')[0].appendChild(createCartItemElement({
+              .then((response) => response.json().then((item) => {
+                const objeto = {
                   sku: item.id,
                   name: item.title,
                   salePrice: item.price,
-                }));
+                }
+                document.getElementsByClassName('cart__items')[0].appendChild(createCartItemElement(objeto))
+                storage(item.id, objeto);
               }));
           });
         });
@@ -98,3 +110,7 @@ searchInput.addEventListener('keyup', (event) => {
       .catch(error => console.log(error));
   }
 });
+
+window.onload = function onload() {
+  loadLocalStorage();
+};
