@@ -130,4 +130,4 @@ function carregaStorage() {
 
 window.onload = function onload() {
   carregaStorage();
-};
+}
