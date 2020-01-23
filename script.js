@@ -92,17 +92,16 @@ function adicionarAoCarrinho() {
 }
 
 function loading(a) {
-  const divCarregar = document.getElementById('carregar')
-  divCarregar.innerHTML = 'Loading...'
-  if (a) divCarregar.innerHTML = ''
+  const divCarregar = document.getElementById('carregar');
+  divCarregar.innerHTML = 'Loading...';
+  if (a) divCarregar.innerHTML = '';
 }
 
 const fetchPesquisa = (URL, header) => {
   fetch(URL, header)
     .then(resp => resp.json())
     .then((json) => {
-      loading()
-      setTimeout
+      loading();
       setTimeout(() => {
         json.results.forEach((resultados) => {
           appendarChild('items', createProductItemElement({ sku: resultados.id, name: resultados.title, image: resultados.thumbnail }))
@@ -164,5 +163,5 @@ window.onload = function onload() {
     seletorBotaoCarrinho.forEach((elem) => {
       elem.addEventListener('click', adicionarAoCarrinho);
     })
-  }, 3500)
+  }, 4000)
 };
