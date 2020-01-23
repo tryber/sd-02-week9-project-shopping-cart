@@ -59,7 +59,7 @@ function createLoad() {
   const itemsProduct = document.querySelector('.items');
   const titleLoad = document.createElement('h1');
   titleLoad.setAttribute('id', 'load');
-  titleLoad.innerText = 'Carregando...';
+  titleLoad.innerText = 'Fernandão assinando...';
   itemsProduct.appendChild(titleLoad);
   setTimeout(() => {
     itemsProduct.removeChild(itemsProduct.childNodes[1]);
@@ -67,6 +67,7 @@ function createLoad() {
 }
 
 let sum = 0;
+
 setTimeout(() => {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=casa')
     .then((response) => {
@@ -75,6 +76,7 @@ setTimeout(() => {
           querySelectorItem('.items', createProductItemElement({ sku: item.id, name: item.title, image: item.thumbnail }));
         });
       }).then(() => {
+
         const total = document.getElementById('total');
         const createItemAdd = document.querySelectorAll('.item__add');
         createItemAdd.forEach((element) => {
@@ -85,6 +87,12 @@ setTimeout(() => {
                   querySelectorItem('.cart__items', createCartItemElement({ sku: res.id, name: res.title, salePrice: res.price }));
                   sum += res.price;
                   total.innerText = `Total: ${sum}`;
+                  let cartListv = (localStorage.getItem('cartList'));
+                  if (cartListv) {
+                    localStorage.setItem('cartList', `${cartListv}; SKU: ${res.id} | NAME: ${res.title} | PRICE: ${res.price};`);
+                  } else {
+                    localStorage.setItem('cartList', `SKU: ${res.id} | NAME: ${res.title} | PRICE: ${res.price};`);
+                  }
                 });
               });
           });
@@ -92,6 +100,13 @@ setTimeout(() => {
       });
     });
 }, 1000);
+
+function cartSaved() {
+  localStorage.getItem('cartList').split(';').forEach((item) => {
+    const [id, title, price] = item.split(',');
+    querySelectorItem('.cart__items', createCartItemElement({ sku: id, name: title, salePrice: price }));
+  })
+}
 
 function createCookie() {
   const checkTerm = document.querySelector('.input-terms');
@@ -110,6 +125,7 @@ function removeCart() {
   buttonRemoveAll.addEventListener('click', () => {
     cart.innerText = '';
     total.innerText = 'Total: ';
+    localStorage.setItem('list', null);
   });
 }
 
@@ -118,4 +134,5 @@ window.onload = function onload() {
   createCookie();
   removeCart();
   createLoad();
+  cartSaved();
 };
