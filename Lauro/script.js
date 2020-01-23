@@ -83,7 +83,7 @@ function cartItemClickListener(event) {
 }
 
 function armazenaStorage(produtoV, nomeV, precoV) {
-  localStorage.setItem(`${produtoV}`, JSON.stringify({'id': produtoV, 'title': nomeV, 'price': precoV}));
+  localStorage.setItem(`${produtoV}`, JSON.stringify({ 'id': produtoV, 'title': nomeV, 'price': precoV }));
 }
 
 function adicionaCarrinho(event) {
@@ -98,13 +98,13 @@ function adicionaCarrinho(event) {
 }
 
 function carregaStorage() {
-  if(localStorage.length > 0) {
+  if (localStorage.length > 0) {
     for (let i = 0; i < localStorage.length; i += 1) {
       const produto = JSON.parse(localStorage.getItem(localStorage.key(i)));
-      const objeto = {sku: produto.id, name: produto.title, salePrice: produto.price}
+      const objeto = { sku: produto.id, name: produto.title, salePrice: produto.price }
       cartItems.appendChild(createCartItemElement(objeto));
+    }
   }
-}
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
