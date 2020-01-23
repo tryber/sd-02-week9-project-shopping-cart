@@ -13,22 +13,20 @@ function salvaSession() {
 
 function adicionaCookie() {
   if (document.querySelector('.input-terms').checked) {
-    const resulCookie = () => document.cookie = 'User=Usuário; expires=Thu, 18 Dec 2021 12:00:00 UTC';
-    return resulCookie;
+    return document.cookie = 'User=; expires=Thu, 18 Dec 2021 12:00:00 UTC';
   }
   document.querySelector('.input-terms').checked = false;
-  const resulCookie = () => document.cookie = 'User=; expires=Thu, 18 Dec 1970 12:00:00 UTC';
-  return resulCookie;
+  return document.cookie = 'User=; expires=Thu, 18 Dec 1970 12:00:00 UTC';
 }
 
 const verificaChecked = () => {
   if (!document.cookie.includes('User=Usuário')) {
-    const resultFalse = () => document.querySelector('.input-terms').checked = false;
-    return resultFalse
+    return document.querySelector('.input-terms').defaultChecked
   }
-  const resultTrue = () => document.querySelector('.input-terms').checked = true;
-  return resultTrue
-};
+  const resultTrue = document.querySelector('.input-terms').checked
+  resultTrue = true;
+  return resultTrue;
+}
 
 // Fim Requisito 2
 // Inicio Requisito 3
