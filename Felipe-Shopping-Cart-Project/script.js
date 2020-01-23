@@ -13,10 +13,10 @@ function salvaSession() {
 
 function adicionaCookie() {
   if (document.querySelector('.input-terms').checked) {
-    return document.cookie = 'User=; expires=Thu, 18 Dec 2021 12:00:00 UTC';
+    return (document.cookie = 'User=; expires=Thu, 18 Dec 2021 12:00:00 UTC');
   }
   document.querySelector('.input-terms').checked = false;
-  return document.cookie = 'User=; expires=Thu, 18 Dec 1970 12:00:00 UTC';
+  return (document.cookie = 'User=; expires=Thu, 18 Dec 1970 12:00:00 UTC');
 }
 
 const verificaChecked = () => {
