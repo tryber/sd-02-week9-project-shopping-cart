@@ -60,6 +60,20 @@ searchInput.addEventListener('keyup', (event) => {
             image: element.thumbnail,
           }));
       }))
+      .then(() => {
+        const id = document.querySelector('.items');
+        const addCart = document.querySelectorAll('.item__add');
+        addCart.forEach(element => element.addEventListener('click', () => {
+          fetch(`https://api.mercadolibre.com/items/${getSkuFromProductItem(id)}`)
+            .then(response => response.json().then((object) => {
+              document.getElementsByClassName('cart__items')[0].appendChild(createCartItemElement({
+                sku: object.id,
+                name: object.title,
+                salePrice: object.price,
+              }));
+            }));
+        }));
+      })
       .catch(error => console.log(error));
   }
 });
