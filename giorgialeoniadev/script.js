@@ -36,7 +36,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+  // Coloque seu código aqui
   event.target.remove();
   window.localStorage.removeItem(`${event.target.innerText.split(' ')[1]}`);
 }
