@@ -97,9 +97,13 @@ fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
 .then((response) => {
   response.json().then((res) => {
     res.results.forEach((item) => {
+      const produto = {
+        sku: item.id,
+        name: item.title,
+        image: item.thumbnail,
+      };
       document.querySelector('.items')
-        .appendChild(createProductItemElement(
-          { sku: item.id, name: item.title, image: item.thumbnail }));
+        .appendChild(createProductItemElement({ produto }));
     });
     botaoAdiciona();
   });
