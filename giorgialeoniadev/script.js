@@ -44,7 +44,7 @@ function cartItemClickListener(event) {
 function createCartItemElement({
   sku,
   name,
-  salePrice
+  salePrice,
 }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -81,7 +81,7 @@ function addToCart() {
       const result = getSkuFromProductItem(event.target.parentElement);
       fetch(`https://api.mercadolibre.com/items/${result}`)
         .then(response => response.json())
-        .then(info => {
+        .then((info) => {
           const produto = {
             sku: info.id,
             name: info.title,
@@ -97,8 +97,8 @@ search.addEventListener('keyup', (event) => {
   if (event.keyCode === 13) {
     fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${event.target.value}`)
       .then(response => response.json())
-      .then(data => {
-        data.results.forEach(item => {
+      .then((data) => {
+        data.results.forEach((item) => {
           const produto = {
             sku: item.id,
             name: item.title,
