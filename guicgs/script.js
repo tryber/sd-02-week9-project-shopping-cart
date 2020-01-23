@@ -111,6 +111,18 @@ searchInput.addEventListener('keyup', (event) => {
   }
 });
 
+function removeAllCartItems() {
+  const removeButton = document.querySelector('.botao-remover');
+  removeButton.addEventListener('click', () => {
+    const cartItems = document.querySelectorAll('.cart__item');
+    cartItems.forEach(element => {
+      element.remove();
+      window.localStorage.clear();
+    });
+  });
+}
+
 window.onload = function onload() {
   loadLocalStorage();
+  removeAllCartItems();
 };
