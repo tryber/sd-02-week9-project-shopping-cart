@@ -116,7 +116,7 @@ function loadCart() {
     const [id, title, price] = product.split(', ');
     addElement('.cart__items', createCartItemElement({ sku: id, name: title, salePrice: price }));
   });
-};
+}
 
 window.onload = function onload() {
   showProducts(URL1);
