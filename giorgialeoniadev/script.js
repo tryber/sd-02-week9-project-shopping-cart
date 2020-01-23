@@ -18,7 +18,7 @@ function createCustomElement(element, className, innerText) {
 function createProductItemElement({
   sku,
   name,
-  image
+  image,
 }) {
   const section = document.createElement('section');
   section.className = 'item';
@@ -85,7 +85,7 @@ function addToCart() {
           const produto = {
             sku: info.id,
             name: info.title,
-            salePrice: info.price
+            salePrice: info.price,
           };
           cartItems.appendChild(createCartItemElement(produto));
           addToLocalStorage(info.id, info.title, info.price);
@@ -102,7 +102,7 @@ search.addEventListener('keyup', (event) => {
           const produto = {
             sku: item.id,
             name: item.title,
-            image: item.thumbnail
+            image: item.thumbnail,
           };
           const produtoElement = createProductItemElement(produto);
           newNode.appendChild(produtoElement);
