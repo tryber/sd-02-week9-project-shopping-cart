@@ -94,6 +94,10 @@ function segundaRequisicao(response) {
   const controle = pegaTotal();
   controle.innerText = (valor + object.salePrice).toFixed(2);
   const addclasse = auxiliaCriação(object);
+  if (localStorage.getItem(object.sku)) {
+    localStorage.setItem(`${object.sku}${localStorage.length}`, JSON.stringify(object));
+    addclasse.classList.add(`${object.sku}${localStorage.length}`);
+  }
   localStorage.setItem(`${object.sku}`, JSON.stringify(object));
   addclasse.classList.add(`${object.sku}`);
 }
@@ -172,7 +176,7 @@ function inicia() {
       const object = JSON.parse(localStorage.getItem(localStorage.key(i)));
       const { name, salePrice, sku } = object;
       const addclasse = auxiliaCriação({ sku, name, salePrice });
-      addclasse.classList.add(`${sku}`);
+      addclasse.classList.add(`${localStorage.key(i)}`);
       const controle = numero();
       const controle1 = pegaTotal();
       controle1.innerText = (parseFloat(controle + salePrice).toFixed(2));
