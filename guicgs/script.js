@@ -95,7 +95,7 @@ function addToCart() {
 }
 
 function searchAndAddtoCart() {
-  const searchInput = document.querySelector('.input-search')
+  const searchInput = document.querySelector('.input-search');
   searchInput.addEventListener('keyup', (event) => {
     if (event.keyCode === 13) {
       clearPreviousSearch();
