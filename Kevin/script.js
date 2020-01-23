@@ -90,11 +90,9 @@ searchInput.addEventListener('keyup', (event) => {
   }
 });
 
-
-
-//function cartItemClickListener(event) {
+// function cartItemClickListener(event) {
   // coloque seu código aqui
-//}
+// }
 
 window.onload = function loadFunction() {
   sessionName();
