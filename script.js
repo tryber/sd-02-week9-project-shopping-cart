@@ -104,11 +104,11 @@ const fetchPesquisa = (URL, header) => {
       loading();
       setTimeout(() => {
         json.results.forEach((resultados) => {
-          appendarChild('items', createProductItemElement({ sku: resultados.id, name: resultados.title, image: resultados.thumbnail }))
+          appendarChild('items', createProductItemElement({ sku: resultados.id, name: resultados.title, image: resultados.thumbnail }));
           loading(1);
-        })
+        });
       }, 3000);
-    })
+    });
 };
 
 function carregarCarrinho() {
@@ -162,6 +162,6 @@ window.onload = function onload() {
     const seletorBotaoCarrinho = document.querySelectorAll('.item__add');
     seletorBotaoCarrinho.forEach((elem) => {
       elem.addEventListener('click', adicionarAoCarrinho);
-    })
-  }, 4000)
+    });
+  }, 4000);
 };
