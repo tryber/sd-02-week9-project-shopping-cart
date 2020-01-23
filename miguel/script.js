@@ -80,11 +80,11 @@ fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
   botoes.forEach(element => element.addEventListener('click', function () {
     fetch(`https://api.mercadolibre.com/items/${getSkuFromProductItem(event.target.parentElement)}`)
     .then(res => res.json())
-    .then((data) => {
+    .then((obj) => {
       const objeto = {
-        sku: data.id,
-        name: data.title,
-        salePrice: data.price,
+        sku: obj.id,
+        name: obj.title,
+        salePrice: obj.price,
       };
       const elementoPai = document.querySelector('.cart__items');
       elementoPai.appendChild(createCartItemElement(objeto));
