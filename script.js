@@ -31,7 +31,6 @@ function getSkuFromProductItem(item) {
 function cartItemClickListener(event) {
   // coloque seu código aqui
   event.target.remove();
-
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -53,18 +52,18 @@ function saveName() {
 }
 
 function querySelectorItem(classItem, child) {
-  document.querySelector(classItem).appendChild(child)
+  document.querySelector(classItem).appendChild(child);
 }
 
 function createLoad() {
-  const itemsProduct = document.querySelector('.items')
+  const itemsProduct = document.querySelector('.items');
   const titleLoad = document.createElement('h1');
   titleLoad.setAttribute('id', 'load');
-  titleLoad.innerText = 'Carregando...'
+  titleLoad.innerText = 'Carregando...';
   itemsProduct.appendChild(titleLoad);
   setTimeout(() => {
     itemsProduct.removeChild(itemsProduct.childNodes[1]);
-  }, 998)
+  }, 998);
 }
 
 let sum = 0;
@@ -73,7 +72,7 @@ setTimeout(() => {
     .then((response) => {
       response.json().then((res) => {
         res.results.forEach((item) => {
-          querySelectorItem('.items', createProductItemElement({ sku: item.id, name: item.title, image: item.thumbnail }))
+          querySelectorItem('.items', createProductItemElement({ sku: item.id, name: item.title, image: item.thumbnail }));
         });
       }).then(() => {
         const total = document.getElementById('total');
@@ -81,19 +80,18 @@ setTimeout(() => {
         createItemAdd.forEach((element) => {
           element.addEventListener('click', (event) => {
             fetch(`https://api.mercadolibre.com/items/${getSkuFromProductItem(event.target.parentNode)}`)
-              .then((response) => {
-                response.json().then((res) => {
+              .then((responseId) => {
+                responseId.json().then((res) => {
                   querySelectorItem('.cart__items', createCartItemElement({ sku: res.id, name: res.title, salePrice: res.price }));
-                  sum = sum + res.price;
+                  sum += res.price;
                   total.innerText = `Total: ${sum}`
-                })
-              })
-          })
+                });
+              });
+          });
         });
-
       });
     });
-}, 1000)
+}, 1000);
 
 function createCookie() {
   const checkTerm = document.querySelector('.input-terms');
@@ -111,8 +109,8 @@ function removeCart() {
   const buttonRemoveAll = document.getElementById('remove-all');
   buttonRemoveAll.addEventListener('click', () => {
     cart.innerText = '';
-    total.innerText = 'Total: '
-  })
+    total.innerText = 'Total: ';
+  });
 }
 
 window.onload = function onload() {
