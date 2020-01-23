@@ -131,7 +131,7 @@ function pegaLista(link, header) {
   fetch(link, header)
     .then((res) => {
       res.json()
-        .then((data) => {
+        .then((data) => 
           resultados = data.results;
           mostrarProdutos();
         })
@@ -141,7 +141,7 @@ function pegaLista(link, header) {
 }
 
 function itensLocalStorage() {
-  for ( i = 0; i < localStorage.length; i += 1 ) {
+  for (i = 0; i < localStorage.length; i += 1) {
     const itensLocal = JSON.parse(localStorage.getItem(localStorage.key(i)));
     const objProduto = createCartItemElement(itensLocal);
     const itensCarrinho = document.querySelector('.cart__items');
