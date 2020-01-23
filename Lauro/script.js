@@ -15,7 +15,7 @@ botaoLimpa.addEventListener('click', () => {
     cartItems.removeChild(cartItems.firstChild);
   }
   window.localStorage.clear();
-})
+});
 
 function armazenaStorage(produtoV, nomeV, precoV) {
   localStorage.setItem(`${produtoV}`, JSON.stringify({ id: produtoV, title: nomeV, price: precoV }));
