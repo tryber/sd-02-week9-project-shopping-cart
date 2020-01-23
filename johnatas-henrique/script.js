@@ -140,8 +140,8 @@ function pegaLista(link, header) {
     .catch(() => console.log('Erro pega lista'));
 }
 
-function itensLocalStorage () {
-  for (i = 0; i < localStorage.length; i += 1){
+function itensLocalStorage() {
+  for ( i = 0; i < localStorage.length; i += 1 ) {
     const itensLocal = JSON.parse(localStorage.getItem(localStorage.key(i)));
     const objProduto = createCartItemElement(itensLocal);
     const itensCarrinho = document.querySelector('.cart__items');
