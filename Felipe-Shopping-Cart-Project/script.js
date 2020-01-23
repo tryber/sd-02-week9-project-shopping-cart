@@ -21,11 +21,11 @@ function adicionaCookie() {
 
 const verificaChecked = () => {
   if (!document.cookie.includes('User=Usuário')) {
-    return document.querySelector('.input-terms').defaultChecked
+    return document.querySelector('.input-terms').defaultChecked;
   }
-  const resultTrue = !document.querySelector('.input-terms').checked
+  const resultTrue = !document.querySelector('.input-terms').checked;
   return resultTrue;
-}
+};
 
 // Fim Requisito 2
 // Inicio Requisito 3
