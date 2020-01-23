@@ -4,9 +4,9 @@ function salvaSession() {
   const input = document.querySelector('.input-name');
   input.addEventListener('change', () => {
     sessionStorage.setItem('Nome', input.value);
-  })
+  });
   input.value = sessionStorage.getItem('Nome');
-};
+}
 
 // Fim Requisito 1
 // Início Requisito 2
@@ -16,7 +16,7 @@ function adicionaCookie() {
     const resulCookie = document.cookie = 'User=Usuário; expires=Thu, 18 Dec 2021 12:00:00 UTC';
     return resulCookie;
   }
-  document.querySelector('.input-terms').checked = false
+  document.querySelector('.input-terms').checked = false;
   const resulCookie = document.cookie = 'User=; expires=Thu, 18 Dec 1970 12:00:00 UTC';
   return resulCookie;
 }
@@ -30,6 +30,18 @@ const verificaChecked = () => {
 
 // Fim Requisito 2
 // Inicio Requisito 3
+
+function getSkuFromProductItem(item) {
+  return item.querySelector('span.item__sku').innerText;
+}
+
+function createCartItemElement({ sku, name, salePrice }) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  return li;
+}
 
 function botaoAdiciona() {
   const botaozinCapeta = document.querySelectorAll('.item__add');
@@ -49,8 +61,18 @@ function botaoAdiciona() {
   });
 }
 
-function getSkuFromProductItem(item) {
-  return item.querySelector('span.item__sku').innerText;
+function createCustomElement(element, className, innerText) {
+  const e = document.createElement(element);
+  e.className = className;
+  e.innerText = innerText;
+  return e;
+}
+
+function createProductImageElement(imageSource) {
+  const img = document.createElement('img');
+  img.className = 'item__image';
+  img.src = imageSource;
+  return img;
 }
 
 function createProductItemElement({ sku, name, image }) {
@@ -85,28 +107,6 @@ verificaChecked();
 salvaSession();
 };
 
-function createProductImageElement(imageSource) {
-  const img = document.createElement('img');
-  img.className = 'item__image';
-  img.src = imageSource;
-  return img;
-}
-
-function createCustomElement(element, className, innerText) {
-  const e = document.createElement(element);
-  e.className = className;
-  e.innerText = innerText;
-  return e;
-}
-
 function cartItemClickListener(event) {
   event.target.remove();
-}
-
-function createCartItemElement({ sku, name, salePrice }) {
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
-  return li;
 }
