@@ -76,7 +76,6 @@ setTimeout(() => {
           querySelectorItem('.items', createProductItemElement({ sku: item.id, name: item.title, image: item.thumbnail }));
         });
       }).then(() => {
-
         const total = document.getElementById('total');
         const createItemAdd = document.querySelectorAll('.item__add');
         createItemAdd.forEach((element) => {
@@ -87,7 +86,7 @@ setTimeout(() => {
                   querySelectorItem('.cart__items', createCartItemElement({ sku: res.id, name: res.title, salePrice: res.price }));
                   sum += res.price;
                   total.innerText = `Total: ${sum}`;
-                  let cartListv = (localStorage.getItem('cartList'));
+                  const cartListv = (localStorage.getItem('cartList'));
                   if (cartListv) {
                     localStorage.setItem('cartList', `${cartListv}; SKU: ${res.id} | NAME: ${res.title} | PRICE: ${res.price};`);
                   } else {
@@ -105,7 +104,7 @@ function cartSaved() {
   localStorage.getItem('cartList').split(';').forEach((item) => {
     const [id, title, price] = item.split(',');
     querySelectorItem('.cart__items', createCartItemElement({ sku: id, name: title, salePrice: price }));
-  })
+  });
 }
 
 function createCookie() {
