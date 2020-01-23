@@ -84,7 +84,7 @@ setTimeout(() => {
                 responseId.json().then((res) => {
                   querySelectorItem('.cart__items', createCartItemElement({ sku: res.id, name: res.title, salePrice: res.price }));
                   sum += res.price;
-                  total.innerText = `Total: ${sum}`
+                  total.innerText = `Total: ${sum}`;
                 });
               });
           });
