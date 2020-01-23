@@ -66,38 +66,6 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-function adicionaListener() {
-  const botaoAdiciona = document.querySelectorAll('.item__add');
-  botaoAdiciona.forEach(botao => botao.addEventListener('click', adicionaCarrinho));
-}
-
-buscaProduto.addEventListener('keyup', (event) => {
-  if (event.keyCode === 13) {
-    const secaoItens = document.querySelector('.items');
-    while (secaoItens.firstChild) {
-      secaoItens.removeChild(secaoItens.firstChild);
-    };
-    fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${buscaProduto.value}`)
-      .then((response) => {
-        response.json()
-          .then((produtoAchado) => {
-            produtoAchado.results.forEach((element) => {
-              const produto = {
-                sku: element.id,
-                name: element.title,
-                image: element.thumbnail,
-              }
-              adicionaListener();
-              descreveProduto.appendChild(createProductItemElement(produto));
-            });
-          })
-          .catch(() => alert('erro do servidor'));
-      })
-      .catch(() => alert('produto não encontrado'));
-    buscaProduto.value = null;
-  }
-});
-
 function adicionaCarrinho(event) {
   const caixaProduto = event.target.parentElement;
   fetch(`https://api.mercadolibre.com/items/${getSkuFromProductItem(caixaProduto)}`)
@@ -108,6 +76,38 @@ function adicionaCarrinho(event) {
       armazenaStorage(clicado.id, clicado.title, clicado.price);
     });
 }
+
+function adicionaListener() {
+  const botaoAdiciona = document.querySelectorAll('.item__add');
+  botaoAdiciona.forEach(botao => botao.addEventListener('click', adicionaCarrinho));
+}
+
+buscaProduto.addEventListener('keyup', (event) => {
+  if (event.keyCode === 13) {
+    const secaoItens = document.querySelector('.items');
+    while (secaoItens.firstChild) {
+      secaoItens.removeChild(secaoItens.firstChild);
+    }
+    fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${buscaProduto.value}`)
+      .then((response) => {
+        response.json()
+          .then((produtoAchado) => {
+            produtoAchado.results.forEach((element) => {
+              const produto = {
+                sku: element.id,
+                name: element.title,
+                image: element.thumbnail,
+              };
+              adicionaListener();
+              descreveProduto.appendChild(createProductItemElement(produto));
+            });
+          })
+          .catch(() => alert('erro do servidor'));
+      })
+      .catch(() => alert('produto não encontrado'));
+    buscaProduto.value = null;
+  }
+});
 
 function carregaStorage() {
   if (localStorage.length > 0) {
