@@ -34,9 +34,11 @@ function createProductItemElement({
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
-
+// 5. Remova o item do carrinho de compras ao clicar nele
 function cartItemClickListener(event) {
   // coloque seu código aqui
+  event.target.remove();
+  window.localStorage.removeItem(`${event.target.innerText.split(' ')[1]}`);
 }
 
 function createCartItemElement({
@@ -62,12 +64,17 @@ name.addEventListener('keyup', (event) => {
 // 2. Salve se a pessoa concorda com os termos da sua página nos Cookies
 const checkbox = document.querySelector('.input-terms');
 checkbox.addEventListener('click', () => {
-  document.cookie = `Nome=${name.value};expires=Thu, 21 Aug 2050 20:00:00 UTC`
+  document.cookie = `Nome=${name.value};expires=Thu, 21 Aug 2050 20:00:00 UTC`;
 });
 
 const search = document.getElementsByClassName('input-search')[0];
 const newNode = document.getElementsByClassName('items')[0];
 const cartItems = document.getElementsByClassName('cart__items')[0];
+
+
+function addToLocalStorage (product, name, price){
+  localStorage.setItem(`${product}`, [product, name, price]);
+}
 
 function addToCart() {
   const buttons = document.querySelectorAll('.item__add');
@@ -82,7 +89,8 @@ function addToCart() {
             name: info.title,
             salePrice: info.price
           }
-          cartItems.appendChild(createCartItemElement(produto));
+          cartItems.appendChild(createCartItemElement(produto))
+          addToLocalStorage(info.id, info.title, info.price)
         })
     }))
 }
@@ -90,31 +98,31 @@ function addToCart() {
 search.addEventListener('keyup', (event) => {
   if (event.keyCode === 13) {
     fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${event.target.value}`)
-      /**
-       * fetch: opa then, tudo bem?
-       * trouxe a resposta vinda da API.
-       * poderia me dizer em qual formato 
-       * voce deseja que eu trate ela?
-       */
-      /**
-       * then: obrigado, fetch! se espera que esta
-       * resposta seja um json
-       */
+      // /**
+      //  * fetch: opa then, tudo bem?
+      //  * trouxe a resposta vinda da API.
+      //  * poderia me dizer em qual formato 
+      //  * voce deseja que eu trate ela?
+      //  */
+      // /**
+      //  * then: obrigado, fetch! se espera que esta
+      //  * resposta seja um json
+      //  */
       .then(response => response.json())
-      /**
-       * response: olha, parece que de fato a resposta era
-       * um json! tome aqui seu objeto JS correspondente a
-       * este json, que no caso vamos chamar de data
-       */
+      // /**
+      //  * response: olha, parece que de fato a resposta era
+      //  * um json! tome aqui seu objeto JS correspondente a
+      //  * este json, que no caso vamos chamar de data
+      //  */
       .then(data => {
-        /**
-         * then: obrigado por transformar os dados de
-         * json para objeto javascript, response.
-         * agora, dentro deste objeto vou acessar
-         * a propriedade results - que é um array -
-         * e para cada item (objeto) dentro deste array\
-         * adicionar ele na página
-         */      
+        // /**
+        //  * then: obrigado por transformar os dados de
+        //  * json para objeto javascript, response.
+        //  * agora, dentro deste objeto vou acessar
+        //  * a propriedade results - que é um array -
+        //  * e para cada item (objeto) dentro deste array\
+        //  * adicionar ele na página
+        //  */      
         data.results.forEach(item => {
           const produto = {
             sku: item.id,
@@ -128,9 +136,3 @@ search.addEventListener('keyup', (event) => {
       })
   }
 })
-
-const pessoa = {
-  nome: 'Leonardo',
-  cidade: 'Belo Horizonte',
-  idade: 21
-}
