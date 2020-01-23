@@ -131,7 +131,7 @@ function pegaLista(link, header) {
   fetch(link, header)
     .then((res) => {
       res.json()
-        .then((data) => 
+        .then((data) => {
           resultados = data.results;
           mostrarProdutos();
         })
