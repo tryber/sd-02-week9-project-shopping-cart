@@ -1,24 +1,24 @@
 // Função que salva o nome passado no input na session storage
-const nameInput = document.getElementsByClassName('input-name')[0];
 function nameStorage() {
+  const nameInput = document.getElementsByClassName('input-name')[0];
   nameInput.addEventListener('keyup', (event) => {
     if (event.keyCode === 13) {
       sessionStorage.setItem('Name', nameInput.value);
     }
-  })
-};
+  });
+}
 
 // Função que cria um cookie caso o usuário marque a checkbox dos termos
-const termsInput = document.querySelector('.input-terms');
 function cookies() {
+  const termsInput = document.querySelector('.input-terms');
   termsInput.addEventListener('click', () => {
     if (termsInput.checked) {
       document.cookie = 'terms=checked; expires=expires= Thu, 21 Aug 2050 20:00:00 UTC';
     } else if (!termsInput.checked) {
       document.cookie = 'terms= ; expires=expires= Thu, 21 Aug 2050 20:00:00 UTC';
     }
-  })
-};
+  });
+}
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -81,8 +81,8 @@ function loadLocalStorage() {
   }
 }
 
-const searchInput = document.getElementsByClassName('input-search')[0];
 function searchAndAddtoCart() {
+  const searchInput = document.getElementsByClassName('input-search')[0];
   searchInput.addEventListener('keyup', (event) => {
     if (event.keyCode === 13) {
       clearPreviousSearch();
@@ -90,9 +90,7 @@ function searchAndAddtoCart() {
         .then(response => response.json().then((responseObj) => {
           responseObj.results.forEach(element =>
             document.querySelector('.items').appendChild(createProductItemElement({
-              sku: element.id,
-              name: element.title,
-              image: element.thumbnail,
+              sku: element.id, name: element.title, image: element.thumbnail,
             })));
         }))
         .then(() => {
@@ -101,11 +99,7 @@ function searchAndAddtoCart() {
             element.addEventListener('click', () => {
               fetch(`https://api.mercadolibre.com/items/${getSkuFromProductItem(element)}`)
                 .then(response => response.json().then((item) => {
-                  const objeto = {
-                    sku: item.id,
-                    name: item.title,
-                    salePrice: item.price,
-                  };
+                  const objeto = { sku: item.id, name: item.title, salePrice: item.price, };
                   document.getElementsByClassName('cart__items')[0].appendChild(createCartItemElement(objeto));
                   storage(item.id, objeto);
                 }));
@@ -114,8 +108,8 @@ function searchAndAddtoCart() {
         })
         .catch(error => console.log(error));
     }
-  })
-};
+  });
+}
 
 function removeAllCartItems() {
   const removeButton = document.querySelector('.botao-remover');
@@ -132,6 +126,6 @@ window.onload = function onload() {
   nameStorage();
   cookies();
   loadLocalStorage();
-  searchAndAddtoCart()
+  searchAndAddtoCart();
   removeAllCartItems();
 };
