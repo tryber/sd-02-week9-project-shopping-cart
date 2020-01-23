@@ -91,20 +91,25 @@ function adicionarAoCarrinho() {
   fetchSku(URL, headers);
 }
 
+function loading(a) {
+  const divCarregar = document.getElementById('carregar')
+  divCarregar.innerHTML = 'Loading...'
+  if (a) divCarregar.innerHTML = ''
+}
+
 const fetchPesquisa = (URL, header) => {
   fetch(URL, header)
     .then(resp => resp.json())
     .then((json) => {
-      json.results.forEach((resultados) => {
-        appendarChild('items', createProductItemElement({ sku: resultados.id, name: resultados.title, image: resultados.thumbnail }));
-      });
+      loading()
+      setTimeout
+      setTimeout(() => {
+        json.results.forEach((resultados) => {
+          appendarChild('items', createProductItemElement({ sku: resultados.id, name: resultados.title, image: resultados.thumbnail }))
+          loading(1);
+        })
+      }, 3000);
     })
-    .then(() => {
-      const seletorBotaoCarrinho = document.querySelectorAll('.item__add');
-      seletorBotaoCarrinho.forEach((elem) => {
-        elem.addEventListener('click', adicionarAoCarrinho);
-      });
-    });
 };
 
 function carregarCarrinho() {
@@ -144,8 +149,8 @@ function carregarCookies() {
 }
 
 
-fetchPesquisa(`https://api.mercadolibre.com/sites/MLB/search?q=${pesquisa}`, headers);
 window.onload = function onload() {
+  fetchPesquisa(`https://api.mercadolibre.com/sites/MLB/search?q=${pesquisa}`, headers);
   const inputName = document.querySelector('.input-name');
   if (this.localStorage.getItem('nome')) inputName.value = this.localStorage.getItem('nome');
   inputName.addEventListener('change', () => localStorage.setItem('nome', inputName.value));
@@ -153,4 +158,11 @@ window.onload = function onload() {
   criarElemento('p', 'Total: 0');
   criarElemento('button', 'Apagar carrinho');
   carregarCarrinho();
+
+  setTimeout(() => {
+    const seletorBotaoCarrinho = document.querySelectorAll('.item__add');
+    seletorBotaoCarrinho.forEach((elem) => {
+      elem.addEventListener('click', adicionarAoCarrinho);
+    })
+  }, 3500)
 };
