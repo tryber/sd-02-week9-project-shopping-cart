@@ -37,7 +37,7 @@ function cartItemClickListener(event) {
   if (document.querySelectorAll('.cart__item').length >= 1) {
     localStorage.setItem('shoppingCart', shoppingCart.reduce((acc, item) => `${acc} ; ${item}`));
   } else localStorage.removeItem('shoppingCart');
-};
+}
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -45,7 +45,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
-};
+}
 
 //  começa o código aqui
 
@@ -64,8 +64,8 @@ function checkbox() {
     } else {
       document.cookie = 'terms=denied';
     }
-  })
-};
+  });
+}
 
 const QUERY = 'carro';
 const URL1 = `https://api.mercadolibre.com/sites/MLB/search?q=${QUERY}`;
@@ -80,8 +80,8 @@ function findSku() {
   addToCart(URL2);
 }
 
-const showProducts = (URL1) => {
-  fetch(URL1)
+const showProducts = (link) => {
+  fetch(link)
     .then(response => response.json())
     .then((json) => {
       json.results.forEach((resultados) => {
@@ -104,10 +104,10 @@ const addToCart = (URL2) => {
       const shoppingCart = (localStorage.getItem('shoppingCart'));
       if (!shoppingCart) {
         localStorage.setItem('shoppingCart', `${id}, ${title}, ${price}`);
-       } else {
+      } else {
         localStorage.setItem('shoppingCart', `${shoppingCart} ; ${id}, ${title}, ${price}`);
       }
-    })
+    });
 };
 
 function loadCart() {
