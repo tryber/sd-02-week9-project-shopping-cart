@@ -70,8 +70,8 @@ const newNode = document.getElementsByClassName('items')[0];
 const cartItems = document.getElementsByClassName('cart__items')[0];
 
 
-function addToLocalStorage(product, name, price) {
-  localStorage.setItem(`${product}`, [product, name, price]);
+function addToLocalStorage(product, title, price) {
+  localStorage.setItem(`${product}`, [product, title, price]);
 }
 
 function addToCart() {
@@ -103,10 +103,10 @@ search.addEventListener('keyup', (event) => {
             sku: item.id,
             name: item.title,
             image: item.thumbnail
-          }
+          };
           const produtoElement = createProductItemElement(produto);
           newNode.appendChild(produtoElement);
-        })
+        });
         addToCart();
       });
   }
