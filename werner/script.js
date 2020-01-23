@@ -49,63 +49,64 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 //começa o código aqui
 
-function gravarNome() {
+function saveName() {
   const nome = document.querySelector('.input-name');
   nome.addEventListener('change', () => {
     sessionStorage.setItem('Nome', nome.value);
   });
 }
-function pesquisar(){
-  const produto = document.querySelector('.input-pesquisa');
-  produto.addEventListener('change', () => {
-    limparLista()
-    listarProduto(`https://api.mercadolibre.com/sites/MLB/search?q=${produto.value}`)})
-}
+
+function checkbox() {
+  const check = document.querySelector('.input-terms');
+  check.addEventListener('click', () => {
+  const save = check.checked ?  document.cookie = 'terms=accepted' : document.cookie = 'terms=denied';
+    }
+  )};
+
+const QUERY = "carro"
+const URL = `https://api.mercadolibre.com/sites/MLB/search?q=${QUERY}`
 
 function adicionarElemento(classe, filho) {
   document.querySelector(classe).appendChild(filho);
 }
 
-
-
 const listarProduto = (URL) => {
   fetch(URL)
-    .then(resposta => resposta.json())
+    .then(response => response.json())
     .then((json) => {
        json.results.forEach((resultados) => {
         adicionarElemento('.items', createProductItemElement({ sku: resultados.id, name: resultados.title, image: resultados.thumbnail }));
       });
     })
     .then(() => {
-      const seletorBotaoCarrinho = document.querySelectorAll('.item__add');
-      seletorBotaoCarrinho.forEach((elem) => {
-        elem.addEventListener('click', buscarSku);
+      const addCartButton = document.querySelectorAll('.item__add');
+      addCartButton.forEach((product) => {
+        product.addEventListener('click', findSku);
       });
     });
 };
 
-
-function buscarSku() {
-  const nomeSku = getSkuFromProductItem(this.parentElement);
-  const URL = `https://api.mercadolibre.com/items/${nomeSku}`;
-  adicionarAoCarrinho(URL);
+function findSku() {
+  const sku = getSkuFromProductItem(this.parentNode);
+  console.log(sku)
+  const URL = `https://api.mercadolibre.com/items/${sku}`;
+  addToCart(URL);
 }
 
-const adicionarAoCarrinho = (URL2) => {
-  fetch(URL2)
-    .then(resposta => resposta.json())
+const addToCart = (URL) => {
+  fetch(URL)
+    .then(response => response.json())
     .then(({ id, title, price }) => {
       adicionarElemento('.cart__items', createCartItemElement({ sku: id, name: title, salePrice: price }));
-      const valorAtual = (localStorage.getItem('listaCompras'));
-      console.log(`VALOR ATUAL: ${valorAtual}`)
-      if (!valorAtual) localStorage.setItem('listaCompras', `${id}, ${title}, ${price}`);
-      else {
-        localStorage.setItem('listaCompras', `${valorAtual} | ${id}, ${title}, ${price}`);
+      const shoppingCart = (localStorage.getItem('shoppingCart'));
+      if (!shoppingCart) { localStorage.setItem('shoppingCart', `${id}, ${title}, ${price}`);
+     } else {
+        localStorage.setItem('listaCompras', `${shoppingCart} \ ${id}, ${title}, ${price}`);
       }
     })
 };
 
-function carregarCarrinho() {
+function loadCart() {
   const arranjoCarrinho = localStorage.getItem('listaCompras').split(' | ');
   arranjoCarrinho.forEach((element) => {
     const [id, title, preco] = element.split(', ');
@@ -114,6 +115,7 @@ function carregarCarrinho() {
 }
 
 window.onload = function onload() {
-  pesquisar()
-  gravarNome()
+  listarProduto(URL)
+  checkbox()
+  saveName()
 };
