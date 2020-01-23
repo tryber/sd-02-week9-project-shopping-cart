@@ -85,16 +85,17 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
 
   return section;
-};
+}
 
-fetch(`https://api.mercadolibre.com/sites/MLB/search?q=computador`)
+fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
 .then((response) => {
   response.json().then((res) => {
     res.results.forEach((item) => {
       document.querySelector('.items')
-      .appendChild(createProductItemElement({ sku: item.id, name: item.title, image: item.thumbnail }));
-});
-botaoAdiciona();
+        .appendChild(createProductItemElement(
+          { sku: item.id, name: item.title, image: item.thumbnail }));
+    });
+    botaoAdiciona();
   });
 })
 .catch();
@@ -102,9 +103,9 @@ botaoAdiciona();
 // Fim Requisito 3
 
 window.onload = function onload() {
-document.querySelector('.input-terms').addEventListener('click', adicionaCookie);
-verificaChecked();
-salvaSession();
+  document.querySelector('.input-terms').addEventListener('click', adicionaCookie);
+  verificaChecked();
+  salvaSession();
 };
 
 function cartItemClickListener(event) {
