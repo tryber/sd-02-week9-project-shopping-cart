@@ -1,4 +1,10 @@
 window.onload = function onload() {
+  const elementoPai = document.querySelector('.cart__items')
+  elementoPai.innerHTML = localStorage.getItem('lista')
+
+  const filhos = document.querySelectorAll('li')
+  filhos.forEach(element => element.addEventListener('click', cartItemClickListener))
+
   const input = document.getElementsByClassName('input-name')[0];
 
   input.value = sessionStorage.getItem('Nome');
@@ -14,9 +20,38 @@ window.onload = function onload() {
   check.addEventListener('click', function () {
     document.cookie = `concorda=${check.checked}`;
   });
-
-  // document.cookie = `concorda=${concorda.value}; expires=Fri, 31 Dec 2100 00:00:01 GMT`
 };
+
+fetch ("https://api.mercadolibre.com/sites/MLB/search?q=computador")
+.then(res => res.json())
+.then(data => {
+  data.results.forEach(item => {
+    const objeto = {
+      sku: item.id,
+      name: item.title,
+      image: item.thumbnail
+    }
+    const items = document.querySelector('.items')
+    items.appendChild(createProductItemElement(objeto))
+  })
+
+  const botoes = document.querySelectorAll('.item__add')
+  botoes.forEach(element => element.addEventListener('click', function () {
+    fetch(`https://api.mercadolibre.com/items/${getSkuFromProductItem(event.target.parentElement)}`)
+    .then(res => res.json())
+    .then(data => {
+      const objeto = {
+        sku: data.id,
+        name: data.title,
+        salePrice: data.price
+      }
+      const elementoPai = document.querySelector('.cart__items')
+      elementoPai.appendChild(createCartItemElement(objeto))
+
+      localStorage.setItem('lista', elementoPai.innerHTML)
+    })
+  }))
+})
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -50,6 +85,10 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
+  const elementoPai = event.target.parentElement
+  elementoPai.removeChild(event.target)
+
+  localStorage.setItem('lista', elementoPai.innerHTML)
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
