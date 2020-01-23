@@ -66,6 +66,11 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
+function adicionaListener() {
+  const botaoAdiciona = document.querySelectorAll('.item__add');
+  botaoAdiciona.forEach(botao => botao.addEventListener('click', adicionaCarrinho));
+}
+
 buscaProduto.addEventListener('keyup', (event) => {
   if (event.keyCode === 13) {
     const secaoItens = document.querySelector('.items');
@@ -102,11 +107,6 @@ function adicionaCarrinho(event) {
       cartItems.appendChild(createCartItemElement(produtoclicado));
       armazenaStorage(clicado.id, clicado.title, clicado.price);
     });
-}
-
-function adicionaListener() {
-  const botaoAdiciona = document.querySelectorAll('.item__add');
-  botaoAdiciona.forEach(botao => botao.addEventListener('click', adicionaCarrinho));
 }
 
 function carregaStorage() {
