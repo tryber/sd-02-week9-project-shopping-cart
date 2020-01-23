@@ -39,7 +39,10 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+// Requisito 5
 function cartItemClickListener(event) {
+  const texto = event.target.innerText.split(' ')[1];
+  localStorage.removeItem(texto);
   event.target.remove();
 }
 
@@ -80,6 +83,10 @@ const cookieChecked = () => {
   if (document.cookie.includes(`${cookieName}=true`)) inputTerms.checked = true;
 };
 
+function criarLocalStorage () {
+
+}
+
 // Requisito 4
 function pegaProduto(link, header) {
   fetch(link, header)
@@ -92,11 +99,18 @@ function pegaProduto(link, header) {
             name: produto.title,
             salePrice: produto.price,
           });
+          const objLocStor = {
+            sku: produto.id,
+            name: produto.title,
+            salePrice: produto.price,
+          };
           const itensCarrinho = document.querySelector('.cart__items');
+          localStorage.setItem(`${produto.id}`, JSON.stringify(objLocStor));
           itensCarrinho.appendChild(objProduto);
-        });
+        })
+        .catch(() => console.log('Erro no data'))
     })
-    .catch(() => console.log('Erro pega Produto'));
+    .catch(() => console.log('Erro pega Produto'))
 }
 
 const adicionarProduto = () => {
@@ -129,9 +143,10 @@ function pegaLista(link, header) {
         .then((data) => {
           resultados = data.results;
           mostrarProdutos();
-        });
+        })
+        .catch(() => console.log('Erro no data'))
     })
-    .catch(() => console.log('Erro'));
+    .catch(() => console.log('Erro pega lista'))
 }
 
 window.onload = function onload() {
