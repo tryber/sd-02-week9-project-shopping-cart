@@ -52,7 +52,7 @@ function saveName() {
   name.value = sessionStorage.getItem('name');
 }
 
-function querySelectorItem (classItem, child) {
+function querySelectorItem(classItem, child) {
   document.querySelector(classItem).appendChild(child)
 }
 
@@ -70,10 +70,10 @@ function createLoad() {
 let sum = 0;
 setTimeout(() => {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=casa')
-  .then((response) => {
-    response.json().then((res) => {
-      res.results.forEach((item) => {
-        querySelectorItem('.items',createProductItemElement({ sku: item.id, name: item.title, image: item.thumbnail }))    
+    .then((response) => {
+      response.json().then((res) => {
+        res.results.forEach((item) => {
+          querySelectorItem('.items', createProductItemElement({ sku: item.id, name: item.title, image: item.thumbnail }))
         });
       }).then(() => {
         const total = document.getElementById('total');
@@ -83,20 +83,19 @@ setTimeout(() => {
             fetch(`https://api.mercadolibre.com/items/${getSkuFromProductItem(event.target.parentNode)}`)
               .then((response) => {
                 response.json().then((res) => {
-                  querySelectorItem('.cart__items', createCartItemElement({sku: res.id, name: res.title, salePrice: res.price}));
+                  querySelectorItem('.cart__items', createCartItemElement({ sku: res.id, name: res.title, salePrice: res.price }));
                   sum = sum + res.price;
                   total.innerText = `Total: ${sum}`
-                  })
                 })
-              })  
-            });
-            
-          });
+              })
+          })
+        });
+
       });
+    });
 }, 1000)
 
-
-function createCookie () {
+function createCookie() {
   const checkTerm = document.querySelector('.input-terms');
   checkTerm.addEventListener('click', () => {
     if (checkTerm.checked) {
@@ -107,7 +106,7 @@ function createCookie () {
   });
 }
 
-function removeCart () {
+function removeCart() {
   const cart = document.querySelector('.cart__items');
   const buttonRemoveAll = document.getElementById('remove-all');
   buttonRemoveAll.addEventListener('click', () => {
@@ -118,7 +117,7 @@ function removeCart () {
 
 window.onload = function onload() {
   saveName();
-  createCookie ();
-  removeCart ();
+  createCookie();
+  removeCart();
   createLoad();
 };
