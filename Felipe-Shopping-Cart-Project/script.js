@@ -23,9 +23,11 @@ function adicionaCookie() {
 
 const verificaChecked = () => {
   if (!document.cookie.includes('User=Usuário')) {
-    return document.querySelector('.input-terms').checked = false;
+    const resultFalse = () => document.querySelector('.input-terms').checked = false;
+    return resultFalse
   }
-  return document.querySelector('.input-terms').checked = true;
+  const resultTrue = () => document.querySelector('.input-terms').checked = true;
+  return resultTrue
 };
 
 // Fim Requisito 2
