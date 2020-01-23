@@ -1,13 +1,13 @@
-
+let QUERY = 'computador';
 
 // Inicio Requisito 1
 
 function salvaSession() {
-  const input = document.querySelector('.input-name')
+  const input = document.querySelector('.input-name');
   input.addEventListener('change', () => {
-    sessionStorage.setItem('Nome', input.value)
+    sessionStorage.setItem('Nome', input.value);
   })
-  input.value = sessionStorage.getItem('Nome')
+  input.value = sessionStorage.getItem('Nome');
 }
 
 // Fim Requisito 1
@@ -15,15 +15,16 @@ function salvaSession() {
 
 function adicionaCookie() {
   if (document.querySelector('.input-terms').checked) {
-    return document.cookie = 'User=Usuário; expires=Thu, 18 Dec 2021 12:00:00 UTC';
-  } else {
-    document.querySelector('.input-terms').checked = false
-    return document.cookie = 'User=; expires=Thu, 18 Dec 1970 12:00:00 UTC';
+    let resulCookie = document.cookie = 'User=Usuário; expires=Thu, 18 Dec 2021 12:00:00 UTC';
+    return resulCookie;
   }
+  document.querySelector('.input-terms').checked = false
+  let resulCookie = document.cookie = 'User=; expires=Thu, 18 Dec 1970 12:00:00 UTC';
+  return resulCookie;
 }
 
 const verificaChecked = () => {
-  if (!document.cookie.includes('User=Usuário')){
+  if (!document.cookie.includes('User=Usuário')) {
     return document.querySelector('.input-terms').checked = false;
   }
   return document.querySelector('.input-terms').checked = true;
@@ -32,28 +33,40 @@ const verificaChecked = () => {
 // Fim Requisito 2
 // Inicio Requisito 3
 
-let QUERY = 'computador';
+function botaoAdiciona() {
+  const botaozinCapeta = document.querySelectorAll('.item__add');
+  botaozinCapeta.forEach((element) => {
+    element.addEventListener('click', (event) => {
+      const resultado = event.target.parentNode;
+      fetch(`https://api.mercadolibre.com/items/${getSkuFromProductItem(resultado)}`)
+      .then((response) => {
+        response.json().then((item) => {
+          document.querySelector('.cart__items')
+          .appendChild(createCartItemElement({sku: item.id, name: item.title, salePrice: item.price}));
+        });
+      });
+    });
+  });
+}
 
 fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${QUERY}`)
 .then((response) => {
   response.json().then((res) => {
     res.results.forEach((item) => {
-      document.querySelector('.items').appendChild(createProductItemElement({ sku: item.id, name: item.title, image: item.thumbnail })
-  )
-    })
-    document.querySelector('.item_add').addEventListener('click', (valores) => {
-      event.target.appendChild()
-    })
-  })
+      document.querySelector('.items')
+      .appendChild(createProductItemElement({ sku: item.id, name: item.title, image: item.thumbnail }));
+});
+botaoAdiciona();
+  });
 })
-.catch()
+.catch();
 
 // Fim Requisito 3
 
 window.onload = function onload() {
 document.querySelector('.input-terms').addEventListener('click', adicionaCookie);
-verificaChecked()
-salvaSession()
+verificaChecked();
+salvaSession();
 };
 
 function createProductImageElement(imageSource) {
@@ -87,7 +100,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+  event.target.remove();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
