@@ -39,7 +39,6 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-// Requisito 5
 function cartItemClickListener(event) {
   const texto = event.target.innerText.split(' ')[1];
   localStorage.removeItem(texto);
@@ -58,7 +57,6 @@ function createCartItemElement({
   return li;
 }
 
-// Requisito 1
 const nomeSessionStorage = () => {
   const inputNome = document.querySelector('.input-name');
   inputNome.addEventListener('blur', () => sessionStorage.setItem('Nome', inputNome.value));
@@ -68,7 +66,6 @@ const nomeSessionStorage = () => {
   }
 };
 
-// Requisito 2
 const cookieChecked = () => {
   const inputTerms = document.querySelector('.input-terms');
   const cookieTime = 'Wed, 1 Jan 2021 12:00:00 GMT';
@@ -83,11 +80,6 @@ const cookieChecked = () => {
   if (document.cookie.includes(`${cookieName}=true`)) inputTerms.checked = true;
 };
 
-function criarLocalStorage () {
-
-}
-
-// Requisito 4
 function pegaProduto(link, header) {
   fetch(link, header)
     .then((res) => {
@@ -108,9 +100,9 @@ function pegaProduto(link, header) {
           localStorage.setItem(`${produto.id}`, JSON.stringify(objLocStor));
           itensCarrinho.appendChild(objProduto);
         })
-        .catch(() => console.log('Erro no data'))
+        .catch(() => console.log('Erro no data'));
     })
-    .catch(() => console.log('Erro pega Produto'))
+    .catch(() => console.log('Erro pega Produto'));
 }
 
 const adicionarProduto = () => {
@@ -122,7 +114,6 @@ const adicionarProduto = () => {
   }));
 };
 
-// Requisito 3
 const mostrarProdutos = () => {
   const listaItems = document.querySelector('.items');
   resultados.forEach((resultado) => {
@@ -144,13 +135,23 @@ function pegaLista(link, header) {
           resultados = data.results;
           mostrarProdutos();
         })
-        .catch(() => console.log('Erro no data'))
+        .catch(() => console.log('Erro no data'));
     })
-    .catch(() => console.log('Erro pega lista'))
+    .catch(() => console.log('Erro pega lista'));
+}
+
+function itensLocalStorage () {
+  for (i = 0; i < localStorage.length; i += 1){
+    const itensLocal = JSON.parse(localStorage.getItem(localStorage.key(i)));
+    const objProduto = createCartItemElement(itensLocal);
+    const itensCarrinho = document.querySelector('.cart__items');
+    itensCarrinho.appendChild(objProduto);
+  }
 }
 
 window.onload = function onload() {
   nomeSessionStorage();
   cookieChecked();
+  itensLocalStorage();
   pegaLista(url, headers);
 };
