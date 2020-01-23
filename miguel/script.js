@@ -90,7 +90,7 @@ fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
   botoes.forEach(element => element.addEventListener('click', function () {
     const elementoPai = document.querySelector('.cart__items');
     const loading = document.createElement('li');
-    loading.innerText = 'Loading...'
+    loading.innerText = 'Loading...';
     loading.style.fontSize = '50px';
     elementoPai.appendChild(loading);
 
