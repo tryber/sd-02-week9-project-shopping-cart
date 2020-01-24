@@ -23,9 +23,8 @@ function adicionaCookie() {
 const verificaChecked = () => {
   if (document.cookie.includes('User=Usuário')) {
     return (document.querySelector('.input-terms').checked = true);
-  } else {
-  return (document.querySelector('.input-terms').defaultChecked);
   }
+  return (document.querySelector('.input-terms').defaultChecked);
 };
 
 // Fim Requisito 2
@@ -64,9 +63,13 @@ function botaoAdiciona() {
               .setItem(item.title, JSON.stringify(
                 { id: item.id, title: item.title, price: item.price, count: contador = 1 }));
           } else {
-            localStorage
-                .setItem(item.title, JSON.stringify(
-                  { id: item.id, title: item.title, price: item.price, count: contador += 1 }));
+            const infoLocal = {
+              id: item.id,
+              title: item.title,
+              price: item.price,
+              count: contador += 1
+            };
+            localStorage.setItem(item.title, JSON.stringify({ infoLocal }));
           }
         });
       });
