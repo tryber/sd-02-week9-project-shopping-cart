@@ -63,8 +63,8 @@ function botaoAdiciona() {
               .setItem(item.title, JSON.stringify(
                 { id: item.id, title: item.title, price: item.price, count: contador = 1 }));
           } else {
-            const infoLocal = { id: item.id, title: item.title, price: item.price, count: contador += 1};
-            localStorage.setItem(item.title, JSON.stringify({ infoLocal }));
+            const lS = { id: item.id, title: item.title, price: item.price, count: contador += 1 };
+            localStorage.setItem(item.title, JSON.stringify({ lS }));
           }
         });
       });
