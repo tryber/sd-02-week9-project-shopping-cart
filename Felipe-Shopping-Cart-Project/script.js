@@ -1,3 +1,5 @@
+let contador = 1;
+
 // Inicio Requisito 1
 
 function salvaSession() {
@@ -58,6 +60,15 @@ function botaoAdiciona() {
           .appendChild(
             createCartItemElement(
               { sku: item.id, name: item.title, salePrice: item.price }));
+        if (localStorage.getItem(item.title) === null) {
+          localStorage
+            .setItem(item.title, JSON.stringify
+              ({id: item.id, title: item.title, salePrice: item.price, count: contador = 1 }));
+        } else {
+            localStorage
+              .setItem(item.title, JSON.stringify
+                ({id: item.id, title: item.title, salePrice: item.price, count: contador++ }));
+          }
         });
       });
     });
