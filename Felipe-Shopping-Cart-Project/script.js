@@ -60,14 +60,14 @@ function botaoAdiciona() {
           .appendChild(
             createCartItemElement(
               { sku: item.id, name: item.title, salePrice: item.price }));
-        if (localStorage.getItem(item.title) === null) {
-          localStorage
-            .setItem(item.title, JSON.stringify
-              ({id: item.id, title: item.title, salePrice: item.price, count: contador = 1 }));
-        } else {
+          if (localStorage.getItem(item.title) === null) {
             localStorage
-              .setItem(item.title, JSON.stringify
-                ({id: item.id, title: item.title, salePrice: item.price, count: contador++ }));
+              .setItem(item.title, JSON.stringify(
+                {id: item.id, title: item.title, salePrice: item.price, count: contador = 1 }));
+          } else {
+              localStorage
+                .setItem(item.title, JSON.stringify(
+                  {id: item.id, title: item.title, salePrice: item.price, count: contador++ }));
           }
         });
       });
