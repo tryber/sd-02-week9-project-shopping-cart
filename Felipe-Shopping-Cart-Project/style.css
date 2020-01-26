@@ -41,6 +41,15 @@
   }
 }
 
+.limparCarrinho {
+  width: 30%;
+  align-self: center;
+  height: 1%;
+  border-radius: 5%;
+  background-color: chartreuse;
+  font-weight: 900;
+}
+
 .items {
   display: flex;
   flex-basis: 70%;

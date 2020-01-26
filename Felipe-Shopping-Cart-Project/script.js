@@ -119,12 +119,14 @@ function carregaTudo() {
             .appendChild(createProductItemElement(produto));
         });
         botaoAdiciona();
+        document.querySelector('.limparCarrinho').style.display = 'initial';
       });
     })
     .catch();
     const escondeLoading = document.querySelector('.load');
     escondeLoading.style.display = 'none';
   }, 6000);
+  document.querySelector('.limparCarrinho').style.display = 'none';
   const loading = document.createElement('section');
   loading.className = 'loading';
   loading.appendChild(createCustomElement('p', 'load', 'loading...'));
