@@ -68,8 +68,8 @@ function botaoAdiciona() {
           const itemPadrao = {
             sku: item.id,
             name: item.title,
-            salePrice: item.price
-          }
+            salePrice: item.price,
+          };
           document.querySelector('.cart__items')
           .appendChild(createCartItemElement(itemPadrao));
           criaStorage(item.id, item.title, item.price);
@@ -126,12 +126,10 @@ function carregaCarrinho() {
   const infoKey = Object.keys(localStorage);
   for (i = 0; i < infoKey.length; i += 1) {
     const objKeys = JSON.parse(localStorage.getItem(infoKey[i]));
-    if (objKeys.count >= 1) {
-      for (j = 0; j < objKeys.count; j += 1) {
-        document.querySelector('.cart__items')
-        .appendChild(createCartItemElement(
-          { sku: objKeys.id, name: objKeys.title, salePrice: objKeys.price }));
-      }
+    for (j = 0; j < objKeys.count; j += 1) {
+      document.querySelector('.cart__items')
+      .appendChild(createCartItemElement(
+        { sku: objKeys.id, name: objKeys.title, salePrice: objKeys.price }));
     }
   }
 }
