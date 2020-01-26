@@ -110,11 +110,7 @@ function carregaTudo() {
     .then((response) => {
       response.json().then((res) => {
         res.results.forEach((item) => {
-          const produto = {
-            sku: item.id,
-            name: item.title,
-            image: item.thumbnail,
-          };
+          const produto = { sku: item.id, name: item.title, image: item.thumbnail };
           document.querySelector('.items')
             .appendChild(createProductItemElement(produto));
         });
