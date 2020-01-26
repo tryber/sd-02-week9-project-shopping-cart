@@ -23,6 +23,24 @@
   width: 100%;
 }
 
+.loading {
+  font-size: 2em;
+  animation: carregando 1s ease-in-out 0s infinite alternate;
+}
+
+@keyframes carregando {
+
+  0% {
+    opacity: 100;
+    transform: translate(-10px);
+  }
+
+  100% {
+    transform: translate(10px);
+    opacity: 0;
+  }
+}
+
 .items {
   display: flex;
   flex-basis: 70%;

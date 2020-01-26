@@ -104,23 +104,48 @@ function createProductItemElement({ sku, name, image }) {
 
   return section;
 }
-
-fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
-.then((response) => {
-  response.json().then((res) => {
-    res.results.forEach((item) => {
-      const produto = {
-        sku: item.id,
-        name: item.title,
-        image: item.thumbnail,
-      };
-      document.querySelector('.items')
-        .appendChild(createProductItemElement(produto));
-    });
-    botaoAdiciona();
-  });
-})
-.catch();
+function carregaTudo() {
+  setTimeout(() => {
+    fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
+    .then((response) => {
+      response.json().then((res) => {
+        res.results.forEach((item) => {
+          const produto = {
+            sku: item.id,
+            name: item.title,
+            image: item.thumbnail,
+          };
+          document.querySelector('.items')
+            .appendChild(createProductItemElement(produto));
+        });
+        botaoAdiciona();
+      });
+    })
+    .catch();
+    const escondeLoading = document.querySelector('.load');
+    escondeLoading.style.display = 'none';
+  }, 6000);
+  const loading = document.createElement('section');
+  loading.className = 'loading';
+  loading.appendChild(createCustomElement('p', 'load', 'loading...'));
+  return document.querySelector('.items').appendChild(loading)
+}
+// fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
+// .then((response) => {
+//   response.json().then((res) => {
+//     res.results.forEach((item) => {
+//       const produto = {
+//         sku: item.id,
+//         name: item.title,
+//         image: item.thumbnail,
+//       };
+//       document.querySelector('.items')
+//         .appendChild(createProductItemElement(produto));
+//     });
+//     botaoAdiciona();
+//   });
+// })
+// .catch();
 
 function carregaCarrinho() {
   const infoKey = Object.keys(localStorage);
@@ -139,4 +164,5 @@ window.onload = function onload() {
   verificaChecked();
   salvaSession();
   carregaCarrinho();
+  carregaTudo();
 };
