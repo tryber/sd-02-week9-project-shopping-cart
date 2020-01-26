@@ -51,10 +51,10 @@ function criaStorage(itemId, title, price) {
       .setItem(itemId, JSON.stringify(
         { id: itemId, title: title, price: price, count: 1 }));
   } else {
-    let objKeyInfo = JSON.parse(localStorage.getItem(itemId));
+    const objKeyInfo = JSON.parse(localStorage.getItem(itemId));
     const lS = { id: itemId, title: title, price: price, count: objKeyInfo.count += 1 };
     localStorage.setItem(itemId, JSON.stringify(lS));
-    }
+  }
 }
 
 function botaoAdiciona() {
@@ -68,11 +68,11 @@ function botaoAdiciona() {
           document.querySelector('.cart__items')
           .appendChild(createCartItemElement(
             { sku: item.id, name: item.title, salePrice: item.price }));
-            criaStorage(item.id, item.title, item.price);
-          });
+          criaStorage(item.id, item.title, item.price);
         });
       });
     });
+  });
 }
 
 function createCustomElement(element, className, innerText) {
@@ -122,13 +122,13 @@ function carregaCarrinho() {
   const infoKey = Object.keys(localStorage);
   for (i = 0; i < infoKey.length; i += 1) {
     const objKeys = JSON.parse(localStorage.getItem(infoKey[i]));
-      if (objKeys.count >= 1) {
-        for (j = 0; j < objKeys.count; j += 1) {
-          document.querySelector('.cart__items')
-          .appendChild(createCartItemElement(
-            { sku: objKeys.id, name: objKeys.title, salePrice: objKeys.price }));
-        }
+    if (objKeys.count >= 1) {
+      for (j = 0; j < objKeys.count; j += 1) {
+        document.querySelector('.cart__items')
+        .appendChild(createCartItemElement(
+          { sku: objKeys.id, name: objKeys.title, salePrice: objKeys.price }));
       }
+    }
   }
 }
 
