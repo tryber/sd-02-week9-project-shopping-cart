@@ -1,4 +1,4 @@
-let contador = 1;
+let contador;
 let carrinhoCompra = document.querySelector('.cart__items');
 
 function salvaSession() {
@@ -59,18 +59,23 @@ function botaoAdiciona() {
           document.querySelector('.cart__items')
           .appendChild(createCartItemElement(
             { sku: item.id, name: item.title, salePrice: item.price }));
-          if (localStorage.getItem(item.id) === null) {
-            localStorage
-              .setItem(item.id, JSON.stringify(
-                { id: item.id, title: item.title, price: item.price, count: contador = 1 }));
-          } else {
-            const lS = { id: item.id, title: item.title, price: item.price, count: contador += 1 };
-            localStorage.setItem(item.id, JSON.stringify( lS ));
-          }
+            criaStorage(item.id, item.title, item.price);
+          });
         });
       });
     });
-  });
+}
+
+function criaStorage(itemId, title, price) {
+  if (localStorage.getItem(itemId) === null) {
+    localStorage
+      .setItem(itemId, JSON.stringify(
+        { id: itemId, title: title, price: price, count: contador = 1 }));
+  } else {
+    let objKeyInfo = JSON.parse(localStorage.getItem(itemId));
+    const lS = { id: itemId, title: title, price: price, count: objKeyInfo.count += 1 };
+    localStorage.setItem(itemId, JSON.stringify( lS ));
+   }
 }
 
 function createCustomElement(element, className, innerText) {
