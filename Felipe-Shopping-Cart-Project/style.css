@@ -32,11 +32,11 @@
 
   0% {
     opacity: 100;
-    transform: translate(-10px);
+    transform: translate( -10px );
   }
 
   100% {
-    transform: translate(10px);
+    transform: translate( 10px );
     opacity: 0;
   }
 }

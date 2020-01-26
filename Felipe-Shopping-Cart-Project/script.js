@@ -128,7 +128,7 @@ function carregaTudo() {
   const loading = document.createElement('section');
   loading.className = 'loading';
   loading.appendChild(createCustomElement('p', 'load', 'loading...'));
-  return document.querySelector('.items').appendChild(loading)
+  return document.querySelector('.items').appendChild(loading);
 }
 // fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
 // .then((response) => {
