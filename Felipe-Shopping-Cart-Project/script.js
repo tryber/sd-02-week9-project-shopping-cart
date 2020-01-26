@@ -1,6 +1,5 @@
 let contador = 1;
-
-// Inicio Requisito 1
+let carrinhoCompra = document.querySelector('.cart__items');
 
 function salvaSession() {
   const input = document.querySelector('.input-name');
@@ -9,9 +8,6 @@ function salvaSession() {
   });
   input.value = sessionStorage.getItem('Nome');
 }
-
-// Fim Requisito 1
-// Início Requisito 2
 
 function adicionaCookie() {
   if (document.querySelector('.input-terms').checked) {
@@ -27,14 +23,20 @@ const verificaChecked = () => {
   return (document.querySelector('.input-terms').defaultChecked);
 };
 
-// Fim Requisito 2
-// Inicio Requisito 3
-
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
 function cartItemClickListener(event) {
+  const objItemCart = event.target.innerText.split(' ')[1];
+  let objKey = JSON.parse(localStorage.getItem(objItemCart));
+  let count = objKey.count;
+  if (count > 1) {
+    objKey = { id: objKey.id, title: objKey.title, price: objKey.price, count: count - 1 };
+    localStorage.setItem(objItemCart, JSON.stringify(objKey));
+  } else {
+      localStorage.removeItem(objItemCart);
+    }
   event.target.remove();
 }
 
@@ -55,16 +57,15 @@ function botaoAdiciona() {
       .then((response) => {
         response.json().then((item) => {
           document.querySelector('.cart__items')
-          .appendChild(
-            createCartItemElement(
-              { sku: item.id, name: item.title, salePrice: item.price }));
-          if (localStorage.getItem(item.title) === null) {
+          .appendChild(createCartItemElement(
+            { sku: item.id, name: item.title, salePrice: item.price }));
+          if (localStorage.getItem(item.id) === null) {
             localStorage
-              .setItem(item.title, JSON.stringify(
+              .setItem(item.id, JSON.stringify(
                 { id: item.id, title: item.title, price: item.price, count: contador = 1 }));
           } else {
             const lS = { id: item.id, title: item.title, price: item.price, count: contador += 1 };
-            localStorage.setItem(item.title, JSON.stringify({ lS }));
+            localStorage.setItem(item.id, JSON.stringify( lS ));
           }
         });
       });
@@ -115,10 +116,23 @@ fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
 })
 .catch();
 
-// Fim Requisito 3
+function carregaCarrinho() {
+  const infoKey = Object.keys(localStorage);
+  for (i = 0; i < infoKey.length; i++) {
+   const objKeys = JSON.parse(localStorage.getItem(infoKey[i]));
+      if (objKeys.count >= 1) {
+        for (j= 0; j < objKeys.count; j++) {
+          document.querySelector('.cart__items')
+          .appendChild(createCartItemElement(
+            { sku: objKeys.id, name: objKeys.title, salePrice: objKeys.price }));
+        }
+      }
+  }
+}
 
 window.onload = function onload() {
   document.querySelector('.input-terms').addEventListener('click', adicionaCookie);
   verificaChecked();
   salvaSession();
+  carregaCarrinho();
 };
