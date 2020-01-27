@@ -109,7 +109,7 @@ li {
 
 li:hover {
   cursor: pointer;
-  background-color: rgba(196, 223, 233, 0.294);
+  background-color: rgba( 196 , 223 , 233 , 0.294 );
 }
 
 .cart .cart__title {
