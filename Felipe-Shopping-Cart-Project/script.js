@@ -30,10 +30,9 @@ function adicionaRemove(param, somaReduz) {
   if (somaReduz === 'reduz') {
     valorNumber -= param;
     return (document.querySelector('.valor').innerText = valorNumber.toFixed(2));
-  } else {
-    valorNumber += param;
-    return (document.querySelector('.valor').innerText = valorNumber.toFixed(2));
   }
+  valorNumber += param;
+  return (document.querySelector('.valor').innerText = valorNumber.toFixed(2));
 }
 
 function cartItemClickListener(event) {
@@ -82,7 +81,7 @@ function botaoAdiciona() {
           document.querySelector('.cart__items').appendChild(createCartItemElement(itemPadrao));
           criaStorage(item.id, item.title, item.price);
           const valueKey = JSON.parse(localStorage.getItem(item.id));
-          adicionaRemove(valueKey.price, 'soma')
+          adicionaRemove(valueKey.price, 'soma');
         });
       });
     });
