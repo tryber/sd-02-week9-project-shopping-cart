@@ -100,6 +100,18 @@
   flex-flow: column wrap;
 }
 
+li {
+  border: 3px solid dodgerblue;
+  border-radius: 30%;
+  padding: 15px;
+  margin: 2px;
+}
+
+li:hover {
+  cursor: pointer;
+  background-color: rgba(196, 223, 233, 0.294);
+}
+
 .cart .cart__title {
   flex-basis: 1;
   font-size: 16pt;
