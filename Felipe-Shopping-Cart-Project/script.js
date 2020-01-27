@@ -24,6 +24,18 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function adicionaRemove(param, somaReduz) {
+  const valor = document.querySelector('.valor').innerText;
+  let valorNumber = parseFloat(valor);
+  if (somaReduz === 'reduz') {
+    valorNumber -= param;
+    return (document.querySelector('.valor').innerText = valorNumber.toFixed(2));
+  } else {
+    valorNumber += param;
+    return (document.querySelector('.valor').innerText = valorNumber.toFixed(2));
+  }
+}
+
 function cartItemClickListener(event) {
   const objItemCart = event.target.innerText.split(' ')[1];
   let objKey = JSON.parse(localStorage.getItem(objItemCart));
@@ -35,6 +47,7 @@ function cartItemClickListener(event) {
     localStorage.removeItem(objItemCart);
   }
   event.target.remove();
+  adicionaRemove(objKey.price, 'reduz');
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -65,14 +78,11 @@ function botaoAdiciona() {
       fetch(`https://api.mercadolibre.com/items/${getSkuFromProductItem(resultado)}`)
       .then((response) => {
         response.json().then((item) => {
-          const itemPadrao = {
-            sku: item.id,
-            name: item.title,
-            salePrice: item.price,
-          };
-          document.querySelector('.cart__items')
-          .appendChild(createCartItemElement(itemPadrao));
+          const itemPadrao = { sku: item.id, name: item.title, salePrice: item.price };
+          document.querySelector('.cart__items').appendChild(createCartItemElement(itemPadrao));
           criaStorage(item.id, item.title, item.price);
+          const valueKey = JSON.parse(localStorage.getItem(item.id));
+          adicionaRemove(valueKey.price, 'soma')
         });
       });
     });
@@ -121,7 +131,7 @@ function carregaTudo() {
     .catch();
     const escondeLoading = document.querySelector('.load');
     escondeLoading.style.display = 'none';
-  }, 6000);
+  }, 1000);
   document.querySelector('.limparCarrinho').style.display = 'none';
   const loading = document.createElement('section');
   loading.className = 'loading';
@@ -144,6 +154,17 @@ function carregaCarrinho() {
 function limparCarrinho() {
   document.querySelector('ol').innerText = '';
   localStorage.clear();
+  document.querySelector('.valor').innerText = 0;
+}
+
+function priceTotalStorage() {
+  const infoKey = Object.keys(localStorage);
+  let priceNumber = 0;
+  for (i = 0; i < infoKey.length; i += 1) {
+    const objKeys = JSON.parse(localStorage.getItem(infoKey[i]));
+    priceNumber += objKeys.price * objKeys.count;
+  }
+  return (document.querySelector('.valor').innerText = priceNumber.toFixed(2));
 }
 
 window.onload = function onload() {
@@ -153,4 +174,5 @@ window.onload = function onload() {
   salvaSession();
   carregaCarrinho();
   carregaTudo();
+  priceTotalStorage();
 };

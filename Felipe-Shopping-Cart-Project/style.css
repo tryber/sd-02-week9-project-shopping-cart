@@ -50,6 +50,10 @@
   font-weight: 900;
 }
 
+.priceTotal {
+  font-size: 2em;
+}
+
 .items {
   display: flex;
   flex-basis: 70%;
