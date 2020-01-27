@@ -130,7 +130,7 @@ function carregaTudo() {
     .catch();
     const escondeLoading = document.querySelector('.load');
     escondeLoading.style.display = 'none';
-  }, 1000);
+  }, 6000);
   document.querySelector('.limparCarrinho').style.display = 'none';
   const loading = document.createElement('section');
   loading.className = 'loading';
