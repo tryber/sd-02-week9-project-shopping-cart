@@ -3,7 +3,7 @@ const headers = {
   Accept: 'application/json',
 };
 
-const url = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
+const url = 'https://api.mercadolibre.com/sites/MLB/search?q=zumbi';
 const urlId = 'https://api.mercadolibre.com/items/';
 
 const ol = document.querySelector('.cart__items');
@@ -14,6 +14,7 @@ const carregando = document.querySelector('.carregando');
 const delay = milliseconds => data =>
   new Promise(resolve =>
     setTimeout(() => resolve(data), milliseconds));
+
 
 function allStorage() {
   const keys = Object.keys(localStorage);
@@ -69,6 +70,7 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   localStorage.removeItem(event.target.outerText.slice(5, 18));
+  carregaTotal();
   event.target.remove();
 }
 
