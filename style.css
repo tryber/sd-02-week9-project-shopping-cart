@@ -74,3 +74,10 @@
   font-size: 16pt;
   text-align: center;
 }
+
+#total {
+  border: 2px solid rgb( 60 , 60 , 138 );
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 20px;
+}
