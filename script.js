@@ -102,7 +102,7 @@ setTimeout(() => {
                 responseId.json().then((res) => {
                   querySelectorItem('.cart__items', createCartItemElement({ sku: res.id, name: res.title, salePrice: res.price }));
                   arrayTotal.push(res.price);
-                  total.innerText = `Total: ${arrayTotal.reduce((cc, current) => cc + current)}`
+                  total.innerText = `Total: ${arrayTotal.reduce((cc, current) => cc + current)}`;
                   localStorage.setItem('cartTotal', arrayTotal.reduce((cc, current) => cc + current));
                   const cartListv = (localStorage.getItem('cartList'));
                   if (cartListv) {
