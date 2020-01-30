@@ -36,13 +36,7 @@ function cartItemClickListener(event) {
   let arrayLocalStorage = stringLocalStorage.split(';');
   arrayLocalStorage.splice(itemPosition, 1);
   localStorage.setItem('cartList', arrayLocalStorage.join(';'))
-
-
   event.target.remove();
-
-
-
-
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -78,7 +72,7 @@ function createLoad() {
   }, 998);
 }
 
-let sum = 0;
+let arrayTotal = [];
 
 setTimeout(() => {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
@@ -96,9 +90,9 @@ setTimeout(() => {
               .then((responseId) => {
                 responseId.json().then((res) => {
                   querySelectorItem('.cart__items', createCartItemElement({ sku: res.id, name: res.title, salePrice: res.price }));
-
-                  sum += res.price;
-                  total.innerText = `Total: ${sum}`;
+                  arrayTotal.push(res.price);
+                  total.innerText = arrayTotal.reduce((cc, current) => cc + current);
+                  console.log(arrayTotal);
                   const cartListv = (localStorage.getItem('cartList'));
                   if (cartListv) {
                     localStorage.setItem('cartList', `${cartListv} SKU: ${res.id} | NAME: ${res.title} | PRICE: ${res.price};`);
@@ -113,11 +107,23 @@ setTimeout(() => {
     });
 }, 1000);
 
+function createCartItemElementReturnStorage(valueStorage) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = valueStorage;
+  li.addEventListener('click', cartItemClickListener);
+  return li;
+}
+
 function cartSaved() {
-  localStorage.getItem('cartList').split(';').forEach((item) => {
-    const [id, title, price] = item.split(',');
-    querySelectorItem('.cart__items', createCartItemElement({ sku: id, name: title, salePrice: price }));
-  });
+  console.log(localStorage.getItem('cartList').split(';'))
+  if (localStorage.getItem('cartList')) {
+    localStorage.getItem('cartList').split(';').forEach((item) => {
+      if (item !== "") querySelectorItem('.cart__items', createCartItemElementReturnStorage(item));
+    });
+  } else {
+    document.querySelector('.cart__items').innerText = '';
+  }
 }
 
 function createCookie() {
@@ -137,7 +143,7 @@ function removeCart() {
   buttonRemoveAll.addEventListener('click', () => {
     cart.innerText = '';
     total.innerText = 'Total: ';
-    localStorage.setItem('list', null);
+    localStorage.removeItem('cartList');
   });
 }
 
@@ -147,5 +153,4 @@ window.onload = function onload() {
   removeCart();
   createLoad();
   cartSaved();
-
 };
