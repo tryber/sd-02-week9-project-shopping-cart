@@ -70,7 +70,46 @@
 }
 
 .cart .cart__title {
+  z-index: 1;
   flex-basis: 1;
   font-size: 16pt;
   text-align: center;
+}
+
+.limpa {
+  width: 100px;
+  align-self: center;
+}
+
+.progressbar {
+  position: absolute;
+}
+
+.animation {
+  display: none;
+}
+
+.progress {
+  z-index: 0;
+  text-align: center;
+  position: absolute;
+  animation-name: aumentaTamanho;
+  animation-duration: 1.2s;
+  animation-timing-function: steps( 50 );
+  animation-iteration-count: infinite;
+}
+
+@keyframes aumentaTamanho {
+
+  0% {
+    height: 30px;
+    width: 0;
+    background-color: grey;
+  }
+
+  100% {
+    height: 20px;
+    width: 100%;
+    background-color: blue;
+  }
 }
